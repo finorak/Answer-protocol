@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   log.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/28 10:27:24 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/28 16:55:11 by finorako         ###   ########.fr       */
+/*   Created: 2026/09/28 16:10:45 by finorako          #+#    #+#             */
+/*   Updated: 2026/09/28 16:13:50 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdio.h>
 #include "../includes/parser.h"
 
-int	main(void)
+void	print_log(t_data *data)
 {
-	t_data	*data;
+	t_string_view	*tmp;
 
-	data = new_data();
 	if (!data)
-		return (1);
-	if (!init_data(data, WORLD_MAP))
-		printf("Error\n");
-	free_string_view((*data).lines);
-	return (0);
+		return ;
+	while (data->lines)
+	{
+		tmp = data->lines;
+		printf("%s", data->lines->buffer);
+		free(data->lines);
+		data->lines = tmp->next;
+	}
+	free(data);
 }

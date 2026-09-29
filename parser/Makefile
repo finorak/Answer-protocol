@@ -1,7 +1,7 @@
 NAME = parser
 
 SRC = cJSON.c parser.c parser_utils.c parser_memory.c stack_utils.c \
-	  ../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c \
+	  log.c ../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
 
 OBJS = $(SRC:.c=.o)
 
@@ -28,4 +28,7 @@ re: fclean all
 run:
 	./$(NAME) world.json
 
-.PHONY: re clean all fclean run
+valgrind: all
+	valgrind ./parser
+
+.PHONY: re clean all fclean run valgrind

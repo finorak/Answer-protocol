@@ -1,0 +1,353 @@
+./parser world.json
+{
+  "world": {
+    "start": {
+      "name": "Village_of_Ashfield",
+      "description": "A quiet rural settlement at the edge of the kingdom, known for its inn and its silence.",
+      "exits": [
+        "none",
+        "art.gallery",
+        "none",
+        "FIDE.hall"
+      ],
+      "npcs": [],
+      "items": []
+    },
+    "FIDE.hall": {
+      "name": "The Grandmaster's Chamber",
+      "description": "A hall where the greatest chess minds have debated strategy for decades.",
+      "exits": [
+        "none",
+        "philosophers.retreat",
+        "start",
+        "thinkers.library"
+      ],
+      "npcs": [
+        "magnus_carlsen"
+      ],
+      "items": [
+        "rook"
+      ]
+    },
+    "thinkers.library": {
+      "name": "The Reading Room",
+      "description": "A vast library filled with ancient texts and modern treatises on logic and nature.",
+      "exits": [
+        "none",
+        "west.end",
+        "FIDE.hall",
+        "none"
+      ],
+      "npcs": [
+        "rene_descartes",
+        "charles_darwin"
+      ],
+      "items": []
+    },
+    "art.gallery": {
+      "name": "The Starry Atelier",
+      "description": "A workshop where visions of chaos and beauty have been painted into existence.",
+      "exits": [
+        "start",
+        "cinema.house",
+        "none",
+        "philosophers.retreat"
+      ],
+      "npcs": [
+        "pablo_picasso"
+      ],
+      "items": [
+        "heaven"
+      ]
+    },
+    "philosophers.retreat": {
+      "name": "The Abyss",
+      "description": "A place of deep reflection and existential anguish, where words weigh heavy.",
+      "exits": [
+        "FIDE.hall",
+        "fiction.loft",
+        "art.gallery",
+        "west.end"
+      ],
+      "npcs": [
+        "franz_kafka",
+        "fiodor_dostoievsky"
+      ],
+      "items": []
+    },
+    "west.end": {
+      "name": "The Crossroads",
+      "description": "A dusty junction where travelers from all walks of life exchange stories.",
+      "exits": [
+        "thinkers.library",
+        "chapel.hill",
+        "philosophers.retreat",
+        "none"
+      ],
+      "npcs": [
+        "snoop_dogg"
+      ],
+      "items": [
+        "diamond"
+      ]
+    },
+    "cinema.house": {
+      "name": "The Projection Room",
+      "description": "A dark room where flickering images have shaped the dreams of many.",
+      "exits": [
+        "art.gallery",
+        "none",
+        "none",
+        "fiction.loft"
+      ],
+      "npcs": [
+        "martin_scorsesse"
+      ],
+      "items": []
+    },
+    "fiction.loft": {
+      "name": "The Epicenter",
+      "description": "A cluttered attic filled with comic books, myths, and tales of heroism.",
+      "exits": [
+        "philosophers.retreat",
+        "none",
+        "cinema.house",
+        "chapel.hill"
+      ],
+      "npcs": [
+        "saitama"
+      ],
+      "items": []
+    },
+    "chapel.hill": {
+      "name": "The Pinnacle",
+      "description": "A windswept hilltop overlooking the kingdom, often visited by the powerful.",
+      "exits": [
+        "west.end",
+        "none",
+        "fiction.loft",
+        "none"
+      ],
+      "npcs": [
+        "donald_trump"
+      ],
+      "items": [
+        "gold"
+      ]
+    }
+  },
+  "items": {
+    "rook": {
+      "name": "Chess Rook",
+      "description": "A carved stone piece, simple but formidable in the endgame.",
+      "obtainable": "1",
+      "heal": "0"
+    },
+    "heaven": {
+      "name": "Gilded Canvas",
+      "description": "A masterpiece that seems to radiate light, rumored to hold a secret.",
+      "obtainable": "0",
+      "heal": "0"
+    },
+    "philosophical_stone": {
+      "name": "Philosopher's Fragment",
+      "description": "A shard of a legendary artifact said to contain the essence of thought itself.",
+      "obtainable": "1",
+      "heal": "1"
+    },
+    "diamond": {
+      "name": "Uncut Diamond",
+      "description": "A rough stone that catches the light with unusual brilliance.",
+      "obtainable": "1",
+      "heal": "0"
+    },
+    "gold": {
+      "name": "Gold Ingot",
+      "description": "A heavy bar of pure gold, stamped with an ancient seal.",
+      "obtainable": "1",
+      "heal": "0"
+    },
+    "oscar": {
+      "name": "Golden Laurel",
+      "description": "A symbol of ultimate achievement, coveted by all who seek glory.",
+      "obtainable": "0",
+      "heal": "1"
+    }
+  },
+  "npcs": {
+    "magnus_carlsen": {
+      "name": "Grandmaster Magnus",
+      "description": "The reigning champion of the board, calm and calculating.",
+      "dialogues": [
+        "play_queen",
+        "play_rook"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "none"
+    },
+    "rene_descartes": {
+      "name": "René the Skeptic",
+      "description": "A philosopher in a worn cloak, forever doubting, forever thinking.",
+      "dialogues": [
+        "ithinksoiam"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "none"
+    },
+    "charles_darwin": {
+      "name": "Charles the Naturalist",
+      "description": "A bearded man with a notebook, observing the world with quiet intensity.",
+      "dialogues": [
+        "survivor"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "none"
+    },
+    "pablo_picasso": {
+      "name": "Pablo the Visionary",
+      "description": "A painter with piercing eyes, always ready to reshape reality.",
+      "dialogues": [],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "trump_diamond"
+    },
+    "franz_kafka": {
+      "name": "Franz the Scribe",
+      "description": "A pale, anxious figure, haunted by the absurdity of bureaucracy.",
+      "dialogues": [
+        "samsa"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "doogy_saitama"
+    },
+    "fiodor_dostoievsky": {
+      "name": "Fyodor the Confessor",
+      "description": "A gaunt man with feverish eyes, speaking of suffering and redemption.",
+      "dialogues": [
+        "citation1",
+        "citation2",
+        "citation3"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "none"
+    },
+    "snoop_dogg": {
+      "name": "Calvin the Storyteller",
+      "description": "A smooth-talking wanderer with a gift for verse and a knowing smile.",
+      "dialogues": [
+        "doggy"
+      ],
+      "hp": "40",
+      "attack": "2",
+      "quest_id": "none"
+    },
+    "martin_scorsesse": {
+      "name": "Martin the Auteur",
+      "description": "A director with a sharp suit and a sharper tongue, obsessed with detail.",
+      "dialogues": [
+        "pulpy"
+      ],
+      "hp": "-1",
+      "attack": "-1",
+      "quest_id": "gold_rook"
+    },
+    "saitama": {
+      "name": "Saitama the Bored",
+      "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
+      "dialogues": [],
+      "hp": "100",
+      "attack": "30",
+      "quest_id": "none"
+    },
+    "donald_trump": {
+      "name": "The Gilded Orator",
+      "description": "A man of wealth and bombast, standing atop the hill with a golden gaze.",
+      "dialogues": [
+        "president_dialogue0",
+        "dialogues_about_religion"
+      ],
+      "hp": "200",
+      "attack": "10",
+      "quest_id": "none"
+    }
+  },
+  "quests": {
+    "trump_diamond": {
+      "name": "The Exchange",
+      "description": "Retrieve the diamond from the hilltop and bring it to the atelier.",
+      "missions": [
+        "take_diamond_from_trump"
+      ],
+      "reward": "none",
+      "npc_owner": "pablo_picasso"
+    },
+    "doogy_saitama": {
+      "name": "The Clearing",
+      "description": "Remove the wanderer and the bored one to restore peace to the crossroads.",
+      "missions": [
+        "neutralize_snoop",
+        "neutralize_saitama"
+      ],
+      "reward": "philosophical_stone",
+      "npc_owner": "franz_kafka"
+    },
+    "gold_rook": {
+      "name": "The Trilogy",
+      "description": "Gather the three relics to complete the director's vision.",
+      "missions": [
+        "acquire_gold",
+        "acquire_rook",
+        "acquire_stone"
+      ],
+      "reward": "oscar",
+      "npc_owner": "martin_scorsesse"
+    }
+  },
+  "missions": {
+    "take_diamond_from_trump": {
+      "type": "take",
+      "goal": "diamond"
+    },
+    "neutralize_snoop": {
+      "type": "kill",
+      "goal": "snoop_dogg"
+    },
+    "neutralize_saitama": {
+      "type": "kill",
+      "goal": "saitama"
+    },
+    "acquire_gold": {
+      "type": "take",
+      "goal": "gold"
+    },
+    "acquire_rook": {
+      "type": "take",
+      "goal": "rook"
+    },
+    "acquire_stone": {
+      "type": "take",
+      "goal": "philosophical_stone"
+    }
+  },
+  "dialogues": {
+    "play_queen": "The queen is the most versatile piece on the board.",
+    "play_rook": "In the endgame, control of the rook's file is everything.",
+    "ithinksoiam": "I think, therefore I am.",
+    "survivor": "It is not the strongest that survive, but the most adaptable.",
+    "samsa": "I awoke one morning to find myself transformed into something unrecognizable.",
+    "citation1": "The mystery of existence is not in survival, but in meaning.",
+    "citation2": "Suffering is the price of a deep consciousness.",
+    "citation3": "Better to err on your own path than to walk another's perfectly.",
+    "doggy": "The road is long, but the stories make it shorter.",
+    "pulpy": "I've always been drawn to the edge of the law.",
+    "president_dialogue0": "I have a vision, and it's unparalleled.",
+    "dialogues_about_religion": "I believe in greatness, and I believe in grace."
+  },
+  "groups": {
+    "name": "global"
+  }
