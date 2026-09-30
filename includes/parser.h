@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/28 16:32:47 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:26:57 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,48 @@
 # endif
 
 # include <stdbool.h>
-# define WORLD_MAP "world.json"
+# include <stddef.h>
+# include "../includes/cJSON.h"
+# include "../includes/world.h"
 
-typedef struct s_string_view
+typedef struct s_buffer_store
 {
-	struct s_string_view		*next;
-	char						buffer[SIZE];
-	int							len;
-}								t_string_view;
+	size_t		buffer_size;
+	char		*buffer;
+}				t_buffer_store;
 
-typedef struct s_data
+typedef struct s_json_content
 {
-	t_string_view				*lines;
-}								t_data;
+	cJSON	*desc;
+	cJSON	*name;
+	cJSON	*exits;
+	cJSON	*npcs;
+	cJSON	*items;
+	cJSON	*obtainable;
+	cJSON	*heal;
+	t_room	*room;
+	int		index;
+}				t_json_content;
 
-// stack manipulator
-t_data							*new_data(void);
-t_string_view					*get_last_string(t_string_view *string);
-t_string_view					*new_string_view(void);
-void							change_header(t_string_view **header);
+size_t	get_buffer_size(char *world_config_file);
+char	*get_buffer(char *world_config_file, size_t buffer_size);
 
-// data initialisation
-bool							init_data(t_data *data, char *config);
+// DATA initialization
+bool	init_world_data(t_data *data, char *buffer);
+t_room	*extract_room_from_key(char *key, cJSON *room_json, t_room *room);
+t_item	*extract_item_from_key(char *key, cJSON *item_json, t_item *item);
 
-// memroy managment
-void							free_string_view(t_string_view *string);
-void							free_last_node(t_string_view *string_view);
-void							free_data(t_data *data);
+// cjson helper
+bool	traverse_room_array(
+			cJSON *array, t_room *room, char *element_to_extract
+			);
 
-// DEBUG
-void							print_log(t_data *data);
-#endif // !PARSER_H
+// ROOM EXTRACTOR
+bool	traverse_room_object(cJSON *world_json, t_all_rooms *room_container);
+bool	traverse_item_object(cJSON *world_json, t_all_items *item_container);
+
+// Memory managment
+void	free_rooms(t_all_rooms *rooms, int size);
+void	free_data(t_data *data, char *buffer);
+void	free_items(t_all_items *items, int size);
+#endif

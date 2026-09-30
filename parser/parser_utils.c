@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 10:31:14 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:14:01 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ bool	init_world_data(t_data *data, char *buffer)
 	root = cJSON_Parse(buffer);
 	if (!root)
 		return (false);
-	data->rooms = extract_rooms(root, buffer);
+	data->rooms = extract_rooms(root);
+	data->items = extract_items(root);
 	cJSON_Delete(root);
 	return (true);
 }

@@ -139,38 +139,38 @@
     "rook": {
       "name": "Chess Rook",
       "description": "A carved stone piece, simple but formidable in the endgame.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "heaven": {
       "name": "Gilded Canvas",
       "description": "A masterpiece that seems to radiate light, rumored to hold a secret.",
-      "obtainable": "0",
-      "heal": "0"
+      "obtainable": 0,
+      "heal": 0
     },
     "philosophical_stone": {
       "name": "Philosopher's Fragment",
       "description": "A shard of a legendary artifact said to contain the essence of thought itself.",
-      "obtainable": "1",
-      "heal": "1"
+      "obtainable": 1,
+      "heal": 1
     },
     "diamond": {
       "name": "Uncut Diamond",
       "description": "A rough stone that catches the light with unusual brilliance.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "gold": {
       "name": "Gold Ingot",
       "description": "A heavy bar of pure gold, stamped with an ancient seal.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "oscar": {
       "name": "Golden Laurel",
       "description": "A symbol of ultimate achievement, coveted by all who seek glory.",
-      "obtainable": "0",
-      "heal": "1"
+      "obtainable": 0,
+      "heal": 1
     }
   },
   "npcs": {

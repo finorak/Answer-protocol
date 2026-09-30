@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 16:49:28 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:13:38 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // TODO: IMPLEMENT MEMORY MANAGEMENT IN CASE OF MEMROY ERRORS.
 t_room	*extract_room_from_key(char *key, cJSON *room_json, t_room *room)
 {
-	t_world_content	content;
+	t_json_content	content;
 
 	if (!room_json || !room)
 		return (NULL);
@@ -35,36 +35,33 @@ t_room	*extract_room_from_key(char *key, cJSON *room_json, t_room *room)
 	content.exits = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
 	if (!cJSON_IsArray(content.exits))
 		return (NULL);
-	if (!traverse_array(content.exits, room, "exits"))
+	if (!traverse_room_array(content.exits, room, "exits"))
 		return (NULL);
 	content.npcs = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
-	if (!traverse_array(content.npcs, room, "npcs"))
+	if (!traverse_room_array(content.npcs, room, "npcs"))
 		return (NULL);
 	content.items = cJSON_GetObjectItemCaseSensitive(room_json, "items");
-	if (!traverse_array(content.items, room, "items"))
+	if (!traverse_room_array(content.items, room, "items"))
 		return (NULL);
 	return (room);
 }
 
 // TODO: LOOK AT WHY NORMINETTE IS COMPLAINING.
-static t_all_rooms	*get_rooms(cJSON *world_json, t_all_rooms *rooms_container)
+static t_all_rooms	*get_rooms(cJSON *room_json, t_all_rooms *rooms_container)
 {
-	if (!world_json)
+	if (!room_json)
 		return (NULL);
-	if (!traverse_room_object(world_json, rooms_container))
-		return (false);
+	rooms_container->len = 0;
+	if (!traverse_room_object(room_json, rooms_container))
+		return (NULL);
 	return (rooms_container);
 }
 
-t_all_rooms	*extract_rooms(cJSON *root, char *buffer)
+t_all_rooms	*extract_rooms(cJSON *root)
 {
 	t_all_rooms	*rooms_container;
 	cJSON		*rooms_json;
 
-	if (!buffer)
-	{
-		return (NULL);
-	}
 	rooms_container = (t_all_rooms *)malloc(sizeof(t_all_rooms));
 	if (!rooms_container)
 		return (NULL);
@@ -78,7 +75,6 @@ t_all_rooms	*extract_rooms(cJSON *root, char *buffer)
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
 		free(rooms_container);
-		cJSON_Delete(rooms_json);
 		return (NULL);
 	}
 	return (get_rooms(rooms_json, rooms_container));

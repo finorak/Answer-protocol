@@ -1,7 +1,7 @@
 NAME = parser
 
 SRC = cJSON.c parser.c parser_utils.c parser_memory.c stack_utils.c \
-	  data_extractor/rooms_extractor.c data_extractor/helper.c
+	  data_extractor/rooms_extractor.c data_extractor/helper.c data_extractor/item_extractor.c
 
 OBJS = $(SRC:.c=.o)
 
