@@ -10,42 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "../includes/parser.h"
 
-void	free_string_view(t_string_view *string)
+void	free_rooms(t_all_rooms *rooms)
 {
-	t_string_view	*tmp;
+	int	index;
 
-	if (!string)
-	{
+	if (!rooms)
 		return ;
-	}
-	while (string)
+	index = 0;
+	while (index < rooms->len)
 	{
-		tmp = string;
-		free(string);
-		string = tmp->next;
+		free(rooms->rooms[index]);
+		index += 1;
 	}
+	free(rooms);
 }
 
-void	free_last_node(t_string_view *string_view)
+void	free_data(t_data *data, char *buffer)
 {
-	t_string_view	*last;
-
-	if (!string_view)
-		return ;
-	last = get_last_string(string_view);
-	if (!last || !last->buffer[0])
-		return ;
-	free(last);
-}
-
-void	free_data(t_data *data)
-{
-	if (!data)
-		return ;
-	free_string_view(data->lines);
-	free(data);
+	if (buffer)
+		free(buffer);
+	if (data->rooms)
+		free_rooms(data->rooms);
+	if (data)
+		free(data);
 }

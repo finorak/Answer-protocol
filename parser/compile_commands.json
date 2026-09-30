@@ -1,0 +1,107 @@
+[
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "cJSON.c",
+   "-o",
+   "cJSON.o"
+  ],
+  "file": "cJSON.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser.c",
+   "-o",
+   "parser.o"
+  ],
+  "file": "parser.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser_utils.c",
+   "-o",
+   "parser_utils.o"
+  ],
+  "file": "parser_utils.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser_memory.c",
+   "-o",
+   "parser_memory.o"
+  ],
+  "file": "parser_memory.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "data_extractor/rooms_extractor.c",
+   "-o",
+   "data_extractor/rooms_extractor.o"
+  ],
+  "file": "data_extractor/rooms_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "stack_utils.c",
+   "-o",
+   "stack_utils.o"
+  ],
+  "file": "stack_utils.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol/parser",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "data_extractor/helper.c",
+   "-o",
+   "data_extractor/helper.o"
+  ],
+  "file": "data_extractor/helper.c"
+ }
+]

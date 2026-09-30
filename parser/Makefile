@@ -1,7 +1,7 @@
 NAME = parser
 
 SRC = cJSON.c parser.c parser_utils.c parser_memory.c stack_utils.c \
-	  log.c ../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
+	  data_extractor/rooms_extractor.c data_extractor/helper.c
 
 OBJS = $(SRC:.c=.o)
 
@@ -29,6 +29,6 @@ run:
 	./$(NAME) world.json
 
 valgrind: all
-	valgrind ./parser
+	valgrind --leak-check=full ./parser world.json
 
 .PHONY: re clean all fclean run valgrind

@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/28 16:55:32 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 10:31:14 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,60 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "../includes/parser.h"
-#include "../includes/get_next_line.h"
+#include "../includes/data_extractor.h"
+#include "cJSON.h"
 
-static bool	get_lines(t_string_view **string_view, int fd)
+size_t	get_buffer_size(char *world_config_file)
 {
-	t_string_view	*head;
-	char			*curr_line;
+	size_t	buffer_size;
+	FILE	*fd;
+	char	*curr_line;
+	char	buffer[SIZE];
 
-	if (!string_view)
-		return (false);
-	curr_line = get_next_line(fd);
-	if (!curr_line)
-	{
-		free(*string_view);
-		return (false);
-	}
-	head = *string_view;
+	fd = fopen(world_config_file, "rb");
+	if (!fd)
+		return (-1);
+	buffer_size = 0;
+	curr_line = fgets(buffer, SIZE, fd);
 	while (curr_line)
 	{
-		*string_view = get_last_string(*string_view);
-		strcpy((*string_view)->buffer, curr_line);
-		printf("%s", (*string_view)->buffer);
-		(*string_view)->next = new_string_view();
-		if (!(*string_view)->next)
-		{
-			free_string_view(*string_view);
-			return (false);
-		}
-		free(curr_line);
-		curr_line = get_next_line(fd);
+		buffer_size += strlen(curr_line);
+		curr_line = fgets(buffer, SIZE, fd);
 	}
-	*string_view = head;
-	return (true);
+	fclose(fd);
+	return (buffer_size);
 }
 
-bool	init_data(t_data *data, char *config)
+char	*get_buffer(char *world_config_file, const size_t buffer_size)
 {
-	t_string_view	*string_view;
-	int				fd;
+	char	*buffer;
+	int		fd;
+
+	buffer = (char *)malloc(sizeof(char) * (buffer_size + 1));
+	if (!buffer)
+		return (NULL);
+	fd = open(world_config_file, O_RDONLY);
+	if (fd < 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	read(fd, buffer, buffer_size);
+	buffer[buffer_size] = '\0';
+	close(fd);
+	return (buffer);
+}
+
+bool	init_world_data(t_data *data, char *buffer)
+{
+	cJSON	*root;
 
 	if (!data)
 		return (false);
-	string_view = new_string_view();
-	if (!string_view)
+	root = cJSON_Parse(buffer);
+	if (!root)
 		return (false);
-	fd = open(config, O_RDONLY);
-	get_lines(&string_view, fd);
+	data->rooms = extract_rooms(root, buffer);
+	cJSON_Delete(root);
 	return (true);
 }
