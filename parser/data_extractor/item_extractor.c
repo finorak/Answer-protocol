@@ -6,17 +6,15 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 18:21:16 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:35:26 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:57:55 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-t_item	*extract_item_from_key(char *key, cJSON *item_json, t_item *item)
+t_item	*extract_item_from_key(const char *key, cJSON *item_json, t_item *item)
 {
 	t_json_content	content;
 
@@ -64,7 +62,7 @@ t_all_items	*extract_items(cJSON *root)
 
 	if (!root)
 		return (NULL);
-	items_container = (t_all_items *)malloc(sizeof(t_all_items));
+	items_container = (t_all_items *)calloc(sizeof(t_all_items), 1);
 	if (!items_container)
 		return (NULL);
 	items_json = cJSON_GetObjectItemCaseSensitive(root, ITEMS_KEY);

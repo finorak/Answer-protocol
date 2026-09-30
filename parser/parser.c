@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	}
 	buffer.buffer_size = get_buffer_size(argv[1]);
 	buffer.buffer = get_buffer(argv[1], buffer.buffer_size);
-	data = (t_data *)malloc(sizeof(t_data));
+	data = (t_data *)calloc(sizeof(t_data), 1);
 	if (!data)
 	{
 		fprintf(stderr, "Memory allocation failed\n");

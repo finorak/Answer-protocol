@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_extractor.h                                   :+:      :+:    :+:   */
+/*   quest_extractor.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/30 10:22:05 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:39:12 by finorako         ###   ########.fr       */
+/*   Created: 2026/09/30 23:24:15 by finorako          #+#    #+#             */
+/*   Updated: 2026/09/30 23:26:36 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_EXTRACTOR_H
-# define DATA_EXTRACTOR_H
+#include <string.h>
+#include "../../includes/parser.h"
+#include "../../includes/data_extractor.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include "world.h"
-# include "cJSON.h"
+t_all_quests	*extract_quests(cJSON *root)
+{
+	t_all_quests	*quest_container;
 
-# define ITEMS_KEY "items"
-# define ROOM_KEY "world"
-# define NPC_KEY "npcs"
-
-t_all_rooms	*extract_rooms(cJSON *root);
-t_all_items	*extract_items(cJSON *root);
-t_all_npcs	*extract_npcs(cJSON *root);
-
-#endif // !DATA_EXTRACTOR_H
+	if (!root)
+		return (NULL);
+	return (NULL);
+}

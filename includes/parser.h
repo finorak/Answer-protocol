@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:26:57 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:58:24 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ typedef struct s_json_content
 	cJSON	*npcs;
 	cJSON	*items;
 	cJSON	*obtainable;
+	cJSON	*dialogues;
 	cJSON	*heal;
+	cJSON	*hp;
+	cJSON	*attack;
+	cJSON	*quest_id;
 	t_room	*room;
 	int		index;
 }				t_json_content;
@@ -45,11 +49,13 @@ size_t	get_buffer_size(char *world_config_file);
 char	*get_buffer(char *world_config_file, size_t buffer_size);
 
 // DATA initialization
-bool	init_world_data(t_data *data, char *buffer);
-t_room	*extract_room_from_key(char *key, cJSON *room_json, t_room *room);
-t_item	*extract_item_from_key(char *key, cJSON *item_json, t_item *item);
+bool	init_world_data(t_data *data, const char *buffer);
+t_room	*extract_room_from_key(const char *key, cJSON *room_json, t_room *room);
+t_item	*extract_item_from_key(const char *key, cJSON *item_json, t_item *item);
+t_npc	*extract_npc_from_key(const char *key, cJSON *item_json, t_npc *item);
 
 // cjson helper
+bool	traverse_npc_array(cJSON *array, t_npc *room);
 bool	traverse_room_array(
 			cJSON *array, t_room *room, char *element_to_extract
 			);
@@ -57,6 +63,7 @@ bool	traverse_room_array(
 // ROOM EXTRACTOR
 bool	traverse_room_object(cJSON *world_json, t_all_rooms *room_container);
 bool	traverse_item_object(cJSON *world_json, t_all_items *item_container);
+bool	traverse_npc_object(cJSON *world_json, t_all_npcs *npc_container);
 
 // Memory managment
 void	free_rooms(t_all_rooms *rooms, int size);

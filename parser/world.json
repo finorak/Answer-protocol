@@ -181,8 +181,8 @@
         "play_queen",
         "play_rook"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "rene_descartes": {
@@ -191,8 +191,8 @@
       "dialogues": [
         "ithinksoiam"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "charles_darwin": {
@@ -201,16 +201,16 @@
       "dialogues": [
         "survivor"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "pablo_picasso": {
       "name": "Pablo the Visionary",
       "description": "A painter with piercing eyes, always ready to reshape reality.",
       "dialogues": [],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "trump_diamond"
     },
     "franz_kafka": {
@@ -219,8 +219,8 @@
       "dialogues": [
         "samsa"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "doogy_saitama"
     },
     "fiodor_dostoievsky": {
@@ -231,8 +231,8 @@
         "citation2",
         "citation3"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "snoop_dogg": {
@@ -241,8 +241,8 @@
       "dialogues": [
         "doggy"
       ],
-      "hp": "40",
-      "attack": "2",
+      "hp": 40,
+      "attack": 2,
       "quest_id": "none"
     },
     "martin_scorsesse": {
@@ -251,16 +251,16 @@
       "dialogues": [
         "pulpy"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "gold_rook"
     },
     "saitama": {
       "name": "Saitama the Bored",
       "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
       "dialogues": [],
-      "hp": "100",
-      "attack": "30",
+      "hp": 100,
+      "attack": 30,
       "quest_id": "none"
     },
     "donald_trump": {
@@ -270,8 +270,8 @@
         "president_dialogue0",
         "dialogues_about_religion"
       ],
-      "hp": "200",
-      "attack": "10",
+      "hp": 200,
+      "attack": 10,
       "quest_id": "none"
     }
   },

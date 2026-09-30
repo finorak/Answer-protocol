@@ -6,18 +6,15 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:13:38 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 23:24:32 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/data_extractor.h"
 #include "../../includes/parser.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 // TODO: IMPLEMENT MEMORY MANAGEMENT IN CASE OF MEMROY ERRORS.
-t_room	*extract_room_from_key(char *key, cJSON *room_json, t_room *room)
+t_room	*extract_room_from_key(const char *key, cJSON *room_json, t_room *room)
 {
 	t_json_content	content;
 
@@ -62,7 +59,7 @@ t_all_rooms	*extract_rooms(cJSON *root)
 	t_all_rooms	*rooms_container;
 	cJSON		*rooms_json;
 
-	rooms_container = (t_all_rooms *)malloc(sizeof(t_all_rooms));
+	rooms_container = (t_all_rooms *)calloc(sizeof(t_all_rooms), 1);
 	if (!rooms_container)
 		return (NULL);
 	rooms_json = cJSON_GetObjectItemCaseSensitive(root, ROOM_KEY);

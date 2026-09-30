@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:14:01 by finorako         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:58:11 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_buffer(char *world_config_file, const size_t buffer_size)
 	char	*buffer;
 	int		fd;
 
-	buffer = (char *)malloc(sizeof(char) * (buffer_size + 1));
+	buffer = (char *)calloc(sizeof(char), buffer_size + 1);
 	if (!buffer)
 		return (NULL);
 	fd = open(world_config_file, O_RDONLY);
@@ -61,7 +61,7 @@ char	*get_buffer(char *world_config_file, const size_t buffer_size)
 	return (buffer);
 }
 
-bool	init_world_data(t_data *data, char *buffer)
+bool	init_world_data(t_data *data, const char *buffer)
 {
 	cJSON	*root;
 
@@ -72,6 +72,7 @@ bool	init_world_data(t_data *data, char *buffer)
 		return (false);
 	data->rooms = extract_rooms(root);
 	data->items = extract_items(root);
+	data->npcs = extract_npcs(root);
 	cJSON_Delete(root);
 	return (true);
 }
