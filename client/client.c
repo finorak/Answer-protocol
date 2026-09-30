@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/09/30 07:47:10 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/09/30 07:55:06 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*wait_for_server(void *arg)
 			g_disconnect = 1;
 			break ;
 		}
-		printf("%s", buffer);
+		printf("\r%s", buffer);
 	}
 	return (NULL);
 }
