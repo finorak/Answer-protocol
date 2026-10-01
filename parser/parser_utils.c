@@ -6,54 +6,77 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/28 14:34:26 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/01 09:03:15 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "../includes/parser.h"
-#include "../includes/get_next_line.h"
+#include "../includes/data_extractor.h"
+#include "cJSON.h"
 
-static bool	get_lines(t_string_view *string, int fd)
+size_t	get_buffer_size(char *world_config_file)
 {
-	t_string_view	*head;
-	char			*str;
+	size_t	buffer_size;
+	FILE	*fd;
+	char	*curr_line;
+	char	buffer[SIZE];
 
-	str = get_next_line(fd);
-	if (!string || !str)
-		return (false);
-	head = string;
-	while (str)
+	fd = fopen(world_config_file, "rb");
+	if (!fd)
+		return (-1);
+	buffer_size = 0;
+	curr_line = fgets(buffer, SIZE, fd);
+	while (curr_line)
 	{
-		string = get_last_string(string);
-		string->next = new_string_view(str);
-		if (!string->next)
-		{
-			free_string_view(string);
-			return (NULL);
-		}
-		free(str);
-		str = get_next_line(fd);
+		buffer_size += strlen(curr_line);
+		curr_line = fgets(buffer, SIZE, fd);
 	}
-	return (true);
+	fclose(fd);
+	return (buffer_size);
 }
 
-bool	init_data(t_data *data, char *config)
+char	*get_buffer(char *world_config_file, const size_t buffer_size)
 {
-	int	fd;
+	char	*buffer;
+	int		fd;
+
+	buffer = (char *)calloc(sizeof(char), buffer_size + 1);
+	if (!buffer)
+		return (NULL);
+	fd = open(world_config_file, O_RDONLY);
+	if (fd < 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	read(fd, buffer, buffer_size);
+	buffer[buffer_size] = '\0';
+	close(fd);
+	return (buffer);
+}
+
+bool	init_world_data(t_data *data, const char *buffer)
+{
+	cJSON	*root;
 
 	if (!data)
-	{
 		return (false);
-	}
-	data->lines = (t_string_view *)malloc(sizeof(t_string_view));
-	if (!data->lines)
+	root = cJSON_Parse(buffer);
+	if (!root)
 		return (false);
-	fd = open(config, O_RDONLY);
-	if (!get_lines(data->lines, fd))
-		return (false);
+	data->rooms = extract_rooms(root);
+	data->items = extract_items(root);
+	data->npcs = extract_npcs(root);
+	data->quests = extract_quests(root);
+	data->missions = extract_missions(root);
+	data->dialogues = extract_dialogues(root);
+	data->groups = extract_groups(root);
+	cJSON_Delete(root);
 	return (true);
 }

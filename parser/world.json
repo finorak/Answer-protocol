@@ -139,38 +139,38 @@
     "rook": {
       "name": "Chess Rook",
       "description": "A carved stone piece, simple but formidable in the endgame.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "heaven": {
       "name": "Gilded Canvas",
       "description": "A masterpiece that seems to radiate light, rumored to hold a secret.",
-      "obtainable": "0",
-      "heal": "0"
+      "obtainable": 0,
+      "heal": 0
     },
     "philosophical_stone": {
       "name": "Philosopher's Fragment",
       "description": "A shard of a legendary artifact said to contain the essence of thought itself.",
-      "obtainable": "1",
-      "heal": "1"
+      "obtainable": 1,
+      "heal": 1
     },
     "diamond": {
       "name": "Uncut Diamond",
       "description": "A rough stone that catches the light with unusual brilliance.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "gold": {
       "name": "Gold Ingot",
       "description": "A heavy bar of pure gold, stamped with an ancient seal.",
-      "obtainable": "1",
-      "heal": "0"
+      "obtainable": 1,
+      "heal": 0
     },
     "oscar": {
       "name": "Golden Laurel",
       "description": "A symbol of ultimate achievement, coveted by all who seek glory.",
-      "obtainable": "0",
-      "heal": "1"
+      "obtainable": 0,
+      "heal": 1
     }
   },
   "npcs": {
@@ -181,8 +181,8 @@
         "play_queen",
         "play_rook"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "rene_descartes": {
@@ -191,8 +191,8 @@
       "dialogues": [
         "ithinksoiam"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "charles_darwin": {
@@ -201,16 +201,16 @@
       "dialogues": [
         "survivor"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "pablo_picasso": {
       "name": "Pablo the Visionary",
       "description": "A painter with piercing eyes, always ready to reshape reality.",
       "dialogues": [],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "trump_diamond"
     },
     "franz_kafka": {
@@ -219,8 +219,8 @@
       "dialogues": [
         "samsa"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "doogy_saitama"
     },
     "fiodor_dostoievsky": {
@@ -231,8 +231,8 @@
         "citation2",
         "citation3"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "none"
     },
     "snoop_dogg": {
@@ -241,8 +241,8 @@
       "dialogues": [
         "doggy"
       ],
-      "hp": "40",
-      "attack": "2",
+      "hp": 40,
+      "attack": 2,
       "quest_id": "none"
     },
     "martin_scorsesse": {
@@ -251,16 +251,16 @@
       "dialogues": [
         "pulpy"
       ],
-      "hp": "-1",
-      "attack": "-1",
+      "hp": -1,
+      "attack": -1,
       "quest_id": "gold_rook"
     },
     "saitama": {
       "name": "Saitama the Bored",
       "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
       "dialogues": [],
-      "hp": "100",
-      "attack": "30",
+      "hp": 100,
+      "attack": 30,
       "quest_id": "none"
     },
     "donald_trump": {
@@ -270,8 +270,8 @@
         "president_dialogue0",
         "dialogues_about_religion"
       ],
-      "hp": "200",
-      "attack": "10",
+      "hp": 200,
+      "attack": 10,
       "quest_id": "none"
     }
   },
@@ -280,7 +280,6 @@
       "name": "The Exchange",
       "description": "Retrieve the diamond from the hilltop and bring it to the atelier.",
       "missions": [
-        "take_diamond_from_trump"
       ],
       "reward": "none",
       "npc_owner": "pablo_picasso"
