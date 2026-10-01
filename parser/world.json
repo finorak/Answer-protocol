@@ -280,7 +280,6 @@
       "name": "The Exchange",
       "description": "Retrieve the diamond from the hilltop and bring it to the atelier.",
       "missions": [
-        "take_diamond_from_trump"
       ],
       "reward": "none",
       "npc_owner": "pablo_picasso"

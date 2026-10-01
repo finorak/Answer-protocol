@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   helper_part_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:55:03 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/01 06:31:51 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 
 bool	traverse_room_array(
 	cJSON *array, t_room *room, char *element_to_extract)
@@ -106,13 +103,13 @@ bool	traverse_item_object(cJSON *item_json, t_all_items *item_container)
 	{
 		key = element->string;
 		item = (t_item *)calloc(sizeof(t_item), 1);
-		if (!item)
+		item_container->items[item_container->len] = extract_item_from_key(
+				key, element, item);
+		if (!item_container->items[item_container->len])
 		{
 			free_items(item_container, item_container->len);
 			return (NULL);
 		}
-		item_container->items[item_container->len] = extract_item_from_key(
-				key, element, item);
 		item_container->len += 1;
 		element = element->next;
 	}

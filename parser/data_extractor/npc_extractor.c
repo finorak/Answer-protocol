@@ -75,7 +75,7 @@ t_all_npcs	*extract_npcs(cJSON *root)
 	items_json = cJSON_GetObjectItemCaseSensitive(root, NPC_KEY);
 	if (!items_json)
 	{
-		fprintf(stderr, "'%s' key not found or is not an object\n", ITEMS_KEY);
+		fprintf(stderr, "'%s' key not found or is not an object\n", NPC_KEY);
 		free(npc_container);
 		return (NULL);
 	}

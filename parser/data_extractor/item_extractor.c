@@ -48,10 +48,7 @@ static t_all_items	*get_items(cJSON *items_json, t_all_items *items_container)
 		return (NULL);
 	items_container->len = 0;
 	if (!traverse_item_object(items_json, items_container))
-	{
-		free(items_container);
 		return (NULL);
-	}
 	return (items_container);
 }
 

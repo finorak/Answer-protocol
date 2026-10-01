@@ -1,8 +1,11 @@
 NAME = parser
 
 SRC = cJSON.c parser.c parser_utils.c parser_memory.c stack_utils.c \
-	  data_extractor/rooms_extractor.c data_extractor/helper.c \
-	  data_extractor/item_extractor.c data_extractor/npc_extractor.c
+	  data_extractor/rooms_extractor.c data_extractor/helper_part_1.c \
+	  data_extractor/helper_part_2.c data_extractor/item_extractor.c \
+	  data_extractor/npc_extractor.c data_extractor/quest_extractor.c \
+	  data_extractor/mission_extractor.c data_extractor/dialogue_extractor.c \
+	  data_extractor/group_extractor.c
 
 OBJS = $(SRC:.c=.o)
 

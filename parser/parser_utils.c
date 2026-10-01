@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:58:11 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/01 09:03:15 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ bool	init_world_data(t_data *data, const char *buffer)
 	data->rooms = extract_rooms(root);
 	data->items = extract_items(root);
 	data->npcs = extract_npcs(root);
+	data->quests = extract_quests(root);
+	data->missions = extract_missions(root);
+	data->dialogues = extract_dialogues(root);
+	data->groups = extract_groups(root);
 	cJSON_Delete(root);
 	return (true);
 }

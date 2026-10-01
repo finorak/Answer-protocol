@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   group_extractor.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/01 08:47:09 by finorako          #+#    #+#             */
+/*   Updated: 2026/10/01 09:11:07 by finorako         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/parser.h"
+#include "../../includes/data_extractor.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+t_group	*extract_group_from_key(
+	const char *key, cJSON *group_json, t_group *group)
+{
+	if (!group_json || !group)
+		return (NULL);
+	strncpy(group->name, group_json->valuestring, BUFFER_SIZE);
+	(void)key;
+	return (group);
+}
+
+bool	traverse_group_object(cJSON *group_json, t_all_groups *group_container)
+{
+	t_group	*group;
+	cJSON	*element;
+	char	*key;
+	int		index;
+
+	if (!group_json || !group_container)
+		return (false);
+	index = 0;
+	element = group_json->child;
+	while (element)
+	{
+		key = element->string;
+		group = (t_group *)calloc(sizeof(t_group), 1);
+		group_container->groups[index] = extract_group_from_key(
+				key, element, group
+				);
+		if (!group_container->groups[index])
+			return (false);
+		index += 1;
+		element = element->next;
+	}
+	group_container->len = index;
+	return (true);
+}
+
+static t_all_groups	*get_dialogue(
+	cJSON *group_json, t_all_groups *group_container)
+{
+	if (!group_json || !group_container)
+		return (NULL);
+	group_container->len = 0;
+	if (!traverse_group_object(group_json, group_container))
+		return (NULL);
+	return (group_container);
+}
+
+t_all_groups	*extract_groups(cJSON *root)
+{
+	t_all_groups	*group_container;
+	cJSON			*group_json;
+
+	if (!root)
+		return (NULL);
+	group_container = (t_all_groups *)calloc(sizeof(t_all_groups), 1);
+	if (!group_container)
+		return (NULL);
+	group_json = cJSON_GetObjectItemCaseSensitive(root, "groups");
+	if (!group_json)
+	{
+		free(group_container);
+		return (NULL);
+	}
+	return (get_dialogue(group_json, group_container));
+}

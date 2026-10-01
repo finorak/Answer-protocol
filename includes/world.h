@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:09:51 by irraheri          #+#    #+#             */
-/*   Updated: 2026/09/30 10:24:12 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/01 08:07:19 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # define BUFFER_SIZE 1024
 # define MAX_LEN 20
+# define MAX_PLAYER 16
 
 typedef struct s_list_of
 {
@@ -62,7 +63,7 @@ typedef struct quest
 typedef struct mission
 {
 	char			id[BUFFER_SIZE];
-	char			type[8];
+	char			type[BUFFER_SIZE];
 	char			goal_id[BUFFER_SIZE];
 }					t_mission;
 
@@ -88,6 +89,25 @@ typedef struct room
 	t_list_of		items;
 	t_list_of		players;
 }					t_room;
+
+typedef struct s_player
+{
+	int				fd;
+	int				status;
+	char			name[32];
+	t_list_of		items;
+	t_list_of		quests;
+	int				hp;
+	int				max_hp;
+	int				attack;
+	char			status_hp[16];
+}					t_player;
+
+typedef struct s_all_players
+{
+	t_player		players[MAX_PLAYER];
+	int				len;
+}					t_all_players;
 
 typedef struct all_items
 {
@@ -140,6 +160,7 @@ typedef struct s_data
 	t_all_rooms		*rooms;
 	t_all_items		*items;
 	t_all_npcs		*npcs;
+	t_all_players	*players;
 }				t_data;
 
 #endif // !WORLD_H
