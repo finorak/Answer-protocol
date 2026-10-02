@@ -27,7 +27,7 @@ bool	traverse_room_array(
 	element = array->child;
 	while (element)
 	{
-		if (!cJSON_IsString(element) && !element->valuestring)
+		if (!cJSON_IsString(element) || !element->valuestring)
 			return (NULL);
 		if (strcmp(element_to_extract, "exits") == 0)
 			strncpy(room->exits.ids[index], element->valuestring, MAX_ID_LEN);

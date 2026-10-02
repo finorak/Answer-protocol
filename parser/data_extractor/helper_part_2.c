@@ -53,7 +53,7 @@ bool	traverse_quest_array(const cJSON *array, t_quest *quest)
 	element = array->child;
 	while (element)
 	{
-		if (!cJSON_IsString(element) && !element->valuestring)
+		if (!cJSON_IsString(element) || !element->valuestring)
 			return (false);
 		strncpy(quest->missions.ids[index], element->valuestring, MAX_ID_LEN);
 		index += 1;

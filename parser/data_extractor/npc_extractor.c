@@ -40,10 +40,10 @@ t_npc	*extract_npc_from_key(
 		return (free(npc), NULL);
 	strncpy(npc->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
-	if (!cJSON_IsString(content) && !content->valuestring)
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
-	if (!cJSON_IsString(content) && !content->valuestring)
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
 	strncpy(npc->description, content->valuestring, MAX_DESCRIPTION_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "dialogues");
