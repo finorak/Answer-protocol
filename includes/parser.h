@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:24:19 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:31:30 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ bool		init_world_data(t_data *data, const char *buffer);
 
 // cjson array helper
 bool		traverse_npc_array(const cJSON *array, t_npc *room);
-bool		traverse_quest_array(const cJSON *array, t_quest *quest);
+bool		traverse_quest_array(
+				const cJSON *array, t_quest *quest);
 bool		traverse_room_array(const cJSON *array, t_room *room,
 				const char *element_to_extract);
 

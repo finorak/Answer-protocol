@@ -1,6 +1,6 @@
-SERVER_NAME = client
+CLIENT_NAME = parser_cli
 
-SRC = parser/cJSON.c parser/parser.c parser/parser_utils.c parser/stack_utils.c \
+SRC = parser/cJSON.c parser/parser.c parser/parser_utils.c \
 	  parser/data_extractor/rooms_extractor.c parser/data_extractor/helper_part_1.c \
 	  parser/data_extractor/helper_part_2.c parser/data_extractor/item_extractor.c \
 	  parser/data_extractor/npc_extractor.c parser/data_extractor/quest_extractor.c \
@@ -9,7 +9,7 @@ SRC = parser/cJSON.c parser/parser.c parser/parser_utils.c parser/stack_utils.c 
 	  parser/memory_manager/memory_manager_1.c parser/memory_manager/memory_manager_2.c \
 	  parser/memory_manager/memory_manager.c
 
-EXCEPT_FILES = cJSON.c
+EXCEPT_FILES = parser/cJSON.c
 
 FILES_TO_LINT = $(filter-out $(EXCEPT_FILES), $(SRC))
 
@@ -22,24 +22,24 @@ FLAGS = -Wall -Wextra -Werror -g
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: $(SERVER_NAME)
+all: $(CLIENT_NAME)
 
-$(SERVER_NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(SERVER_NAME)
+$(CLIENT_NAME): $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(CLIENT_NAME)
 
 clean:
 	rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(SERVER_NAME)
+	rm -rf $(CLIENT_NAME)
 
 re: fclean all
 
 run:
-	./$(SERVER_NAME) world.json
+	./$(CLIENT_NAME) world.json
 
 valgrind: all
-	valgrind --leak-check=full ./parser world.json
+	valgrind --leak-check=full ./$(CLIENT_NAME) world.json
 
 lint:
 	norminette $(FILES_TO_LINT)
