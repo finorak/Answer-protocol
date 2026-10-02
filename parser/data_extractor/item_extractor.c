@@ -13,6 +13,8 @@
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 t_item	*extract_item_from_key(
 	const char *key, const cJSON *item_json, t_item *item)

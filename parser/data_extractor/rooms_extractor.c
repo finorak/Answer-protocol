@@ -13,6 +13,8 @@
 #include "../../includes/data_extractor.h"
 #include "../../includes/parser.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 static t_room	*get_room(cJSON *content, const cJSON *room_json, t_room *room)
 {
@@ -32,21 +34,21 @@ t_room	*extract_room_from_key(
 	if (!room_json || !room)
 		return (free(room), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "name");
-	if (!content || !cJSON_IsString(content) || !content->valuestring)
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (free(room), NULL);
 	strncpy(room->name, content->valuestring, MAX_NAME_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "description");
-	if (!content || !cJSON_IsString(content) || !content->valuestring)
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (free(room), NULL);
 	strncpy(room->description, content->valuestring, MAX_DESCRIPTION_LEN);
 	strncpy(room->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
-	if (!content || !cJSON_IsArray(content))
+	if (!cJSON_IsArray(content))
 		return (free(room), NULL);
-	if (!content || !traverse_room_array(content, room, "exits"))
+	if (!traverse_room_array(content, room, "exits"))
 		return (free(room), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
-	if (!content || !traverse_room_array(content, room, "npcs"))
+	if (!traverse_room_array(content, room, "npcs"))
 		return (free(room), NULL);
 	return (get_room(content, room_json, room));
 }

@@ -97,6 +97,7 @@ bool	init_world_data(t_data *data, const char *buffer)
 	root = cJSON_Parse(buffer);
 	if (!root)
 		return (false);
+	printf("her hkhlje\n");
 	data->rooms = extract_rooms(root);
 	if (!data->rooms)
 		return (cJSON_Delete(root), NULL);

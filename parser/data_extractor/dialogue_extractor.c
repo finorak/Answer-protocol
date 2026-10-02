@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <string.h>
 #include <stdlib.h>
 
 t_dialogue	*extract_dialogues_from_key(
