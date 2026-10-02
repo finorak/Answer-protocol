@@ -35,7 +35,7 @@ bool	traverse_quest_object(
 				key, element, quest
 				);
 		if (!quest_container->quests[quest_container->len])
-			return (NULL);
+			return (free_quests(quest_container, quest_container->len), NULL);
 		quest_container->len += 1;
 		element = element->next;
 	}

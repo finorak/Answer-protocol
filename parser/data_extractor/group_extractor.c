@@ -31,25 +31,22 @@ bool	traverse_group_object(
 	t_group	*group;
 	cJSON	*element;
 	char	*key;
-	int		index;
 
 	if (!group_json || !group_container)
 		return (false);
-	index = 0;
 	element = group_json->child;
 	while (element)
 	{
 		key = element->string;
 		group = (t_group *)calloc(sizeof(t_group), 1);
-		group_container->groups[index] = extract_group_from_key(
+		group_container->groups[group_container->len] = extract_group_from_key(
 				key, element, group
 				);
-		if (!group_container->groups[index])
+		if (!group_container->groups[group_container->len])
 			return (false);
-		index += 1;
+		group_container->len += 1;
 		element = element->next;
 	}
-	group_container->len = index;
 	return (true);
 }
 

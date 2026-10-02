@@ -61,6 +61,33 @@ char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 	return (buffer);
 }
 
+static bool	validate_other_data(cJSON *root, t_data *data)
+{
+	data->quests = extract_quests(root);
+	if (!data->quests)
+		return (
+			cJSON_Delete(root),
+			free_npcs(data->npcs, data->npcs->len), false);
+	data->missions = extract_missions(root);
+	if (!data->missions)
+		return (
+			cJSON_Delete(root),
+			free_quests(data->quests, data->quests->len), false);
+	data->dialogues = extract_dialogues(root);
+	if (!data->dialogues)
+		return (
+			cJSON_Delete(root),
+			free_missions(data->missions, data->missions->len), false);
+	data->groups = extract_groups(root);
+	if (!data->groups)
+		return (
+			cJSON_Delete(root),
+			free_dialogues(data->dialogues, data->dialogues->len), false);
+	cJSON_Delete(root);
+	return (true);
+}
+
+// TODO: liverage this functon because it start to be full of shit.
 bool	init_world_data(t_data *data, const char *buffer)
 {
 	cJSON	*root;
@@ -71,12 +98,17 @@ bool	init_world_data(t_data *data, const char *buffer)
 	if (!root)
 		return (false);
 	data->rooms = extract_rooms(root);
+	if (!data->rooms)
+		return (cJSON_Delete(root), NULL);
 	data->items = extract_items(root);
+	if (!data->items)
+		return (
+			cJSON_Delete(root),
+			free_rooms(data->rooms, data->rooms->len), false);
 	data->npcs = extract_npcs(root);
-	data->quests = extract_quests(root);
-	data->missions = extract_missions(root);
-	data->dialogues = extract_dialogues(root);
-	data->groups = extract_groups(root);
-	cJSON_Delete(root);
-	return (true);
+	if (!data->npcs)
+		return (
+			cJSON_Delete(root),
+			free_items(data->items, data->items->len), false);
+	return (validate_other_data(root, data));
 }

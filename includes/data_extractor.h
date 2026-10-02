@@ -13,8 +13,6 @@
 #ifndef DATA_EXTRACTOR_H
 # define DATA_EXTRACTOR_H
 
-# include <stdlib.h>
-# include <stdio.h>
 # include "world.h"
 # include "cJSON.h"
 

@@ -17,16 +17,16 @@
 #include <stdio.h>
 
 static t_npc	*get_attack(
-	t_json_content content, const cJSON *npc_json, t_npc *npc)
+	cJSON *content, const cJSON *npc_json, t_npc *npc)
 {
-	content.attack = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
-	if (!cJSON_IsNumber(content.attack))
-		return (NULL);
-	npc->attack = content.attack->valueint;
-	content.quest_id = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
-	if (!cJSON_IsString(content.quest_id) && !content.quest_id->valuestring)
-		return (NULL);
-	strncpy(npc->quest_id, content.quest_id->valuestring, MAX_ID_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
+	if (!cJSON_IsNumber(content))
+		return (free(npc), NULL);
+	npc->attack = content->valueint;
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(npc), NULL);
+	strncpy(npc->quest_id, content->valuestring, MAX_ID_LEN);
 	return (npc);
 }
 
@@ -34,27 +34,27 @@ static t_npc	*get_attack(
 t_npc	*extract_npc_from_key(
 	const char *key, const cJSON *npc_json, t_npc *npc)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!npc_json || !npc)
-		return (false);
+		return (free(npc), NULL);
 	strncpy(npc->id, key, MAX_ID_LEN);
-	content.name = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
-	if (!cJSON_IsString(content.name) && !content.name->valuestring)
-		return (NULL);
-	content.desc = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
-	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
-		return (NULL);
-	strncpy(npc->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
-	content.dialogues = cJSON_GetObjectItemCaseSensitive(npc_json, "dialogues");
-	if (!cJSON_IsArray(content.dialogues))
-		return (NULL);
-	if (!traverse_npc_array(content.dialogues, npc))
-		return (NULL);
-	content.hp = cJSON_GetObjectItemCaseSensitive(npc_json, "hp");
-	if (!cJSON_IsNumber(content.hp))
-		return (NULL);
-	npc->hp = content.hp->valueint;
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
+	if (!cJSON_IsString(content) && !content->valuestring)
+		return (free(npc), NULL);
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
+	if (!cJSON_IsString(content) && !content->valuestring)
+		return (free(npc), NULL);
+	strncpy(npc->description, content->valuestring, MAX_DESCRIPTION_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "dialogues");
+	if (!cJSON_IsArray(content))
+		return (free(npc), NULL);
+	if (!traverse_npc_array(content, npc))
+		return (free(npc), NULL);
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "hp");
+	if (!cJSON_IsNumber(content))
+		return (free(npc), NULL);
+	npc->hp = content->valueint;
 	return (get_attack(content, npc_json, npc));
 }
 
@@ -64,6 +64,7 @@ static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 		return (NULL);
 	if (!npc_container)
 		return (NULL);
+	npc_container->len = 0;
 	if (!traverse_npc_object(npc_json, npc_container))
 		return (NULL);
 	return (npc_container);

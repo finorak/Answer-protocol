@@ -1,7 +1,7 @@
 {
-  "world": {
+ "world": {
     "start": {
-      "name": "Village_of_Ashfield",
+      "Name": "Village_of_Ashfield",
       "description": "A quiet rural settlement at the edge of the kingdom, known for its inn and its silence.",
       "exits": [
         "none",

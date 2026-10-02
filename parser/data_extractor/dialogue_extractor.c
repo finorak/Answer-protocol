@@ -34,27 +34,25 @@ bool	traverse_dialogue_object(
 	t_dialogue	*dialogue;
 	cJSON		*element;
 	char		*key;
-	int			index;
 
 	if (!dialogue_json)
 		return (NULL);
 	if (!dialogue_container)
 		return (NULL);
-	index = 0;
 	element = dialogue_json->child;
 	while (element)
 	{
 		key = element->string;
 		dialogue = (t_dialogue *)calloc(sizeof(t_dialogue), 1);
-		dialogue_container->dialogues[index] = extract_dialogues_from_key(
+		dialogue_container->dialogues[
+			dialogue_container->len] = extract_dialogues_from_key(
 				key, element, dialogue
 				);
-		if (!dialogue_container->dialogues[index])
+		if (!dialogue_container->dialogues[dialogue_container->len])
 			return (NULL);
-		index += 1;
+		dialogue_container->len += 1;
 		element = element->next;
 	}
-	dialogue_container->len = index;
 	return (true);
 }
 

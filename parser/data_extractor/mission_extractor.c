@@ -18,21 +18,21 @@
 t_mission	*extract_mission_from_key(const char *key, const cJSON *npc_json,
 				t_mission *mission)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!npc_json)
 		return (NULL);
 	if (!mission)
 		return (NULL);
 	strncpy(mission->id, key, MAX_ID_LEN);
-	content.type = cJSON_GetObjectItemCaseSensitive(npc_json, "type");
-	if (!cJSON_IsString(content.type) && !content.type->valuestring)
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "type");
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (NULL);
-	strncpy(mission->type, content.type->valuestring, MAX_ID_LEN);
-	content.goal = cJSON_GetObjectItemCaseSensitive(npc_json, "goal");
-	if (!cJSON_IsString(content.goal) && !content.goal->valuestring)
+	strncpy(mission->type, content->valuestring, MAX_ID_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(npc_json, "goal");
+	if (!cJSON_IsString(content) || !content->valuestring)
 		return (NULL);
-	strncpy(mission->goal_id, content.goal->valuestring, MAX_ID_LEN);
+	strncpy(mission->goal_id, content->valuestring, MAX_ID_LEN);
 	return (mission);
 }
 
@@ -42,27 +42,27 @@ bool	traverse_mission_object(
 	t_mission	*mission;
 	cJSON		*element;
 	char		*key;
-	int			index;
 
 	if (!mission_json)
 		return (false);
 	if (!mission_container)
 		return (false);
 	element = mission_json->child;
-	index = 0;
 	while (element)
 	{
 		key = element->string;
 		mission = (t_mission *)calloc(sizeof(t_mission), 1);
-		mission_container->missions[index] = extract_mission_from_key(
+		mission_container->missions[
+			mission_container->len] = extract_mission_from_key(
 				key, element, mission
 				);
-		if (!mission_container->missions[index])
-			return (false);
-		index += 1;
+		if (!mission_container->missions[mission_container->len])
+			return (
+				free_missions(mission_container,
+					mission_container->len), false);
+		mission_container->len += 1;
 		element = element->next;
 	}
-	mission_container->len = index;
 	return (true);
 }
 
@@ -73,6 +73,7 @@ static t_all_missions	*get_missions(
 		return (NULL);
 	if (!mission_container)
 		return (NULL);
+	mission_container->len = 0;
 	if (!traverse_mission_object(mission_json, mission_container))
 		return (NULL);
 	return (mission_container);

@@ -12,13 +12,13 @@
 
 #include "../../includes/data_extractor.h"
 #include "../../includes/parser.h"
+#include <stdio.h>
 
-static t_room	*get_room(
-	t_json_content content, const cJSON *room_json, t_room *room)
+static t_room	*get_room(cJSON *content, const cJSON *room_json, t_room *room)
 {
-	content.items = cJSON_GetObjectItemCaseSensitive(room_json, "items");
+	content = cJSON_GetObjectItemCaseSensitive(room_json, "items");
 	room->exits.len = 0;
-	if (!traverse_room_array(content.items, room, "items"))
+	if (!content || !traverse_room_array(content, room, "items"))
 		return (free(room), NULL);
 	return (room);
 }
@@ -27,26 +27,26 @@ static t_room	*get_room(
 t_room	*extract_room_from_key(
 	const char *key, const cJSON *room_json, t_room *room)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!room_json || !room)
 		return (free(room), NULL);
-	content.name = cJSON_GetObjectItemCaseSensitive(room_json, "name");
-	if (!cJSON_IsString(content.name) && content.name->valuestring == NULL)
+	content = cJSON_GetObjectItemCaseSensitive(room_json, "name");
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(room), NULL);
-	strncpy(room->name, content.name->valuestring, MAX_NAME_LEN);
-	content.desc = cJSON_GetObjectItemCaseSensitive(room_json, "description");
-	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
+	strncpy(room->name, content->valuestring, MAX_NAME_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(room_json, "description");
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(room), NULL);
-	strncpy(room->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
+	strncpy(room->description, content->valuestring, MAX_DESCRIPTION_LEN);
 	strncpy(room->id, key, MAX_ID_LEN);
-	content.exits = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
-	if (!cJSON_IsArray(content.exits))
+	content = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
+	if (!content || !cJSON_IsArray(content))
 		return (free(room), NULL);
-	if (!traverse_room_array(content.exits, room, "exits"))
+	if (!content || !traverse_room_array(content, room, "exits"))
 		return (free(room), NULL);
-	content.npcs = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
-	if (!traverse_room_array(content.npcs, room, "npcs"))
+	content = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
+	if (!content || !traverse_room_array(content, room, "npcs"))
 		return (free(room), NULL);
 	return (get_room(content, room_json, room));
 }

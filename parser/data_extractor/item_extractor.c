@@ -17,27 +17,27 @@
 t_item	*extract_item_from_key(
 	const char *key, const cJSON *item_json, t_item *item)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!item_json || !item)
-		return (NULL);
+		return (free(item), NULL);
 	strncpy(item->id, key, MAX_ID_LEN);
-	content.name = cJSON_GetObjectItemCaseSensitive(item_json, "name");
-	if (!cJSON_IsString(content.name) && !content.name)
-		return (NULL);
-	strncpy(item->name, content.name->valuestring, MAX_NAME_LEN);
-	content.desc = cJSON_GetObjectItemCaseSensitive(item_json, "description");
-	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
-		return (NULL);
-	strncpy(item->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
-	content.obtainable = cJSON_GetObjectItemCaseSensitive(
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "name");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(item), NULL);
+	strncpy(item->name, content->valuestring, MAX_NAME_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "description");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(item), NULL);
+	strncpy(item->description, content->valuestring, MAX_DESCRIPTION_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(
 			item_json, "obtainable");
-	if (!cJSON_IsNumber(content.obtainable))
-		return (false);
-	item->obtainable = content.obtainable->valueint;
-	content.heal = cJSON_GetObjectItemCaseSensitive(item_json, "heal");
-	if (!cJSON_IsNumber(content.heal))
-		return (NULL);
+	if (!cJSON_IsNumber(content))
+		return (free(item), NULL);
+	item->obtainable = content->valueint;
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "heal");
+	if (!cJSON_IsNumber(content))
+		return (free(item), NULL);
 	return (item);
 }
 

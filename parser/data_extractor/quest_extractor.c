@@ -15,40 +15,40 @@
 #include <string.h>
 
 static t_quest	*get_owner(
-	t_json_content content, const cJSON *quest_json, t_quest *quest)
+	cJSON *content, const cJSON *quest_json, t_quest *quest)
 {
-	strncpy(quest->reward_id, content.reward->valuestring, MAX_ID_LEN);
-	content.npc_owner = cJSON_GetObjectItemCaseSensitive(
+	strncpy(quest->reward_id, content->valuestring, MAX_ID_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(
 			quest_json, "npc_owner");
-	if (!cJSON_IsString(content.npc_owner) && !content.npc_owner->valuestring)
-		return (NULL);
-	strncpy(quest->npc_owner_id, content.npc_owner->valuestring, MAX_ID_LEN);
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(quest), NULL);
+	strncpy(quest->npc_owner_id, content->valuestring, MAX_ID_LEN);
 	return (quest);
 }
 
 t_quest	*extract_quest_from_key(
 			const char *key, const cJSON *quest_json, t_quest *quest)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!quest_json || !quest)
-		return (NULL);
-	content.name = cJSON_GetObjectItemCaseSensitive(quest_json, "name");
-	if (!cJSON_IsString(content.name) && !content.name->valuestring)
-		return (NULL);
-	strncpy(quest->name, content.name->valuestring, MAX_NAME_LEN);
+		return (free(quest), NULL);
+	content = cJSON_GetObjectItemCaseSensitive(quest_json, "name");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(quest), NULL);
+	strncpy(quest->name, content->valuestring, MAX_NAME_LEN);
 	strncpy(quest->id, key, MAX_ID_LEN);
-	content.desc = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
-	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
-		return (NULL);
-	content.missions = cJSON_GetObjectItemCaseSensitive(quest_json, "missions");
-	if (!cJSON_IsArray(content.missions))
-		return (NULL);
-	if (!traverse_quest_array(content.missions, quest))
-		return (NULL);
-	content.reward = cJSON_GetObjectItemCaseSensitive(quest_json, "reward");
-	if (!cJSON_IsString(content.reward) && !content.reward->valuestring)
-		return (NULL);
+	content = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(quest), NULL);
+	content = cJSON_GetObjectItemCaseSensitive(quest_json, "missions");
+	if (!cJSON_IsArray(content))
+		return (free(quest), NULL);
+	if (!traverse_quest_array(content, quest))
+		return (free(quest), NULL);
+	content = cJSON_GetObjectItemCaseSensitive(quest_json, "reward");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(quest), NULL);
 	return (get_owner(content, quest_json, quest));
 }
 

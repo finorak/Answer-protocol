@@ -30,26 +30,6 @@ typedef struct s_buffer_store
 	char		*buffer;
 }				t_buffer_store;
 
-typedef struct s_json_content
-{
-	const cJSON	*desc;
-	const cJSON	*name;
-	const cJSON	*exits;
-	const cJSON	*npcs;
-	const cJSON	*items;
-	const cJSON	*obtainable;
-	const cJSON	*dialogues;
-	const cJSON	*heal;
-	const cJSON	*hp;
-	const cJSON	*attack;
-	const cJSON	*quest_id;
-	const cJSON	*missions;
-	const cJSON	*reward;
-	const cJSON	*npc_owner;
-	const cJSON	*type;
-	const cJSON	*goal;
-}				t_json_content;
-
 // JSON DATA PARSER
 size_t		get_buffer_size(const char *world_config_file);
 char		*get_buffer(const char *world_config_file, size_t buffer_size);
