@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 06:21:17 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 06:41:04 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:45:08 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "../../includes/cJSON.h"
 #include <stdlib.h>
 
-bool	traverse_quest_object(cJSON *world_json, t_all_quests *quest_container)
+bool	traverse_quest_object(
+	const cJSON *world_json, t_all_quests *quest_container)
 {
 	t_quest	*quest;
 	cJSON	*element;
@@ -34,14 +35,14 @@ bool	traverse_quest_object(cJSON *world_json, t_all_quests *quest_container)
 				key, element, quest
 				);
 		if (!quest_container->quests[quest_container->len])
-			return (NULL);
+			return (free_quests(quest_container, quest_container->len), NULL);
 		quest_container->len += 1;
 		element = element->next;
 	}
 	return (true);
 }
 
-bool	traverse_quest_array(cJSON *array, t_quest *quest)
+bool	traverse_quest_array(const cJSON *array, t_quest *quest)
 {
 	cJSON	*element;
 	int		index;
@@ -52,9 +53,9 @@ bool	traverse_quest_array(cJSON *array, t_quest *quest)
 	element = array->child;
 	while (element)
 	{
-		if (!cJSON_IsString(element) && !element->valuestring)
+		if (!cJSON_IsString(element) || !element->valuestring)
 			return (false);
-		strncpy(quest->missions.ids[index], element->valuestring, BUFFER_SIZE);
+		strncpy(quest->missions.ids[index], element->valuestring, MAX_ID_LEN);
 		index += 1;
 		element = element->next;
 	}

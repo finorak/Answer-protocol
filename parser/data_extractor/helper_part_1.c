@@ -6,16 +6,17 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 06:31:51 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:47:22 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
+#include <string.h>
 
 bool	traverse_room_array(
-	cJSON *array, t_room *room, char *element_to_extract)
+	const cJSON *array, t_room *room, const char *element_to_extract)
 {
 	cJSON	*element;
 	int		index;
@@ -26,14 +27,14 @@ bool	traverse_room_array(
 	element = array->child;
 	while (element)
 	{
-		if (!cJSON_IsString(element) && !element->valuestring)
+		if (!cJSON_IsString(element) || !element->valuestring)
 			return (NULL);
 		if (strcmp(element_to_extract, "exits") == 0)
-			strncpy(room->exits.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->exits.ids[index], element->valuestring, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "npcs") == 0)
-			strncpy(room->npcs.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->npcs.ids[index], element->valuestring, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "items") == 0)
-			strncpy(room->items.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->items.ids[index], element->valuestring, MAX_ID_LEN);
 		element = element->next;
 		index++;
 	}
@@ -42,28 +43,29 @@ bool	traverse_room_array(
 }
 
 // TODO: Memory managment
-bool	traverse_npc_array(cJSON *array, t_npc *npc)
+bool	traverse_npc_array(const cJSON *array, t_npc *npc)
 {
 	cJSON	*element;
-	int		index;
 
 	if (!array)
 		return (false);
-	index = 0;
 	element = array->child;
+	npc->dialogues.len = 0;
 	while (element)
 	{
 		if (!cJSON_IsString(element))
 			return (NULL);
-		strncpy(npc->dialogues.ids[index], element->valuestring, BUFFER_SIZE);
-		index += 1;
+		strncpy(
+			npc->dialogues.ids[npc->dialogues.len],
+			element->valuestring, MAX_ID_LEN);
+		npc->dialogues.len += 1;
 		element = element->next;
 	}
-	npc->dialogues.len = index;
 	return (true);
 }
 
-bool	traverse_room_object(cJSON *world_json, t_all_rooms *rooms_container)
+bool	traverse_room_object(
+	const cJSON *world_json, t_all_rooms *rooms_container)
 {
 	t_room	*room;
 	cJSON	*element;
@@ -72,7 +74,6 @@ bool	traverse_room_object(cJSON *world_json, t_all_rooms *rooms_container)
 	if (!world_json)
 		return (false);
 	element = world_json->child;
-	rooms_container->len = 0;
 	while (element)
 	{
 		key = element->string;
@@ -80,17 +81,15 @@ bool	traverse_room_object(cJSON *world_json, t_all_rooms *rooms_container)
 		rooms_container->rooms[rooms_container->len] = extract_room_from_key(
 				key, element, room);
 		if (!rooms_container->rooms[rooms_container->len])
-		{
-			free_rooms(rooms_container, rooms_container->len);
-			return (false);
-		}
+			return (free_rooms(rooms_container, rooms_container->len), false);
 		rooms_container->len += 1;
 		element = element->next;
 	}
 	return (true);
 }
 
-bool	traverse_item_object(cJSON *item_json, t_all_items *item_container)
+bool	traverse_item_object(
+	const cJSON *item_json, t_all_items *item_container)
 {
 	t_item	*item;
 	cJSON	*element;
@@ -106,10 +105,7 @@ bool	traverse_item_object(cJSON *item_json, t_all_items *item_container)
 		item_container->items[item_container->len] = extract_item_from_key(
 				key, element, item);
 		if (!item_container->items[item_container->len])
-		{
-			free_items(item_container, item_container->len);
-			return (NULL);
-		}
+			return (free_items(item_container, item_container->len), false);
 		item_container->len += 1;
 		element = element->next;
 	}
@@ -117,7 +113,8 @@ bool	traverse_item_object(cJSON *item_json, t_all_items *item_container)
 }
 
 // TODO: ADDING MEMORY MANAGEMENT.
-bool	traverse_npc_object(cJSON *npc_json, t_all_npcs *npc_container)
+bool	traverse_npc_object(
+	const cJSON *npc_json, t_all_npcs *npc_container)
 {
 	t_npc	*npc;
 	cJSON	*element;
@@ -126,7 +123,6 @@ bool	traverse_npc_object(cJSON *npc_json, t_all_npcs *npc_container)
 	if (!npc_json)
 		return (false);
 	element = npc_json->child;
-	npc_container->len = 0;
 	while (element)
 	{
 		key = element->string;
@@ -135,7 +131,7 @@ bool	traverse_npc_object(cJSON *npc_json, t_all_npcs *npc_container)
 				key, element, npc
 				);
 		if (!npc_container->npcs[npc_container->len])
-			return (NULL);
+			return (free_npcs(npc_container, npc_container->len), NULL);
 		npc_container->len += 1;
 		element = element->next;
 	}

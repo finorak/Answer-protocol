@@ -1,0 +1,227 @@
+[
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/cJSON.c",
+   "-o",
+   "parser/cJSON.o"
+  ],
+  "file": "parser/cJSON.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/parser.c",
+   "-o",
+   "parser/parser.o"
+  ],
+  "file": "parser/parser.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/parser_utils.c",
+   "-o",
+   "parser/parser_utils.o"
+  ],
+  "file": "parser/parser_utils.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/rooms_extractor.c",
+   "-o",
+   "parser/data_extractor/rooms_extractor.o"
+  ],
+  "file": "parser/data_extractor/rooms_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/helper_part_1.c",
+   "-o",
+   "parser/data_extractor/helper_part_1.o"
+  ],
+  "file": "parser/data_extractor/helper_part_1.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/helper_part_2.c",
+   "-o",
+   "parser/data_extractor/helper_part_2.o"
+  ],
+  "file": "parser/data_extractor/helper_part_2.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/item_extractor.c",
+   "-o",
+   "parser/data_extractor/item_extractor.o"
+  ],
+  "file": "parser/data_extractor/item_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/npc_extractor.c",
+   "-o",
+   "parser/data_extractor/npc_extractor.o"
+  ],
+  "file": "parser/data_extractor/npc_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/quest_extractor.c",
+   "-o",
+   "parser/data_extractor/quest_extractor.o"
+  ],
+  "file": "parser/data_extractor/quest_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/mission_extractor.c",
+   "-o",
+   "parser/data_extractor/mission_extractor.o"
+  ],
+  "file": "parser/data_extractor/mission_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/dialogue_extractor.c",
+   "-o",
+   "parser/data_extractor/dialogue_extractor.o"
+  ],
+  "file": "parser/data_extractor/dialogue_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/data_extractor/group_extractor.c",
+   "-o",
+   "parser/data_extractor/group_extractor.o"
+  ],
+  "file": "parser/data_extractor/group_extractor.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/memory_manager/memory_manager_1.c",
+   "-o",
+   "parser/memory_manager/memory_manager_1.o"
+  ],
+  "file": "parser/memory_manager/memory_manager_1.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/memory_manager/memory_manager_2.c",
+   "-o",
+   "parser/memory_manager/memory_manager_2.o"
+  ],
+  "file": "parser/memory_manager/memory_manager_2.c"
+ },
+ {
+  "directory": "/home/finorako/project/Answer-protocol",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-c",
+   "parser/memory_manager/memory_manager.c",
+   "-o",
+   "parser/memory_manager/memory_manager.o"
+  ],
+  "file": "parser/memory_manager/memory_manager.c"
+ }
+]

@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 18:21:16 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:57:55 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:49:43 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,35 @@
 #include "../../includes/data_extractor.h"
 #include <stdlib.h>
 
-t_item	*extract_item_from_key(const char *key, cJSON *item_json, t_item *item)
+t_item	*extract_item_from_key(
+	const char *key, const cJSON *item_json, t_item *item)
 {
-	t_json_content	content;
+	cJSON	*content;
 
 	if (!item_json || !item)
-		return (NULL);
-	strncpy(item->id, key, BUFFER_SIZE);
-	content.name = cJSON_GetObjectItemCaseSensitive(item_json, "name");
-	if (!cJSON_IsString(content.name) && !content.name)
-		return (NULL);
-	strncpy(item->name, content.name->valuestring, BUFFER_SIZE);
-	content.desc = cJSON_GetObjectItemCaseSensitive(item_json, "description");
-	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
-		return (NULL);
-	strncpy(item->description, content.desc->valuestring, BUFFER_SIZE);
-	content.obtainable = cJSON_GetObjectItemCaseSensitive(
+		return (free(item), NULL);
+	strncpy(item->id, key, MAX_ID_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "name");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(item), NULL);
+	strncpy(item->name, content->valuestring, MAX_NAME_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "description");
+	if (!cJSON_IsString(content) || !content->valuestring)
+		return (free(item), NULL);
+	strncpy(item->description, content->valuestring, MAX_DESCRIPTION_LEN);
+	content = cJSON_GetObjectItemCaseSensitive(
 			item_json, "obtainable");
-	if (!cJSON_IsNumber(content.obtainable))
-		return (false);
-	item->obtainable = content.obtainable->valueint;
-	content.heal = cJSON_GetObjectItemCaseSensitive(item_json, "heal");
-	if (!cJSON_IsNumber(content.heal))
-		return (NULL);
+	if (!cJSON_IsNumber(content))
+		return (free(item), NULL);
+	item->obtainable = content->valueint;
+	content = cJSON_GetObjectItemCaseSensitive(item_json, "heal");
+	if (!cJSON_IsNumber(content))
+		return (free(item), NULL);
 	return (item);
 }
 
-static t_all_items	*get_items(cJSON *items_json, t_all_items *items_container)
+static t_all_items	*get_items(
+	const cJSON *items_json, t_all_items *items_container)
 {
 	if (!items_json)
 		return (NULL);
@@ -52,10 +54,10 @@ static t_all_items	*get_items(cJSON *items_json, t_all_items *items_container)
 	return (items_container);
 }
 
-t_all_items	*extract_items(cJSON *root)
+t_all_items	*extract_items(const cJSON *root)
 {
 	t_all_items	*items_container;
-	cJSON		*items_json;
+	const cJSON	*items_json;
 
 	if (!root)
 		return (NULL);
