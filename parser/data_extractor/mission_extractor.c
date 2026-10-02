@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 07:56:12 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 08:17:31 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:18:59 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-t_mission	*extract_mission_from_key(const char *key, cJSON *npc_json,
+t_mission	*extract_mission_from_key(const char *key, const cJSON *npc_json,
 				t_mission *mission)
 {
 	t_json_content	content;
@@ -37,7 +37,7 @@ t_mission	*extract_mission_from_key(const char *key, cJSON *npc_json,
 }
 
 bool	traverse_mission_object(
-	cJSON *mission_json, t_all_missions *mission_container)
+	const cJSON *mission_json, t_all_missions *mission_container)
 {
 	t_mission	*mission;
 	cJSON		*element;
@@ -67,7 +67,7 @@ bool	traverse_mission_object(
 }
 
 static t_all_missions	*get_missions(
-	cJSON *mission_json, t_all_missions *mission_container)
+	const cJSON *mission_json, t_all_missions *mission_container)
 {
 	if (!mission_json)
 		return (NULL);
@@ -78,10 +78,10 @@ static t_all_missions	*get_missions(
 	return (mission_container);
 }
 
-t_all_missions	*extract_missions(cJSON *root)
+t_all_missions	*extract_missions(const cJSON *root)
 {
 	t_all_missions	*mission_container;
-	cJSON			*mission_json;
+	const cJSON		*mission_json;
 
 	if (!root)
 		return (NULL);

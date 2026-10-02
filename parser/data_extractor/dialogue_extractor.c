@@ -6,13 +6,12 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:23:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 08:52:26 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 10:57:09 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 t_dialogue	*extract_dialogues_from_key(
@@ -27,7 +26,8 @@ t_dialogue	*extract_dialogues_from_key(
 	return (dialogue);
 }
 
-bool	traverse_dialogue_object(cJSON *dialogue_json, t_all_dialogues *dialogue_container)
+bool	traverse_dialogue_object(
+	cJSON *dialogue_json, t_all_dialogues *dialogue_container)
 {
 	t_dialogue	*dialogue;
 	cJSON		*element;
@@ -56,7 +56,8 @@ bool	traverse_dialogue_object(cJSON *dialogue_json, t_all_dialogues *dialogue_co
 	return (true);
 }
 
-static t_all_dialogues	*get_dialogue(cJSON *dialogue_json, t_all_dialogues *dialogue_container)
+static t_all_dialogues	*get_dialogue(
+	cJSON *dialogue_json, t_all_dialogues *dialogue_container)
 {
 	if (!dialogue_json)
 		return (NULL);
@@ -68,7 +69,7 @@ static t_all_dialogues	*get_dialogue(cJSON *dialogue_json, t_all_dialogues *dial
 	return (dialogue_container);
 }
 
-t_all_dialogues	*extract_dialogues(cJSON *root)
+t_all_dialogues	*extract_dialogues(const cJSON *root)
 {
 	t_all_dialogues	*dialogue_container;
 	cJSON			*dialogue_json;

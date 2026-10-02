@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 23:24:15 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 07:56:22 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:26:28 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 #include "../../includes/data_extractor.h"
 #include <string.h>
 
+static t_quest	*get_owner(
+	t_json_content content, const cJSON *quest_json, t_quest *quest)
+{
+	strncpy(quest->reward_id, content.reward->valuestring, BUFFER_SIZE);
+	content.npc_owner = cJSON_GetObjectItemCaseSensitive(
+			quest_json, "npc_owner");
+	if (!cJSON_IsString(content.npc_owner) && !content.npc_owner->valuestring)
+		return (NULL);
+	strncpy(quest->npc_owner_id, content.npc_owner->valuestring, BUFFER_SIZE);
+	return (quest);
+}
+
 t_quest	*extract_quest_from_key(
-			const char *key, cJSON *quest_json, t_quest *quest)
+			const char *key, const cJSON *quest_json, t_quest *quest)
 {
 	t_json_content	content;
 
@@ -37,17 +49,11 @@ t_quest	*extract_quest_from_key(
 	content.reward = cJSON_GetObjectItemCaseSensitive(quest_json, "reward");
 	if (!cJSON_IsString(content.reward) && !content.reward->valuestring)
 		return (NULL);
-	strncpy(quest->reward_id, content.reward->valuestring, BUFFER_SIZE);
-	content.npc_owner = cJSON_GetObjectItemCaseSensitive(
-			quest_json, "npc_owner");
-	if (!cJSON_IsString(content.npc_owner) && !content.npc_owner->valuestring)
-		return (NULL);
-	strncpy(quest->npc_owner_id, content.npc_owner->valuestring, BUFFER_SIZE);
-	return (quest);
+	return (get_owner(content, quest_json, quest));
 }
 
 static t_all_quests	*get_quests(
-	cJSON *quest_json, t_all_quests *quest_container)
+	const cJSON *quest_json, t_all_quests *quest_container)
 {
 	if (!quest_json)
 		return (NULL);
@@ -59,10 +65,10 @@ static t_all_quests	*get_quests(
 	return (quest_container);
 }
 
-t_all_quests	*extract_quests(cJSON *root)
+t_all_quests	*extract_quests(const cJSON *root)
 {
 	t_all_quests	*quest_container;
-	cJSON			*quest_json;
+	const cJSON		*quest_json;
 
 	if (!root)
 		return (NULL);

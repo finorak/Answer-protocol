@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 19:37:52 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 20:00:41 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:26:05 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,23 @@
 #include <string.h>
 #include <stdio.h>
 
+static t_npc	*get_attack(
+	t_json_content content, const cJSON *npc_json, t_npc *npc)
+{
+	content.attack = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
+	if (!cJSON_IsNumber(content.attack))
+		return (NULL);
+	npc->attack = content.attack->valueint;
+	content.quest_id = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
+	if (!cJSON_IsString(content.quest_id) && !content.quest_id->valuestring)
+		return (NULL);
+	strncpy(npc->quest_id, content.quest_id->valuestring, BUFFER_SIZE);
+	return (npc);
+}
+
 // TODO: separate this function to fit the 25 lines.
-t_npc	*extract_npc_from_key(const char *key, cJSON *npc_json, t_npc *npc)
+t_npc	*extract_npc_from_key(
+	const char *key, const cJSON *npc_json, t_npc *npc)
 {
 	t_json_content	content;
 
@@ -40,18 +55,10 @@ t_npc	*extract_npc_from_key(const char *key, cJSON *npc_json, t_npc *npc)
 	if (!cJSON_IsNumber(content.hp))
 		return (NULL);
 	npc->hp = content.hp->valueint;
-	content.attack = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
-	if (!cJSON_IsNumber(content.attack))
-		return (NULL);
-	npc->attack = content.attack->valueint;
-	return (npc);
-	content.quest_id = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
-	if (!cJSON_IsString(content.quest_id) && !content.quest_id->valuestring)
-		return (NULL);
-	strncpy(npc->quest_id, content.quest_id->valuestring, BUFFER_SIZE);
+	return (get_attack(content, npc_json, npc));
 }
 
-static t_all_npcs	*get_npcs(cJSON *npc_json, t_all_npcs *npc_container)
+static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 {
 	if (!npc_json)
 		return (NULL);
@@ -62,10 +69,10 @@ static t_all_npcs	*get_npcs(cJSON *npc_json, t_all_npcs *npc_container)
 	return (npc_container);
 }
 
-t_all_npcs	*extract_npcs(cJSON *root)
+t_all_npcs	*extract_npcs(const cJSON *root)
 {
 	t_all_npcs	*npc_container;
-	cJSON		*items_json;
+	const cJSON	*items_json;
 
 	if (!root)
 		return (NULL);

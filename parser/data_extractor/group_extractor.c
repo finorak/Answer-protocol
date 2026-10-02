@@ -6,14 +6,12 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:47:09 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/01 09:11:07 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 10:56:33 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -27,7 +25,8 @@ t_group	*extract_group_from_key(
 	return (group);
 }
 
-bool	traverse_group_object(cJSON *group_json, t_all_groups *group_container)
+bool	traverse_group_object(
+	const cJSON *group_json, t_all_groups *group_container)
 {
 	t_group	*group;
 	cJSON	*element;
@@ -55,7 +54,7 @@ bool	traverse_group_object(cJSON *group_json, t_all_groups *group_container)
 }
 
 static t_all_groups	*get_dialogue(
-	cJSON *group_json, t_all_groups *group_container)
+	const cJSON *group_json, t_all_groups *group_container)
 {
 	if (!group_json || !group_container)
 		return (NULL);
@@ -65,10 +64,10 @@ static t_all_groups	*get_dialogue(
 	return (group_container);
 }
 
-t_all_groups	*extract_groups(cJSON *root)
+t_all_groups	*extract_groups(const cJSON *root)
 {
 	t_all_groups	*group_container;
-	cJSON			*group_json;
+	const cJSON		*group_json;
 
 	if (!root)
 		return (NULL);

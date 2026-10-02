@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 18:21:16 by finorako          #+#    #+#             */
-/*   Updated: 2026/09/30 19:57:55 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:25:09 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "../../includes/data_extractor.h"
 #include <stdlib.h>
 
-t_item	*extract_item_from_key(const char *key, cJSON *item_json, t_item *item)
+t_item	*extract_item_from_key(
+	const char *key, const cJSON *item_json, t_item *item)
 {
 	t_json_content	content;
 
@@ -40,7 +41,8 @@ t_item	*extract_item_from_key(const char *key, cJSON *item_json, t_item *item)
 	return (item);
 }
 
-static t_all_items	*get_items(cJSON *items_json, t_all_items *items_container)
+static t_all_items	*get_items(
+	const cJSON *items_json, t_all_items *items_container)
 {
 	if (!items_json)
 		return (NULL);
@@ -52,10 +54,10 @@ static t_all_items	*get_items(cJSON *items_json, t_all_items *items_container)
 	return (items_container);
 }
 
-t_all_items	*extract_items(cJSON *root)
+t_all_items	*extract_items(const cJSON *root)
 {
 	t_all_items	*items_container;
-	cJSON		*items_json;
+	const cJSON	*items_json;
 
 	if (!root)
 		return (NULL);
