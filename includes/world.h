@@ -13,9 +13,6 @@
 #ifndef WORLD_H
 # define WORLD_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # define BUFFER_SIZE 1024
 
 # define MAX_LIST_LEN 32
@@ -105,7 +102,7 @@ typedef struct s_player
 	int				hp;
 	int				max_hp;
 	int				attack;
-	char			status_hp[16];
+	char			status_hp[MAX_ID_LEN];
 }					t_player;
 
 typedef struct s_all_players

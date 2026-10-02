@@ -13,6 +13,8 @@
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 static t_quest	*get_owner(
 	cJSON *content, const cJSON *quest_json, t_quest *quest)

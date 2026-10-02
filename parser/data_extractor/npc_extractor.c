@@ -20,7 +20,7 @@ static t_npc	*get_attack(
 	cJSON *content, const cJSON *npc_json, t_npc *npc)
 {
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
-	if (!cJSON_IsNumber(content))
+	if (!cJSON_IsNumber(content) || content->valueint < 0)
 		return (free(npc), NULL);
 	npc->attack = content->valueint;
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
@@ -52,7 +52,7 @@ t_npc	*extract_npc_from_key(
 	if (!traverse_npc_array(content, npc))
 		return (free(npc), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "hp");
-	if (!cJSON_IsNumber(content))
+	if (!cJSON_IsNumber(content) || content->valueint < 0)
 		return (free(npc), NULL);
 	npc->hp = content->valueint;
 	return (get_attack(content, npc_json, npc));

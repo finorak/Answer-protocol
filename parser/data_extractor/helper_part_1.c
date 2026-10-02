@@ -13,7 +13,9 @@
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
+#include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 bool	traverse_room_array(
 	const cJSON *array, t_room *room, const char *element_to_extract)
@@ -131,7 +133,7 @@ bool	traverse_npc_object(
 				key, element, npc
 				);
 		if (!npc_container->npcs[npc_container->len])
-			return (free_npcs(npc_container, npc_container->len), NULL);
+			return (free_npcs(npc_container, npc_container->len), false);
 		npc_container->len += 1;
 		element = element->next;
 	}

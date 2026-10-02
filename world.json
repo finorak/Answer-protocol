@@ -1,7 +1,7 @@
 {
  "world": {
     "start": {
-      "Name": "Village_of_Ashfield",
+      "name": "Village_of_Ashfield",
       "description": "A quiet rural settlement at the edge of the kingdom, known for its inn and its silence.",
       "exits": [
         "none",
@@ -181,8 +181,8 @@
         "play_queen",
         "play_rook"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "none"
     },
     "rene_descartes": {
@@ -191,8 +191,8 @@
       "dialogues": [
         "ithinksoiam"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "none"
     },
     "charles_darwin": {
@@ -201,16 +201,16 @@
       "dialogues": [
         "survivor"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "none"
     },
     "pablo_picasso": {
       "name": "Pablo the Visionary",
       "description": "A painter with piercing eyes, always ready to reshape reality.",
       "dialogues": [],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "trump_diamond"
     },
     "franz_kafka": {
@@ -219,8 +219,8 @@
       "dialogues": [
         "samsa"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "doogy_saitama"
     },
     "fiodor_dostoievsky": {
@@ -231,8 +231,8 @@
         "citation2",
         "citation3"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "none"
     },
     "snoop_dogg": {
@@ -251,8 +251,8 @@
       "dialogues": [
         "pulpy"
       ],
-      "hp": -1,
-      "attack": -1,
+      "hp": 1,
+      "attack": 1,
       "quest_id": "gold_rook"
     },
     "saitama": {

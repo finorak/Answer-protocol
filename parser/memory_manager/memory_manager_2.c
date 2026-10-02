@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
+#include <stdlib.h>
 
 void	free_rooms(t_all_rooms *rooms, int size)
 {

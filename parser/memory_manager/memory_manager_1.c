@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 void	free_missions(t_all_missions *items, int size)
 {
@@ -51,7 +53,6 @@ void	free_groups(t_all_groups *groups, int size)
 	index = 0;
 	while (index < size)
 	{
-		printf("%s\n", groups->groups[index]->name);
 		free(groups->groups[index]);
 		index += 1;
 	}

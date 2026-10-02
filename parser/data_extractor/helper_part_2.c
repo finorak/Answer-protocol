@@ -13,6 +13,7 @@
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
+#include <string.h>
 #include <stdlib.h>
 
 bool	traverse_quest_object(
