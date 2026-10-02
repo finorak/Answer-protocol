@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:47:09 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 10:56:33 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:44:32 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_group	*extract_group_from_key(
 {
 	if (!group_json || !group)
 		return (NULL);
-	strncpy(group->name, group_json->valuestring, BUFFER_SIZE);
+	strncpy(group->name, group_json->valuestring, MAX_NAME_LEN);
 	(void)key;
 	return (group);
 }

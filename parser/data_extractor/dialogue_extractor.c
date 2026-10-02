@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:23:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 10:57:09 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:44:08 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ t_dialogue	*extract_dialogues_from_key(
 		return (NULL);
 	if (!dialogue)
 		return (NULL);
-	strncpy(dialogue->id, key, BUFFER_SIZE);
-	strncpy(dialogue->content, dialogue_json->valuestring, BUFFER_SIZE);
+	strncpy(dialogue->id, key, MAX_ID_LEN);
+	strncpy(
+		dialogue->content, dialogue_json->valuestring,
+		MAX_DIALOGUE_CONTENT_LEN);
 	return (dialogue);
 }
 

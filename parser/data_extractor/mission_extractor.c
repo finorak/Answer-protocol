@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 07:56:12 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:18:59 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:48:20 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_mission	*extract_mission_from_key(const char *key, const cJSON *npc_json,
 		return (NULL);
 	if (!mission)
 		return (NULL);
-	strncpy(mission->id, key, BUFFER_SIZE);
+	strncpy(mission->id, key, MAX_ID_LEN);
 	content.type = cJSON_GetObjectItemCaseSensitive(npc_json, "type");
 	if (!cJSON_IsString(content.type) && !content.type->valuestring)
 		return (NULL);
-	strncpy(mission->type, content.type->valuestring, BUFFER_SIZE);
+	strncpy(mission->type, content.type->valuestring, MAX_ID_LEN);
 	content.goal = cJSON_GetObjectItemCaseSensitive(npc_json, "goal");
 	if (!cJSON_IsString(content.goal) && !content.goal->valuestring)
 		return (NULL);
-	strncpy(mission->goal_id, content.goal->valuestring, BUFFER_SIZE);
+	strncpy(mission->goal_id, content.goal->valuestring, MAX_ID_LEN);
 	return (mission);
 }
 

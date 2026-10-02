@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 18:21:16 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:25:09 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:49:43 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ t_item	*extract_item_from_key(
 
 	if (!item_json || !item)
 		return (NULL);
-	strncpy(item->id, key, BUFFER_SIZE);
+	strncpy(item->id, key, MAX_ID_LEN);
 	content.name = cJSON_GetObjectItemCaseSensitive(item_json, "name");
 	if (!cJSON_IsString(content.name) && !content.name)
 		return (NULL);
-	strncpy(item->name, content.name->valuestring, BUFFER_SIZE);
+	strncpy(item->name, content.name->valuestring, MAX_NAME_LEN);
 	content.desc = cJSON_GetObjectItemCaseSensitive(item_json, "description");
 	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
 		return (NULL);
-	strncpy(item->description, content.desc->valuestring, BUFFER_SIZE);
+	strncpy(item->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
 	content.obtainable = cJSON_GetObjectItemCaseSensitive(
 			item_json, "obtainable");
 	if (!cJSON_IsNumber(content.obtainable))

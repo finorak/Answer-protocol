@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:24:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:49:22 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ t_room	*extract_room_from_key(
 	content.name = cJSON_GetObjectItemCaseSensitive(room_json, "name");
 	if (!cJSON_IsString(content.name) && content.name->valuestring == NULL)
 		return (free(room), NULL);
-	strncpy(room->name, content.name->valuestring, BUFFER_SIZE);
+	strncpy(room->name, content.name->valuestring, MAX_NAME_LEN);
 	content.desc = cJSON_GetObjectItemCaseSensitive(room_json, "description");
 	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
 		return (free(room), NULL);
-	strncpy(room->description, content.desc->valuestring, BUFFER_SIZE);
-	strncpy(room->id, key, BUFFER_SIZE);
+	strncpy(room->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
+	strncpy(room->id, key, MAX_ID_LEN);
 	content.exits = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
 	if (!cJSON_IsArray(content.exits))
 		return (free(room), NULL);

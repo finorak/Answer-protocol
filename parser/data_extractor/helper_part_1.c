@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:30:20 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:47:22 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ bool	traverse_room_array(
 		if (!cJSON_IsString(element) && !element->valuestring)
 			return (NULL);
 		if (strcmp(element_to_extract, "exits") == 0)
-			strncpy(room->exits.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->exits.ids[index], element->valuestring, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "npcs") == 0)
-			strncpy(room->npcs.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->npcs.ids[index], element->valuestring, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "items") == 0)
-			strncpy(room->items.ids[index], element->valuestring, BUFFER_SIZE);
+			strncpy(room->items.ids[index], element->valuestring, MAX_ID_LEN);
 		element = element->next;
 		index++;
 	}
@@ -55,7 +55,7 @@ bool	traverse_npc_array(const cJSON *array, t_npc *npc)
 	{
 		if (!cJSON_IsString(element))
 			return (NULL);
-		strncpy(npc->dialogues.ids[index], element->valuestring, BUFFER_SIZE);
+		strncpy(npc->dialogues.ids[index], element->valuestring, MAX_ID_LEN);
 		index += 1;
 		element = element->next;
 	}

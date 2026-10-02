@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 23:24:15 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:26:28 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:47:41 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 static t_quest	*get_owner(
 	t_json_content content, const cJSON *quest_json, t_quest *quest)
 {
-	strncpy(quest->reward_id, content.reward->valuestring, BUFFER_SIZE);
+	strncpy(quest->reward_id, content.reward->valuestring, MAX_ID_LEN);
 	content.npc_owner = cJSON_GetObjectItemCaseSensitive(
 			quest_json, "npc_owner");
 	if (!cJSON_IsString(content.npc_owner) && !content.npc_owner->valuestring)
 		return (NULL);
-	strncpy(quest->npc_owner_id, content.npc_owner->valuestring, BUFFER_SIZE);
+	strncpy(quest->npc_owner_id, content.npc_owner->valuestring, MAX_ID_LEN);
 	return (quest);
 }
 
@@ -36,8 +36,8 @@ t_quest	*extract_quest_from_key(
 	content.name = cJSON_GetObjectItemCaseSensitive(quest_json, "name");
 	if (!cJSON_IsString(content.name) && !content.name->valuestring)
 		return (NULL);
-	strncpy(quest->name, content.name->valuestring, BUFFER_SIZE);
-	strncpy(quest->id, key, BUFFER_SIZE);
+	strncpy(quest->name, content.name->valuestring, MAX_NAME_LEN);
+	strncpy(quest->id, key, MAX_ID_LEN);
 	content.desc = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
 	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
 		return (NULL);

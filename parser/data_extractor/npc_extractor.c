@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 19:37:52 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 11:26:05 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:49:10 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_npc	*get_attack(
 	content.quest_id = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
 	if (!cJSON_IsString(content.quest_id) && !content.quest_id->valuestring)
 		return (NULL);
-	strncpy(npc->quest_id, content.quest_id->valuestring, BUFFER_SIZE);
+	strncpy(npc->quest_id, content.quest_id->valuestring, MAX_ID_LEN);
 	return (npc);
 }
 
@@ -38,14 +38,14 @@ t_npc	*extract_npc_from_key(
 
 	if (!npc_json || !npc)
 		return (false);
-	strncpy(npc->id, key, BUFFER_SIZE);
+	strncpy(npc->id, key, MAX_ID_LEN);
 	content.name = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
 	if (!cJSON_IsString(content.name) && !content.name->valuestring)
 		return (NULL);
 	content.desc = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
 	if (!cJSON_IsString(content.desc) && !content.desc->valuestring)
 		return (NULL);
-	strncpy(npc->description, content.desc->valuestring, BUFFER_SIZE);
+	strncpy(npc->description, content.desc->valuestring, MAX_DESCRIPTION_LEN);
 	content.dialogues = cJSON_GetObjectItemCaseSensitive(npc_json, "dialogues");
 	if (!cJSON_IsArray(content.dialogues))
 		return (NULL);
