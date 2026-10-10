@@ -31,7 +31,7 @@ bool	traverse_quest_object(
 	while (element)
 	{
 		key = element->string;
-		quest = (t_quest *)calloc(sizeof(t_quest), 1);
+		quest = (t_quest *)calloc(1, sizeof(t_quest));
 		quest_container->quests[quest_container->len] = extract_quest_from_key(
 				key, element, quest
 				);

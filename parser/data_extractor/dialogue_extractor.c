@@ -44,7 +44,7 @@ bool	traverse_dialogue_object(
 	while (element)
 	{
 		key = element->string;
-		dialogue = (t_dialogue *)calloc(sizeof(t_dialogue), 1);
+		dialogue = (t_dialogue *)calloc(1, sizeof(t_dialogue));
 		dialogue_container->dialogues[
 			dialogue_container->len] = extract_dialogues_from_key(
 				key, element, dialogue
@@ -77,7 +77,7 @@ t_all_dialogues	*extract_dialogues(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	dialogue_container = (t_all_dialogues *)calloc(sizeof(t_all_dialogues), 1);
+	dialogue_container = (t_all_dialogues *)calloc(1, sizeof(t_all_dialogues));
 	if (!dialogue_container)
 		return (NULL);
 	dialogue_json = cJSON_GetObjectItemCaseSensitive(root, "dialogues");

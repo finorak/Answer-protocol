@@ -77,7 +77,7 @@ t_all_npcs	*extract_npcs(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	npc_container = (t_all_npcs *)calloc(sizeof(t_all_npcs), 1);
+	npc_container = (t_all_npcs *)calloc(1, sizeof(t_all_npcs));
 	if (!npc_container)
 		return (NULL);
 	items_json = cJSON_GetObjectItemCaseSensitive(root, NPC_KEY);

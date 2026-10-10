@@ -70,7 +70,7 @@ t_all_rooms	*extract_rooms(const cJSON *root)
 	t_all_rooms	*rooms_container;
 	const cJSON	*rooms_json;
 
-	rooms_container = (t_all_rooms *)calloc(sizeof(t_all_rooms), 1);
+	rooms_container = (t_all_rooms *)calloc(1, sizeof(t_all_rooms));
 	if (!rooms_container)
 		return (NULL);
 	rooms_json = cJSON_GetObjectItemCaseSensitive(root, ROOM_KEY);

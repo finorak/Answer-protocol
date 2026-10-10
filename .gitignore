@@ -1,3 +1,6 @@
 *.o
 parser_cli
 parser.c
+
+*.py
+file.txt

@@ -77,7 +77,7 @@ typedef struct dialogue
 
 typedef struct group
 {
-	char			name[MAX_ID_LEN];
+	char			name[MAX_NAME_LEN];
 	t_list_of		players;
 }					t_group;
 

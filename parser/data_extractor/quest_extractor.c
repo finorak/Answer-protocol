@@ -74,7 +74,7 @@ t_all_quests	*extract_quests(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	quest_container = (t_all_quests *)calloc(sizeof(t_all_quests), 1);
+	quest_container = (t_all_quests *)calloc(1, sizeof(t_all_quests));
 	if (!quest_container)
 		return (NULL);
 	quest_json = cJSON_GetObjectItemCaseSensitive(root, QUEST_KEY);

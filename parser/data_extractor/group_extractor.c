@@ -38,7 +38,7 @@ bool	traverse_group_object(
 	while (element)
 	{
 		key = element->string;
-		group = (t_group *)calloc(sizeof(t_group), 1);
+		group = (t_group *)calloc(1, sizeof(t_group));
 		group_container->groups[group_container->len] = extract_group_from_key(
 				key, element, group
 				);
@@ -68,7 +68,7 @@ t_all_groups	*extract_groups(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	group_container = (t_all_groups *)calloc(sizeof(t_all_groups), 1);
+	group_container = (t_all_groups *)calloc(1, sizeof(t_all_groups));
 	if (!group_container)
 		return (NULL);
 	group_json = cJSON_GetObjectItemCaseSensitive(root, "groups");

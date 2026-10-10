@@ -63,7 +63,7 @@ t_all_items	*extract_items(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	items_container = (t_all_items *)calloc(sizeof(t_all_items), 1);
+	items_container = (t_all_items *)calloc(1, sizeof(t_all_items));
 	if (!items_container)
 		return (NULL);
 	items_json = cJSON_GetObjectItemCaseSensitive(root, ITEMS_KEY);

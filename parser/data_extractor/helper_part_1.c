@@ -79,7 +79,7 @@ bool	traverse_room_object(
 	while (element)
 	{
 		key = element->string;
-		room = (t_room *)calloc(sizeof(t_room), 1);
+		room = (t_room *)calloc(1, sizeof(t_room));
 		rooms_container->rooms[rooms_container->len] = extract_room_from_key(
 				key, element, room);
 		if (!rooms_container->rooms[rooms_container->len])
@@ -103,7 +103,7 @@ bool	traverse_item_object(
 	while (element)
 	{
 		key = element->string;
-		item = (t_item *)calloc(sizeof(t_item), 1);
+		item = (t_item *)calloc(1, sizeof(t_item));
 		item_container->items[item_container->len] = extract_item_from_key(
 				key, element, item);
 		if (!item_container->items[item_container->len])
@@ -128,7 +128,7 @@ bool	traverse_npc_object(
 	while (element)
 	{
 		key = element->string;
-		npc = (t_npc *)calloc(sizeof(t_npc), 1);
+		npc = (t_npc *)calloc(1, sizeof(t_npc));
 		npc_container->npcs[npc_container->len] = extract_npc_from_key(
 				key, element, npc
 				);

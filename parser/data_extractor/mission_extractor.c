@@ -51,7 +51,7 @@ bool	traverse_mission_object(
 	while (element)
 	{
 		key = element->string;
-		mission = (t_mission *)calloc(sizeof(t_mission), 1);
+		mission = (t_mission *)calloc(1, sizeof(t_mission));
 		mission_container->missions[
 			mission_container->len] = extract_mission_from_key(
 				key, element, mission
@@ -86,7 +86,7 @@ t_all_missions	*extract_missions(const cJSON *root)
 
 	if (!root)
 		return (NULL);
-	mission_container = (t_all_missions *)calloc(sizeof(t_all_missions), 1);
+	mission_container = (t_all_missions *)calloc(1, sizeof(t_all_missions));
 	if (!mission_container)
 		return (NULL);
 	mission_json = cJSON_GetObjectItemCaseSensitive(root, MISSION_KEY);

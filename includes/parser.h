@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:31:30 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/10 17:49:25 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ typedef struct s_buffer_store
 	char		*buffer;
 }				t_buffer_store;
 
+// MIGHT USE THIS SO THAT FREEING DATA
+// WON'T BE TO REPETITIVE
+
+// typedef enum e_data_type
+// {
+// 	TYPE_NPC,
+// 	TYPE_ROOM,
+// 	TYPE_QUEST,
+// 	TYPE_MISSION,
+// 	TYPE_ITEM,
+// 	TYPE_DIALOG,
+// 	TYPE_GROUP
+// }			t_data_type;
+
 // JSON DATA PARSER
 size_t		get_buffer_size(const char *world_config_file);
 char		*get_buffer(const char *world_config_file, size_t buffer_size);
@@ -50,6 +64,11 @@ t_group		*extract_goup_from_key(
 t_dialogue	*extract_dialogues_from_key(
 				const char *key, cJSON *dialogue_json, t_dialogue *dialogue);
 bool		init_world_data(t_data *data, const char *buffer);
+
+// Data validator
+bool		data_validator(t_data *data);
+void		free_room_ids(char **room_ids, int size);
+char		*extract_room_id(t_room *room);
 
 // cjson array helper
 bool		traverse_npc_array(const cJSON *array, t_npc *room);
