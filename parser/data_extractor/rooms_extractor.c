@@ -65,25 +65,33 @@ static t_all_rooms	*get_rooms(
 	return (rooms_container);
 }
 
-t_all_rooms	*extract_rooms(const cJSON *root)
+t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
 {
 	t_all_rooms	*rooms_container;
+	t_all_rooms	*tmp;
 	const cJSON	*rooms_json;
 
+	if (!root || !data->extract)
+		return (NULL);
 	rooms_container = (t_all_rooms *)calloc(1, sizeof(t_all_rooms));
 	if (!rooms_container)
 		return (NULL);
 	rooms_json = cJSON_GetObjectItemCaseSensitive(root, ROOM_KEY);
 	if (!rooms_json)
 	{
+		data->extract = false;
 		free(rooms_container);
 		return (NULL);
 	}
 	if (!cJSON_IsObject(rooms_json))
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
+		data->extract = false;
 		free(rooms_container);
 		return (NULL);
 	}
-	return (get_rooms(rooms_json, rooms_container));
+	tmp = get_rooms(rooms_json, rooms_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

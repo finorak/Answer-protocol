@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/data_extractor.h"
+#include "../../includes/parser.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,25 +27,28 @@ t_group	*extract_group_from_key(
 }
 
 bool	traverse_group_object(
-	const cJSON *group_json, t_all_groups *group_container)
+	const cJSON *group_json, t_all_groups *container)
 {
 	t_group	*group;
 	cJSON	*element;
 	char	*key;
 
-	if (!group_json || !group_container)
+	if (!group_json || !container)
 		return (false);
 	element = group_json->child;
 	while (element)
 	{
 		key = element->string;
 		group = (t_group *)calloc(1, sizeof(t_group));
-		group_container->groups[group_container->len] = extract_group_from_key(
+		container->groups[container->len] = extract_group_from_key(
 				key, element, group
 				);
-		if (!group_container->groups[group_container->len])
+		if (!container->groups[container->len])
+		{
+			custom_free(container, container->len, TYPE_GROUP);
 			return (false);
-		group_container->len += 1;
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);
@@ -61,10 +65,11 @@ static t_all_groups	*get_dialogue(
 	return (group_container);
 }
 
-t_all_groups	*extract_groups(const cJSON *root)
+t_all_groups	*extract_groups(const cJSON *root, t_data *data)
 {
 	t_all_groups	*group_container;
 	const cJSON		*group_json;
+	t_all_groups	*tmp;
 
 	if (!root)
 		return (NULL);
@@ -77,5 +82,8 @@ t_all_groups	*extract_groups(const cJSON *root)
 		free(group_container);
 		return (NULL);
 	}
-	return (get_dialogue(group_json, group_container));
+	tmp = get_dialogue(group_json, group_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -56,16 +57,20 @@ static t_all_items	*get_items(
 	return (items_container);
 }
 
-t_all_items	*extract_items(const cJSON *root)
+t_all_items	*extract_items(const cJSON *root, t_data *data)
 {
 	t_all_items	*items_container;
 	const cJSON	*items_json;
+	t_all_items	*tmp;
 
-	if (!root)
+	if (!root || !data->extract)
 		return (NULL);
 	items_container = (t_all_items *)calloc(1, sizeof(t_all_items));
 	if (!items_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	items_json = cJSON_GetObjectItemCaseSensitive(root, ITEMS_KEY);
 	if (!items_json)
 	{
@@ -73,5 +78,8 @@ t_all_items	*extract_items(const cJSON *root)
 		free(items_container);
 		return (NULL);
 	}
-	return (get_items(items_json, items_container));
+	tmp = get_items(items_json, items_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

@@ -67,22 +67,30 @@ static t_all_quests	*get_quests(
 	return (quest_container);
 }
 
-t_all_quests	*extract_quests(const cJSON *root)
+t_all_quests	*extract_quests(const cJSON *root, t_data *data)
 {
 	t_all_quests	*quest_container;
+	t_all_quests	*tmp;
 	const cJSON		*quest_json;
 
-	if (!root)
+	if (!root || !data->extract)
 		return (NULL);
 	quest_container = (t_all_quests *)calloc(1, sizeof(t_all_quests));
 	if (!quest_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	quest_json = cJSON_GetObjectItemCaseSensitive(root, QUEST_KEY);
 	if (!quest_json)
 	{
+		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", QUEST_KEY);
 		free(quest_container);
 		return (NULL);
 	}
-	return (get_quests(quest_json, quest_container));
+	tmp = get_quests(quest_json, quest_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

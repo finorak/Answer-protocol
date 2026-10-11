@@ -37,7 +37,7 @@ t_mission	*extract_mission_from_key(const char *key, const cJSON *npc_json,
 }
 
 bool	traverse_mission_object(
-	const cJSON *mission_json, t_all_missions *mission_container)
+	const cJSON *mission_json, t_all_missions *container)
 {
 	t_mission	*mission;
 	cJSON		*element;
@@ -45,22 +45,23 @@ bool	traverse_mission_object(
 
 	if (!mission_json)
 		return (false);
-	if (!mission_container)
+	if (!container)
 		return (false);
 	element = mission_json->child;
 	while (element)
 	{
 		key = element->string;
 		mission = (t_mission *)calloc(1, sizeof(t_mission));
-		mission_container->missions[
-			mission_container->len] = extract_mission_from_key(
+		container->missions[
+			container->len] = extract_mission_from_key(
 				key, element, mission
 				);
-		if (!mission_container->missions[mission_container->len])
-			return (
-				free_missions(mission_container,
-					mission_container->len), false);
-		mission_container->len += 1;
+		if (!container->missions[container->len])
+		{
+			custom_free(container,container->len, TYPE_MISSION);
+			return (false);
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);
@@ -79,21 +80,28 @@ static t_all_missions	*get_missions(
 	return (mission_container);
 }
 
-t_all_missions	*extract_missions(const cJSON *root)
+t_all_missions	*extract_missions(const cJSON *root, t_data *data)
 {
 	t_all_missions	*mission_container;
+	t_all_missions	*tmp;
 	const cJSON		*mission_json;
 
-	if (!root)
+	if (!root || !data->extract)
 		return (NULL);
 	mission_container = (t_all_missions *)calloc(1, sizeof(t_all_missions));
 	if (!mission_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	mission_json = cJSON_GetObjectItemCaseSensitive(root, MISSION_KEY);
 	if (!mission_json)
 	{
 		free(mission_container);
 		return (NULL);
 	}
-	return (get_missions(mission_json, mission_container));
+	tmp = get_missions(mission_json, mission_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

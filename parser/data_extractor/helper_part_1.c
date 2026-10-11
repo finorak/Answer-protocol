@@ -13,7 +13,6 @@
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -67,7 +66,7 @@ bool	traverse_npc_array(const cJSON *array, t_npc *npc)
 }
 
 bool	traverse_room_object(
-	const cJSON *world_json, t_all_rooms *rooms_container)
+	const cJSON *world_json, t_all_rooms *container)
 {
 	t_room	*room;
 	cJSON	*element;
@@ -80,18 +79,21 @@ bool	traverse_room_object(
 	{
 		key = element->string;
 		room = (t_room *)calloc(1, sizeof(t_room));
-		rooms_container->rooms[rooms_container->len] = extract_room_from_key(
+		container->rooms[container->len] = extract_room_from_key(
 				key, element, room);
-		if (!rooms_container->rooms[rooms_container->len])
-			return (free_rooms(rooms_container, rooms_container->len), false);
-		rooms_container->len += 1;
+		if (!container->rooms[container->len])
+		{
+			custom_free(container, container->len, TYPE_ROOM);
+			return (false);
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);
 }
 
 bool	traverse_item_object(
-	const cJSON *item_json, t_all_items *item_container)
+	const cJSON *item_json, t_all_items *container)
 {
 	t_item	*item;
 	cJSON	*element;
@@ -104,11 +106,14 @@ bool	traverse_item_object(
 	{
 		key = element->string;
 		item = (t_item *)calloc(1, sizeof(t_item));
-		item_container->items[item_container->len] = extract_item_from_key(
+		container->items[container->len] = extract_item_from_key(
 				key, element, item);
-		if (!item_container->items[item_container->len])
-			return (free_items(item_container, item_container->len), false);
-		item_container->len += 1;
+		if (!container->items[container->len])
+		{
+			custom_free(container, container->len, TYPE_ITEM);
+			return (false);
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);
@@ -116,7 +121,7 @@ bool	traverse_item_object(
 
 // TODO: ADDING MEMORY MANAGEMENT.
 bool	traverse_npc_object(
-	const cJSON *npc_json, t_all_npcs *npc_container)
+	const cJSON *npc_json, t_all_npcs *container)
 {
 	t_npc	*npc;
 	cJSON	*element;
@@ -129,12 +134,15 @@ bool	traverse_npc_object(
 	{
 		key = element->string;
 		npc = (t_npc *)calloc(1, sizeof(t_npc));
-		npc_container->npcs[npc_container->len] = extract_npc_from_key(
+		container->npcs[container->len] = extract_npc_from_key(
 				key, element, npc
 				);
-		if (!npc_container->npcs[npc_container->len])
-			return (free_npcs(npc_container, npc_container->len), false);
-		npc_container->len += 1;
+		if (!container->npcs[container->len])
+		{
+			custom_free(container, container->len, TYPE_NPC);
+			return (false);
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);

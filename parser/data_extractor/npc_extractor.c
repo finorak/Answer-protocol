@@ -70,22 +70,30 @@ static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 	return (npc_container);
 }
 
-t_all_npcs	*extract_npcs(const cJSON *root)
+t_all_npcs	*extract_npcs(const cJSON *root, t_data *data)
 {
-	t_all_npcs	*npc_container;
 	const cJSON	*items_json;
+	t_all_npcs	*npc_container;
+	t_all_npcs	*tmp;
 
-	if (!root)
+	if (!root || !data->extract)
 		return (NULL);
 	npc_container = (t_all_npcs *)calloc(1, sizeof(t_all_npcs));
 	if (!npc_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	items_json = cJSON_GetObjectItemCaseSensitive(root, NPC_KEY);
 	if (!items_json)
 	{
+		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", NPC_KEY);
 		free(npc_container);
 		return (NULL);
 	}
-	return (get_npcs(items_json, npc_container));
+	tmp = get_npcs(items_json, npc_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

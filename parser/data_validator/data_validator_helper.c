@@ -10,41 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
 
-// Freeing room ids
-void	free_room_ids(char **room_ids, int size)
+/*
+* Extracting ids so that we can just verify
+* the interconection of the rooms
+*/
+char	*extract_room_id(char *room_id)
+{
+	char	*string;
+	int		size;
+
+	// printf("((%s))\n", room_id);
+	if (!room_id)
+		return (NULL);
+	size = strlen(room_id);
+	// printf("%d | %s | -> ", size, room_id);
+	string = (char *)calloc(size + 1, sizeof(char));
+	if (!string)
+		return (NULL);
+	strncpy(string, room_id, size);
+	return (string);
+}
+
+bool	key_is_reconnecting(char *curr_id, t_list_of exits)
 {
 	int	index;
 
-	if (!room_ids)
-		return ;
 	index = 0;
-	while (index < size)
+	while (index < exits.len)
 	{
-		free(room_ids[index]);
-		index ++;
+		if (strcmp(curr_id, exits.ids[index]) == 0)
+		{
+			return (false);
+		}
+		index++;
 	}
-	free(room_ids);
-}
-
-/*
-*
-*/
-char	*extract_room_id(t_room *room)
-{
-	char	*room_id;
-	int		size;
-
-	if (!room)
-		return (NULL);
-	size = strlen(room->id);
-	room_id = (char *)calloc(size + 1, sizeof(char));
-	if (!room_id)
-		return (NULL);
-	strncpy(room_id, room->id, size);
-	return (room_id);
+	return (true);
 }
