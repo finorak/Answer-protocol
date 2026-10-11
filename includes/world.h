@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:09:51 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/02 15:56:18 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/11 16:40:51 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define BUFFER_SIZE 1024
 
 #define MAX_LIST_LEN 32
-#define MAX_ID_LEN 16
+#define MAX_ID_LEN 32
 #define MAX_NAME_LEN 32
 #define MAX_DESCRIPTION_LEN 128
 #define MAX_DIALOGUE_CONTENT_LEN 256
@@ -29,7 +29,7 @@ typedef struct s_list_of {
 } t_list_of;
 
 typedef struct s_item {
-  char id[BUFFER_SIZE];
+  char id[MAX_ID_LEN];
   char name[MAX_NAME_LEN];
   char description[MAX_DESCRIPTION_LEN];
   int obtainable;
@@ -48,7 +48,7 @@ typedef struct npc {
 } t_npc;
 
 typedef struct quest {
-  char id[BUFFER_SIZE];
+  char id[MAX_ID_LEN];
   char name[MAX_NAME_LEN];
   char description[MAX_DESCRIPTION_LEN];
   t_list_of missions;

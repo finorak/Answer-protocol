@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/10 17:49:25 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/11 16:23:09 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,5 @@ bool traverse_mission_object(const cJSON *mission_json,
 // redundant.
 void free_data(t_data *data, char *buffer);
 void custom_free(void *data, int size, t_data_type data_type);
-
-// FREE TEST UNCTION
 
 #endif

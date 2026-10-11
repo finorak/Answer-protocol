@@ -6,15 +6,35 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/10 18:34:53 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/11 16:25:54 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
+
+static char **key_verifier(char **keys, int size, char *to_cmp)
+{
+	int	index;
+
+	if (!keys)
+		return (NULL);
+	index = 0;
+	while (index < size)
+	{
+		if (strcmp(keys[index], to_cmp) == 0)
+		{
+			custom_free(keys, size, TYPE_STRING_TABLE);
+			return (NULL);
+		}
+		index ++;
+	}
+	return (keys);
+}
 
 static char	**get_room_ids(t_data *data)
 {
@@ -44,7 +64,7 @@ static char	**get_room_ids(t_data *data)
 		index ++;
 	}
 	room_ids[index] = NULL;
-	return (room_ids);
+	return (key_verifier(room_ids, index, "none"));
 }
 
 // verify if at least 8 room do intersect
@@ -66,7 +86,7 @@ bool	data_validator(t_data *data)
 	{
 		// verify if the key is inside exits
 		current_room = data->rooms->rooms[index];
-		printf("(%s)\n", current_room->id);
+		printf("%s\n", room_ids[index]);
 		key_is_reconnecting(current_room->id, current_room->exits);
 		index++;
 	}
