@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/12 06:29:35 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/12 07:33:50 by irraheri         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../main_utils.h"
 
 void	add_player(int client_fd, t_world *world);
 void	remove_player(int client_fd, t_world *world);

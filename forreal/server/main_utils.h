@@ -1,10 +1,13 @@
+#pragma once
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <pthread.h>
-
-// include socket, etc...
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 
 #include "init_world.h"
 #include "validation/validation.h"

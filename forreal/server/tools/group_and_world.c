@@ -19,7 +19,7 @@ t_group	*get_group_by_player_name(char *player_name, t_world *world)
 	char	player_id[12];
 
 	i = -1;
-    sprintf(player_id, "%d", get_id_by_name(player_name, world));
+	sprintf(player_id, "%d", get_id_by_name(player_name, world));
 	while (++i < world->groups.len)
 	{
 		if (in(player_id, world->groups.groups[i].players) == 1)
@@ -30,11 +30,11 @@ t_group	*get_group_by_player_name(char *player_name, t_world *world)
 
 t_group	*get_group_by_player_fd(int id, t_world *world)
 {
-    int		i;
+	int		i;
 	char	player_id[12];
 
 	i = -1;
-    sprintf(player_id, "%d", id);
+	sprintf(player_id, "%d", id);
 	while (++i < world->groups.len)
 	{
 		if (in(player_id, world->groups.groups[i].players) == 1)

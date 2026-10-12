@@ -1,72 +1,71 @@
 #include "../main_utils.h"
 
-t_item *get_item_by_id(int id, t_world *world)
+t_item	*get_item_by_id(int id, t_world *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < world->items.len)
+	i = 0;
+	while (i < world->items.len)
 	{
 		if (world->items.items[i].id == id)
 			return (&(world->items.items[i]));
-        i ++;
+		i++;
 	}
-    return (NULL);
+	return (NULL);
 }
 
-t_npc *get_npc_by_id(int id, t_world *world)
+t_npc	*get_npc_by_id(int id, t_world *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < world->npcs.len)
+	i = 0;
+	while (i < world->npcs.len)
 	{
 		if (world->npcs.npcs[i].id == id)
 			return (&(world->npcs.npcs[i]));
-        i ++;
+		i++;
 	}
-    return (NULL);
+	return (NULL);
 }
 
-t_quest *get_quest_by_id(int id, t_world *world)
+t_quest	*get_quest_by_id(int id, t_world *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < world->quests.len)
+	i = 0;
+	while (i < world->quests.len)
 	{
 		if (world->quests.quests[i].id == id)
 			return (&(world->quests.quests[i]));
-        i ++;
+		i++;
 	}
-    return (NULL);
+	return (NULL);
 }
 
-t_mission *get_mission_by_id(int id, t_world *world)
+t_mission	*get_mission_by_id(int id, t_world *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < world->missions.len)
+	i = 0;
+	while (i < world->missions.len)
 	{
 		if (world->missions.missions[i].id == id)
 			return (&(world->missions.missions[i]));
-        i ++;
+		i++;
 	}
-    return (NULL);
+	return (NULL);
 }
 
-t_dialogue *get_dialogue_by_id(int id, t_world *world)
+t_dialogue	*get_dialogue_by_id(int id, t_world *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < world->dialogues.len)
+	i = 0;
+	while (i < world->dialogues.len)
 	{
 		if (world->dialogues.dialogues[i].id == id)
 			return (&(world->dialogues.dialogues[i]));
-        i ++;
+		i++;
 	}
-    return (NULL);
+	return (NULL);
 }
-

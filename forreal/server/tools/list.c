@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 06:28:34 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/12 06:35:21 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/12 07:44:58 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,17 @@ void	append_in(char *element, t_list_of *list)
 		strcpy(list->ids[list->len], element);
 		list->len++;
 	}
+}
+
+void	merge(t_list_of *by, t_list_of *from)
+{
+	int i;
+
+	i = 0;
+	while (i < by->len)
+	{
+		append_in(by->ids[i], from);
+		i ++;
+	}
+	by->len = 0;
 }
