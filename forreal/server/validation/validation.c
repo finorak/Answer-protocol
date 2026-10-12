@@ -12,7 +12,7 @@ t_command	validation_1(char *buf)
 		restore_from_first_term(buf);
 		not_first_term(buf);
 		if (!strcmp(result.type, "ERROR"))
-            return ;
+            return (result);
         strcpy(result.message, buf);
 	}
 	return (result);

@@ -1,5 +1,3 @@
-#include "../main_utils.h"
-
 int	first_term(char *str);
 void	one_word_parsing(char *buf, t_command *result);
 void	first_word_parsing(char *buf, t_command *result);

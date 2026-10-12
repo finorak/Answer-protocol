@@ -1,13 +1,13 @@
 #include "../main_utils.h"
 
-t_room	*get_room_by_id(int room_id, t_world *world)
+t_room	*get_room_by_id(char *room_id, t_world *world)
 {
 	int	i;
 
 	i = -1;
 	while (++i < world->rooms.len)
 	{
-		if (world->rooms.rooms[i].id == room_id)
+		if (!strcmp(world->rooms.rooms[i].id, room_id))
 			return (&(world->rooms.rooms[i]));
 	}
 	return (NULL);

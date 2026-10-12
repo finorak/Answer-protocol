@@ -6,6 +6,7 @@
 # LIST:
 
 - append_in
+- merge
 - in
 - remove_from
 
