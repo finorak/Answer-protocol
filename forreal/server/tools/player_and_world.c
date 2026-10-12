@@ -5,7 +5,7 @@ t_player	*get_player_by_fd(int client_fd, t_world *world)
 	int	i;
 
 	i = 0;
-	while (i < world->players.len)
+	while (i < MAX_PLAYER)
 	{
 		if (world->players.players[i].fd == client_fd)
 			return (&(world->players.players[i]));
@@ -19,7 +19,7 @@ t_player	*get_player_by_name(char *name, t_world *world)
 	int	i;
 
 	i = 0;
-	while (i < world->players.len)
+	while (i < MAX_PLAYER)
 	{
 		if (!strcmp(world->players.players[i].name, name))
 			return (&(world->players.players[i]));
@@ -33,7 +33,7 @@ int	get_id_by_name(char *name, t_world *world)
 	int	i;
 
 	i = 0;
-	while (i < world->players.len)
+	while (i < MAX_PLAYER)
 	{
 		if (!strcmp(world->players.players[i].name, name))
 			return (world->players.players[i].fd);
