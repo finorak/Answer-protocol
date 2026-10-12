@@ -6,7 +6,7 @@
 /*   By: finorako  </var/spool/mail/finorako>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/10 17:30:47 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/10 18:35:50 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/12 11:44:34 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../includes/parser.h"
-#include "../../includes/world.h"
 
 /*
 * Extracting ids so that we can just verify
@@ -33,20 +32,4 @@ char	*extract_room_id(char *room_id)
 		return (NULL);
 	strncpy(string, room_id, size);
 	return (string);
-}
-
-bool	key_is_reconnecting(char *curr_id, t_list_of exits)
-{
-	int	index;
-
-	index = 0;
-	while (index < exits.len)
-	{
-		if (strcmp(curr_id, exits.ids[index]) == 0)
-		{
-			return (false);
-		}
-		index++;
-	}
-	return (true);
 }

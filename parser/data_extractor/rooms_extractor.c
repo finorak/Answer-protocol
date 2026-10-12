@@ -19,7 +19,6 @@
 static t_room	*get_room(cJSON *content, const cJSON *room_json, t_room *room)
 {
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "items");
-	room->exits.len = 0;
 	if (!content || !traverse_room_array(content, room, "items"))
 		return (free(room), NULL);
 	return (room);
@@ -85,6 +84,7 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
 		return (NULL);
 	}
 	tmp = get_rooms(rooms_json, rooms_container);
+	printf("%d\n", tmp->rooms[0]->exits.len);
 	if (!tmp)
 		data->extract = false;
 	return (tmp);

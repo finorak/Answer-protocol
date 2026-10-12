@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/12 10:42:47 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/12 13:39:41 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef enum e_data_type
 	TYPE_STRING_TABLE
 }			t_data_type;
 
+typedef struct s_stack
+{
+	struct s_stack	*next;
+	bool			visited;
+	void			*data;
+}				t_stack;
+
 // JSON DATA PARSER
 size_t		get_buffer_size(const char *world_config_file);
 char		*get_buffer(const char *world_config_file, size_t buffer_size);
@@ -71,7 +78,18 @@ bool		init_world_data(t_data *data, const char *buffer);
 // DATA VALIDATOR
 bool		data_validator(t_data *data);
 char		*extract_room_id(char *room_id);
-bool		key_is_reconnecting(char *curr_id, t_list_of exits);
+
+// BFS UTILITIES
+t_stack		*bfs_stack_append(t_stack **current_stack, t_stack *new_el);
+t_stack		*bfs_pop_first(t_stack **stack);
+t_stack		*bfs_stack_last(t_stack *stack);
+t_stack		*bfs_new_stack(void *data);
+void		stack_free(t_stack *stack);
+
+// INTERCONECTION
+t_room		*get_room_from_id(t_all_rooms *container, char *id);
+bool		room_interconnect(t_stack **stack,
+				t_all_rooms *container, char **room_ids);
 
 // CJSON ARRAY HELPER
 bool		traverse_npc_array(const cJSON *array, t_npc *room);

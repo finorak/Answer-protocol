@@ -6,16 +6,43 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/11 16:25:54 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/12 13:52:01 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
+
+static int	get_size(char **data)
+{
+	int	counter;
+
+	if (!data)
+		return (0);
+	counter = 0;
+	while (data[counter])
+		counter ++;
+	return (counter);
+}
+
+t_room	*get_room_from_id(t_all_rooms *container, char *id)
+{
+	int	index;
+
+	if (!container)
+		return (NULL);
+	index = 0;
+	while (index < container->len)
+	{
+		if (strcmp(container->rooms[index]->id, id) == 0)
+			return (container->rooms[index]);
+		index += 1;
+	}
+	return (NULL);
+}
 
 static char	**key_verifier(char **keys, int size, char *to_cmp)
 {
@@ -67,26 +94,30 @@ static char	**get_room_ids(t_data *data)
 
 // verify if at least 8 room do intersect
 // get current exits
-// verify each exit is a room key or is none
+// IMPLEMENTATION:
+//			- get current rooom
+//			- iterating other it's exits using bfs
+//			- 
 bool	data_validator(t_data *data)
 {
-	t_room	*current_room;
+	t_stack	*stack;
 	char	**room_ids;
-	int		index;
+	bool	valid;
 
 	if (!data || !data->extract)
 		return (false);
 	room_ids = get_room_ids(data);
 	if (!room_ids)
 		return (false);
-	index = 0;
-	while (index < data->rooms->len)
+	valid = true;
+	stack = bfs_new_stack(get_room_from_id(data->rooms, *room_ids));
+	if (!stack)
 	{
-		current_room = data->rooms->rooms[index];
-		printf("%s\n", room_ids[index]);
-		key_is_reconnecting(current_room->id, current_room->exits);
-		index++;
+		custom_free(room_ids, get_size(room_ids), TYPE_STRING_TABLE);
+		return (false);
 	}
-	custom_free(room_ids, index, TYPE_STRING_TABLE);
-	return (true);
+	if (!room_interconnect(&stack, data->rooms, room_ids))
+		valid = false;
+	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
+	return (valid);
 }

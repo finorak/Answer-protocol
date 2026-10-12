@@ -12,7 +12,7 @@ SERVER_SRC = parser/parser.c parser/parser_utils.c \
 	  parser/data_extractor/mission_extractor.c parser/data_extractor/dialogue_extractor.c \
 	  parser/data_extractor/group_extractor.c parser/data_validator/data_validator.c \
 	  parser/data_validator/data_validator_helper.c parser/memory_manager/memory_manager.c \
-	  parser/cJSON.c
+	  parser/cJSON.c parser/data_validator/bfs_stack.c parser/data_validator/interconnect.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c

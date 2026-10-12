@@ -20,6 +20,7 @@ bool	traverse_room_array(
 	const cJSON *array, t_room *room, const char *element_to_extract)
 {
 	cJSON	*element;
+	char	*value;
 	int		index;
 
 	if (!array)
@@ -30,16 +31,16 @@ bool	traverse_room_array(
 	{
 		if (!cJSON_IsString(element) || !element->valuestring)
 			return (NULL);
+		value = element->valuestring;
 		if (strcmp(element_to_extract, "exits") == 0)
-			strncpy(room->exits.ids[index], element->valuestring, MAX_ID_LEN);
+			strncpy(room->exits.ids[index], value, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "npcs") == 0)
-			strncpy(room->npcs.ids[index], element->valuestring, MAX_ID_LEN);
+			strncpy(room->npcs.ids[index], value, MAX_ID_LEN);
 		else if (strcmp(element_to_extract, "items") == 0)
-			strncpy(room->items.ids[index], element->valuestring, MAX_ID_LEN);
+			strncpy(room->items.ids[index], value, MAX_ID_LEN);
 		element = element->next;
 		index++;
 	}
-	room->exits.len = index;
 	return (true);
 }
 
@@ -86,6 +87,7 @@ bool	traverse_room_object(
 			custom_free(container, container->len, TYPE_ROOM);
 			return (false);
 		}
+		container->rooms[container->len]->exits.len = 4;
 		container->len += 1;
 		element = element->next;
 	}
