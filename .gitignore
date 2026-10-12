@@ -4,3 +4,5 @@ parser.c
 
 *.py
 file.txt
+
+compile_commands.json

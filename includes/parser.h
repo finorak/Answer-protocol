@@ -13,10 +13,6 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#ifndef SIZE
-#define SIZE 1024
-#endif
-
 #include "../includes/cJSON.h"
 #include "../includes/world.h"
 #include <stdbool.h>
@@ -87,8 +83,8 @@ bool traverse_mission_object(const cJSON *mission_json,
 
 // MEMORY MANAGMENT
 // TODO: update the bellow function to use
-// the enum e_data_type so that it is less
-// redundant.
+// THE ENUM E_DATA_TYPE SO THAT IT IS LESS
+// REDUNDANT.
 void free_data(t_data *data, char *buffer);
 void custom_free(void *data, int size, t_data_type data_type);
 

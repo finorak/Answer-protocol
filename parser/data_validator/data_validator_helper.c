@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,11 +26,10 @@ char	*extract_room_id(char *room_id)
 	char	*string;
 	int		size;
 
-	// printf("((%s))\n", room_id);
 	if (!room_id)
 		return (NULL);
 	size = strlen(room_id);
-	// printf("%d | %s | -> ", size, room_id);
+	printf("%d | %s\n", size, room_id);
 	string = (char *)calloc(size + 1, sizeof(char));
 	if (!string)
 		return (NULL);
@@ -45,9 +45,7 @@ bool	key_is_reconnecting(char *curr_id, t_list_of exits)
 	while (index < exits.len)
 	{
 		if (strcmp(curr_id, exits.ids[index]) == 0)
-		{
 			return (false);
-		}
 		index++;
 	}
 	return (true);

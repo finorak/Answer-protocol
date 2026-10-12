@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -69,7 +68,10 @@ static char	**get_room_ids(t_data *data)
 
 // verify if at least 8 room do intersect
 // get current exits
-// verify each exit is a room key or is none
+//
+// THE WAY I THINK OF DOING IT:
+//		- verify each exit is a room key or is none
+//		- 
 bool	data_validator(t_data *data)
 {
 	t_room	*current_room;
@@ -84,9 +86,7 @@ bool	data_validator(t_data *data)
 	index = 0;
 	while (index < data->rooms->len)
 	{
-		// verify if the key is inside exits
 		current_room = data->rooms->rooms[index];
-		printf("%s\n", room_ids[index]);
 		key_is_reconnecting(current_room->id, current_room->exits);
 		index++;
 	}
