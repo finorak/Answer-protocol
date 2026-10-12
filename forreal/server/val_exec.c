@@ -9,6 +9,8 @@ t_signal val_exec(int client_fd, char *buf, t_world *world)
 	if (test.is_valid == 0)
 	{
 		strcpy(sign.message, test.message);
+		sign.players_0.len = 0;
+		sign.players_1.len = 0;
 		return (sign);
 	}
 	else
@@ -17,6 +19,8 @@ t_signal val_exec(int client_fd, char *buf, t_world *world)
 		if (test.is_valid == 0)
 		{
 			strcpy(sign.message, test.message);
+			sign.players_0.len = 0;
+			sign.players_1.len = 0;
 			return (sign);
 		}
 		else

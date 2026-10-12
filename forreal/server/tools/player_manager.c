@@ -33,12 +33,12 @@ void	remove_player(int client_fd, t_world *world)
 	room = get_room_by_player_fd(client_fd, world);
 	remove_from(player->name, &(room->players));
 	log_date();
-	printf("REMOVED (%s) FROM room (%s)\n", player->name, room->name);
+	printf("REMOVED '%s' FROM room (%s)\n", player->name, room->name);
 	merge(&(player->items), &(room->items));
 	player->fd = -1;
 	player->status = 0;
 	log_date();
-	printf("REMOVED (%s) FROM list of player\n", player->name);
+	printf("REMOVED '%s' FROM list of player\n", player->name);
 	strcpy(player->name, "UNAUTHENTICATED");
 	player->quests.len = 0;
 	player->hp = 100;

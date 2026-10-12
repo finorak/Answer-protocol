@@ -19,7 +19,7 @@ int	first_term(char *str)
 void	one_word_parsing(char *buf, t_command *result)
 {
 	result->is_valid = 1;
-	strcpy(result->message, "one column message\n");
+	strcpy(result->message, "one column message");
 	if (!strcmp(buf, "LOOK") || !strcmp(buf, "QUIT") || !strcmp(buf, "WHO")
 		|| !strcmp(buf, "INVENTORY") || !strcmp(buf, "STATUS") || !strcmp(buf,
 			"QUESTS"))
