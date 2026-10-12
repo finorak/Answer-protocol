@@ -77,13 +77,7 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
 	if (!rooms_container)
 		return (NULL);
 	rooms_json = cJSON_GetObjectItemCaseSensitive(root, ROOM_KEY);
-	if (!rooms_json)
-	{
-		data->extract = false;
-		free(rooms_container);
-		return (NULL);
-	}
-	if (!cJSON_IsObject(rooms_json))
+	if (!rooms_json || !cJSON_IsObject(rooms_json))
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
 		data->extract = false;

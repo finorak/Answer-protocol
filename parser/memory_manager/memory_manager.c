@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */ /*   memory_manager.c                                   :+:      :+:    :+:   */
+/*                                                        :::      ::::::::   */
+/*   memory_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 14:25:05 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 14:54:39 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/12 10:59:40 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../../includes/parser.h"
+
+static void	release_data(void *data, t_data_type data_type, int index)
+{
+	if (data_type == TYPE_STRING_TABLE)
+		free(((char **)data)[index]);
+	else if (data_type == TYPE_GROUP)
+		free(((t_all_groups *)data)->groups[index]);
+	else if (data_type == TYPE_DIALOG)
+		free(((t_all_dialogues *)data)->dialogues[index]);
+	else if (data_type == TYPE_ITEM)
+		free(((t_all_items *)data)->items[index]);
+	else if (data_type == TYPE_MISSION)
+		free(((t_all_missions *)data)->missions[index]);
+	else if (data_type == TYPE_NPC)
+		free(((t_all_npcs *)data)->npcs[index]);
+	else if (data_type == TYPE_QUEST)
+		free(((t_all_quests *)data)->quests[index]);
+	else if (data_type == TYPE_ROOM)
+		free(((t_all_rooms *)data)->rooms[index]);
+}
 
 void	custom_free(void *data, int size, t_data_type data_type)
 {
@@ -21,22 +42,7 @@ void	custom_free(void *data, int size, t_data_type data_type)
 	index = 0;
 	while (index < size)
 	{
-		if (data_type == TYPE_STRING_TABLE)
-			free(((char **)data)[index]);
-		else if (data_type == TYPE_GROUP)
-			free(((t_all_groups *)data)->groups[index]);
-		else if (data_type == TYPE_DIALOG)
-			free(((t_all_dialogues *)data)->dialogues[index]);
-		else if (data_type == TYPE_ITEM)
-			free(((t_all_items *)data)->items[index]);
-		else if (data_type == TYPE_MISSION)
-			free(((t_all_missions *)data)->missions[index]);
-		else if (data_type == TYPE_NPC)
-			free(((t_all_npcs *)data)->npcs[index]);
-		else if (data_type == TYPE_QUEST)
-			free(((t_all_quests *)data)->quests[index]);
-		else if (data_type == TYPE_ROOM)
-			free(((t_all_rooms *)data)->rooms[index]);
+		release_data(data, data_type, index);
 		index ++;
 	}
 	free(data);

@@ -17,7 +17,7 @@
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
 
-static char **key_verifier(char **keys, int size, char *to_cmp)
+static char	**key_verifier(char **keys, int size, char *to_cmp)
 {
 	int	index;
 
@@ -38,23 +38,21 @@ static char **key_verifier(char **keys, int size, char *to_cmp)
 
 static char	**get_room_ids(t_data *data)
 {
-	t_all_rooms	*room_container;
 	t_room		*current_room;
 	char		**room_ids;
 	int			index;
 
 	if (!data)
 		return (NULL);
-	room_container = data->rooms;
-	if (!room_container || !*room_container->rooms)
+	if (!data->rooms)
 		return (NULL);
-	room_ids = (char **)calloc(room_container->len + 1, sizeof(char *));
+	room_ids = (char **)calloc(data->rooms->len + 1, sizeof(char *));
 	if (!room_ids)
 		return (NULL);
 	index = 0;
-	while (index < room_container->len)
+	while (index < data->rooms->len)
 	{
-		current_room = room_container->rooms[index];
+		current_room = data->rooms->rooms[index];
 		room_ids[index] = extract_room_id(current_room->id);
 		if (!room_ids[index])
 		{
@@ -84,7 +82,6 @@ bool	data_validator(t_data *data)
 	index = 0;
 	while (index < data->rooms->len)
 	{
-		// verify if the key is inside exits
 		current_room = data->rooms->rooms[index];
 		printf("%s\n", room_ids[index]);
 		key_is_reconnecting(current_room->id, current_room->exits);

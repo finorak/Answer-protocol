@@ -25,11 +25,9 @@ char	*extract_room_id(char *room_id)
 	char	*string;
 	int		size;
 
-	// printf("((%s))\n", room_id);
 	if (!room_id)
 		return (NULL);
 	size = strlen(room_id);
-	// printf("%d | %s | -> ", size, room_id);
 	string = (char *)calloc(size + 1, sizeof(char));
 	if (!string)
 		return (NULL);
