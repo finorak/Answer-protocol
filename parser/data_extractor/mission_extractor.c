@@ -52,13 +52,12 @@ bool	traverse_mission_object(
 	{
 		key = element->string;
 		mission = (t_mission *)calloc(1, sizeof(t_mission));
-		container->missions[
-			container->len] = extract_mission_from_key(
-				key, element, mission
-				);
+		container->missions[container->len] = extract_mission_from_key(
+				key, element, mission);
 		if (!container->missions[container->len])
 		{
-			custom_free(container,container->len, TYPE_MISSION);
+			custom_free(container,
+				container->len, TYPE_MISSION);
 			return (false);
 		}
 		container->len += 1;

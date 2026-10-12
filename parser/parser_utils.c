@@ -79,5 +79,7 @@ bool	init_world_data(t_data *data, const char *buffer)
 	data->dialogues = extract_dialogues(root, data);
 	data->groups = extract_groups(root, data);
 	cJSON_Delete(root);
+	if (!data->extract)
+		return (false);
 	return (data_validator(data));
 }
