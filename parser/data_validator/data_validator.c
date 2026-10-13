@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/12 13:52:01 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 08:42:30 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,6 @@
 #include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
-
-static int	get_size(char **data)
-{
-	int	counter;
-
-	if (!data)
-		return (0);
-	counter = 0;
-	while (data[counter])
-		counter ++;
-	return (counter);
-}
 
 t_room	*get_room_from_id(t_all_rooms *container, char *id)
 {
@@ -93,7 +81,6 @@ static char	**get_room_ids(t_data *data)
 }
 
 // verify if at least 8 room do intersect
-// get current exits
 // IMPLEMENTATION:
 //			- get current rooom
 //			- iterating other it's exits using bfs
@@ -111,11 +98,6 @@ bool	data_validator(t_data *data)
 		return (false);
 	valid = true;
 	stack = bfs_new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (!stack)
-	{
-		custom_free(room_ids, get_size(room_ids), TYPE_STRING_TABLE);
-		return (false);
-	}
 	if (!room_interconnect(&stack, data->rooms, room_ids))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);

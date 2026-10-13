@@ -23,9 +23,9 @@ HEADER_TO_LINT := $(filter-out $(HEADER_EXCEPT_FILES), $(HEADERS))
 
 SERVER_OBJS = $(SERVER_SRC:.c=.o)
 
-CC = cc
+CC := cc
 
-FLAGS = -Wall -Wextra -Werror -g # -fsanitize=address
+FLAGS := -Wall -Wextra -Werror -g # -fsanitize=address
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

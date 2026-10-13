@@ -25,17 +25,17 @@ size_t	get_buffer_size(const char *world_config_file)
 	size_t	buffer_size;
 	FILE	*fd;
 	char	*curr_line;
-	char	buffer[SIZE];
+	char	buffer[1024];
 
 	fd = fopen(world_config_file, "rb");
 	if (!fd)
 		return (-1);
 	buffer_size = 0;
-	curr_line = fgets(buffer, SIZE, fd);
+	curr_line = fgets(buffer, 1024, fd);
 	while (curr_line)
 	{
 		buffer_size += strlen(curr_line);
-		curr_line = fgets(buffer, SIZE, fd);
+		curr_line = fgets(buffer, 1024, fd);
 	}
 	fclose(fd);
 	return (buffer_size);

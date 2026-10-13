@@ -6,12 +6,11 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:36:58 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 08:42:59 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <string.h>
 #include "../../includes/parser.h"
 

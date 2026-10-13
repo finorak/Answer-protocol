@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,6 +28,7 @@ char	*extract_room_id(char *room_id)
 	if (!room_id)
 		return (NULL);
 	size = strlen(room_id);
+	printf("%d | %s\n", size, room_id);
 	string = (char *)calloc(size + 1, sizeof(char));
 	if (!string)
 		return (NULL);
