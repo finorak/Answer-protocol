@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/12 14:16:17 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 08:21:31 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "../../includes/parser.h"
 
 // Given a stack, we get the last element of that stack.
-t_stack	*bfs_stack_last(t_stack *stack)
+t_stack	*get_last_stack(t_stack *stack)
 {
 	if (!stack)
-		return (stack);
+		return (NULL);
 	while (stack->next)
 		stack = stack->next;
 	return (stack);
@@ -66,7 +66,7 @@ t_stack	*bfs_stack_append(t_stack **current_stack, t_stack *new_el)
 		*current_stack = new_el;
 		return (*current_stack);
 	}
-	last = bfs_stack_last(*current_stack);
+	last = get_last_stack(*current_stack);
 	last->next = new_el;
 	return (*current_stack);
 }

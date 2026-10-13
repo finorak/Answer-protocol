@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/12 14:16:01 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 08:36:58 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,26 @@ static void	append_exits_to_last(t_stack **stack,
 {
 	t_stack	*curr_stack;
 	t_stack	*last;
+	t_room	*room;
 	int		index;
 
 	if (!stack || !curr_room || !container)
 		return ;
 	index = 0;
-	printf("here %d\n", curr_room->exits.len);
-	return ;
 	while (index < curr_room->exits.len)
 	{
-		if (!strcmp(curr_room->exits.ids[index], "none"))
+		room = get_room_from_id(container, curr_room->exits.ids[index]);
+		if (!room)
 		{
 			index ++;
 			continue ;
 		}
-		if (index >= curr_room->exits.len)
-		{
-			printf("overflow\n");
-			break ;
-		}
-		curr_stack = bfs_new_stack(
-				get_room_from_id(container, curr_room->exits.ids[index]));
-		last = bfs_stack_last(*stack);
-		last->next = curr_stack;
+		curr_stack = bfs_new_stack(room);
+		last = get_last_stack(*stack);
+		if (last)
+			last->next = curr_stack;
+		else
+			*stack = curr_stack;
 		index ++;
 	}
 }
@@ -76,13 +73,7 @@ static bool	room_visited(t_stack	*current, t_stack *seen)
 	curr_key = (char *)((t_room *)current->data)->id;
 	while (seen)
 	{
-		if (!seen->data)
-		{
-			seen = seen->next;
-			continue ;
-		}
 		exits_key = (char *)((t_room *)seen->data)->id;
-		printf("(%s, %s)\n", curr_key, exits_key);
 		if (strcmp(curr_key, exits_key) == 0)
 			return (true);
 		seen = seen->next;
