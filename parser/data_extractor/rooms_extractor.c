@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/11 16:41:23 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/13 08:57:55 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
 		return (NULL);
 	}
 	tmp = get_rooms(rooms_json, rooms_container);
-	printf("%d\n", tmp->rooms[0]->exits.len);
 	if (!tmp)
 		data->extract = false;
 	return (tmp);

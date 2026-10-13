@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:42:59 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:03:52 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,10 @@ static bool	room_visited(t_stack	*current, t_stack *seen)
 }
 
 bool	room_interconnect(t_stack **stack,
-			t_all_rooms *container, char **room_ids)
+			t_all_rooms *container, char **room_ids, int *counter)
 {
 	t_stack	*seen;
 	t_stack	*curr;
-	bool	valid;
 
 	if (!room_ids)
 		return (false);
@@ -94,16 +93,18 @@ bool	room_interconnect(t_stack **stack,
 	seen = bfs_new_stack(NULL);
 	if (!seen)
 		return (stack_free(*stack), false);
-	valid = true;
 	while (*stack)
 	{
-		curr = bfs_pop_first(stack);
+		curr = pop_first(stack);
 		if (room_visited(curr, seen))
+		{
+			*counter += 1;
 			continue ;
-		bfs_stack_append(&seen, curr);
+		}
+		stack_append(&seen, curr);
 		append_exits_to_last(stack, (t_room *)curr->data, container);
 	}
 	stack_free(seen);
 	stack_free(*stack);
-	return (valid);
+	return (*counter >= INTERCONNECTION_BASE_COUNT);
 }

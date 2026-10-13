@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:21:31 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:03:07 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_stack	*bfs_new_stack(void *data)
 }
 
 // Given a stack, we perform a pop left opration on it.
-t_stack	*bfs_pop_first(t_stack **stack)
+t_stack	*pop_first(t_stack **stack)
 {
 	t_stack	*head;
 
@@ -49,7 +49,7 @@ t_stack	*bfs_pop_first(t_stack **stack)
 }
 
 // Given a stack, we append the new element to the stack.
-t_stack	*bfs_stack_append(t_stack **current_stack, t_stack *new_el)
+t_stack	*stack_append(t_stack **current_stack, t_stack *new_el)
 {
 	t_stack	*last;
 

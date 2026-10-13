@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:42:09 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:03:08 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 # include "../includes/world.h"
 # include <stdbool.h>
 # include <stddef.h>
-# ifndef SIZE
-#  define SIZE 1024
-# endif
+# define SIZE 1024
+# define INTERCONNECTION_BASE_COUNT 8
 
 # include "../includes/cJSON.h"
 # include "../includes/world.h"
@@ -85,16 +84,11 @@ bool				data_validator(t_data *data);
 char				*extract_room_id(char *room_id);
 
 // BFS UTILITIES
-t_stack				*bfs_stack_append(t_stack **current_stack, t_stack *new_el);
-t_stack				*bfs_pop_first(t_stack **stack);
+t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
+t_stack				*pop_first(t_stack **stack);
 t_stack				*get_last_stack(t_stack *stack);
 t_stack				*bfs_new_stack(void *data);
 void				stack_free(t_stack *stack);
-
-// INTERCONECTION
-t_room				*get_room_from_id(t_all_rooms *container, char *id);
-bool				room_interconnect(t_stack **stack, t_all_rooms *container,
-						char **room_ids);
 
 // CJSON ARRAY HELPER
 bool				traverse_npc_array(const cJSON *array, t_npc *room);
@@ -147,8 +141,8 @@ bool				data_validator(t_data *data);
 char				*extract_room_id(char *room_id);
 
 // BFS UTILITIES
-t_stack				*bfs_stack_append(t_stack **current_stack, t_stack *new_el);
-t_stack				*bfs_pop_first(t_stack **stack);
+t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
+t_stack				*pop_first(t_stack **stack);
 t_stack				*bfs_stack_last(t_stack *stack);
 t_stack				*bfs_new_stack(void *data);
 void				stack_free(t_stack *stack);
@@ -156,7 +150,7 @@ void				stack_free(t_stack *stack);
 // INTERCONECTION
 t_room				*get_room_from_id(t_all_rooms *container, char *id);
 bool				room_interconnect(t_stack **stack, t_all_rooms *container,
-						char **room_ids);
+						char **room_ids, int *counter);
 
 // CJSON ARRAY HELPER
 bool				traverse_npc_array(const cJSON *array, t_npc *room);
