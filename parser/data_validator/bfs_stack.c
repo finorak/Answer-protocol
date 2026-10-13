@@ -6,11 +6,12 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:03:07 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:43:06 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "../../includes/parser.h"
 
@@ -67,7 +68,8 @@ t_stack	*stack_append(t_stack **current_stack, t_stack *new_el)
 		return (*current_stack);
 	}
 	last = get_last_stack(*current_stack);
-	last->next = new_el;
+	if (last)
+		last->next = new_el;
 	return (*current_stack);
 }
 

@@ -6,11 +6,12 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:03:52 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:21:28 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include "../../includes/parser.h"
 
@@ -98,6 +99,7 @@ bool	room_interconnect(t_stack **stack,
 		curr = pop_first(stack);
 		if (room_visited(curr, seen))
 		{
+			printf("%s\n", ((t_room *)curr->data)->id);
 			*counter += 1;
 			continue ;
 		}

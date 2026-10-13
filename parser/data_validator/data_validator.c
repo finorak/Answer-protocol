@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:01:34 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:42:35 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ bool	data_validator(t_data *data)
 	valid = true;
 	counter = 0;
 	stack = bfs_new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (room_interconnect(&stack, data->rooms, room_ids, &counter))
+	if (!room_interconnect(&stack, data->rooms, room_ids, &counter))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 	return (valid);

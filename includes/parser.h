@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <stddef.h>
 # define SIZE 1024
-# define INTERCONNECTION_BASE_COUNT 8
+# define INTERCONNECTION_BASE_COUNT 4
 
 # include "../includes/cJSON.h"
 # include "../includes/world.h"
