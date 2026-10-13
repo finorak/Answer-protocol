@@ -25,7 +25,7 @@ SERVER_OBJS = $(SERVER_SRC:.c=.o)
 
 CC := cc
 
-FLAGS := -Wall -Wextra -Werror -g # -fsanitize=address
+FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

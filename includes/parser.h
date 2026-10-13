@@ -18,6 +18,8 @@
 # include <stdbool.h>
 # include <stddef.h>
 # define SIZE 1024
+// TODO: THE VALUE SHOULD BE WAY MORE FLEXIBLE
+// COUNT >= 4 SHOULD STILL WORK
 # define INTERCONNECTION_BASE_COUNT 4
 
 # include "../includes/cJSON.h"
@@ -108,17 +110,6 @@ bool				traverse_quest_object(const cJSON *world_json,
 bool				traverse_mission_object(const cJSON *mission_json,
 						t_all_missions *mission_container);
 
-// MEMORY MANAGMENT
-// TODO: update the bellow function to use
-// the enum e_data_type so that it is less
-// redundant.
-void				free_data(t_data *data, char *buffer);
-void				custom_free(void *data, int size, t_data_type data_type);
-
-size_t				get_buffer_size(const char *world_config_file);
-char				*get_buffer(const char *world_config_file,
-						size_t buffer_size);
-
 // DATA INITIALIZATION
 t_mission			*extract_mission_from_key(const char *key,
 						const cJSON *npc_json, t_mission *mission);
@@ -135,10 +126,6 @@ t_group				*extract_goup_from_key(const char *key, cJSON *group_json,
 t_dialogue			*extract_dialogues_from_key(const char *key,
 						cJSON *dialogue_json, t_dialogue *dialogue);
 bool				init_world_data(t_data *data, const char *buffer);
-
-// DATA VALIDATOR
-bool				data_validator(t_data *data);
-char				*extract_room_id(char *room_id);
 
 // BFS UTILITIES
 t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
@@ -171,9 +158,6 @@ bool				traverse_mission_object(const cJSON *mission_json,
 						t_all_missions *mission_container);
 
 // MEMORY MANAGMENT
-// TODO: update the bellow function to use
-// THE ENUM E_DATA_TYPE SO THAT IT IS LESS
-// REDUNDANT.
 void				free_data(t_data *data, char *buffer);
 void				custom_free(void *data, int size, t_data_type data_type);
 

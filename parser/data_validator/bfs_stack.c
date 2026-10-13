@@ -6,15 +6,13 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:43:06 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/13 10:26:19 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "../../includes/parser.h"
-
 // Given a stack, we get the last element of that stack.
 t_stack	*get_last_stack(t_stack *stack)
 {
