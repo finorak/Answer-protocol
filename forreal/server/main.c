@@ -6,15 +6,15 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/12 08:23:40 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/13 09:18:21 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_utils.h"
 #include <signal.h>
 
-t_socket_property			g_server;
-t_world						g_world;
+t_socket_property	g_server;
+t_world				g_world;
 
 static void	handle_shutdown(int sig)
 {
@@ -31,13 +31,15 @@ static void	server_act(t_signal *rec, int client_fd)
 	i = 0;
 	while (i < rec->players_0.len)
 	{
-		send(atoi(rec->players_0.ids[i]), rec->messages_0, strlen(rec->messages_0), 0);
+		send(atoi(rec->players_0.ids[i]), rec->messages_0,
+			strlen(rec->messages_0), 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
-		send(atoi(rec->players_1.ids[i]), rec->messages_1, strlen(rec->messages_1), 0);
+		send(atoi(rec->players_1.ids[i]), rec->messages_1,
+			strlen(rec->messages_1), 0);
 		i++;
 	}
 	send(client_fd, rec->message, strlen(rec->message), 0);
@@ -53,6 +55,7 @@ static void	*client_host(void *arg)
 	t_signal	rec;
 
 	client_id = (int)(long)arg;
+	send(client_id, "OK hello proto=1\n", 18, 0);
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
