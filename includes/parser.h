@@ -127,13 +127,6 @@ t_dialogue			*extract_dialogues_from_key(const char *key,
 						cJSON *dialogue_json, t_dialogue *dialogue);
 bool				init_world_data(t_data *data, const char *buffer);
 
-// BFS UTILITIES
-t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
-t_stack				*pop_first(t_stack **stack);
-t_stack				*bfs_stack_last(t_stack *stack);
-t_stack				*bfs_new_stack(void *data);
-void				stack_free(t_stack *stack);
-
 // INTERCONECTION
 t_room				*get_room_from_id(t_all_rooms *container, char *id);
 bool				room_interconnect(t_stack **stack, t_all_rooms *container,

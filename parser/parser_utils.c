@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:57:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/14 09:09:49 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 #include "../includes/data_extractor.h"
 #include "../includes/cJSON.h"
 
+// Given a file, we try to get the actual size
+// of that file so that we don't use a static
+// value.
+// TODO: Remove this function and use the getline
+// function.
 size_t	get_buffer_size(const char *world_config_file)
 {
 	size_t	buffer_size;
@@ -41,6 +46,9 @@ size_t	get_buffer_size(const char *world_config_file)
 	return (buffer_size);
 }
 
+// TODO: might replace this because why the fuk
+// did I do this. getline will be the function to
+// replace this.
 char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 {
 	char	*buffer;
@@ -61,7 +69,6 @@ char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 	return (buffer);
 }
 
-// TODO: liverage this functon because it start to be full of shit.
 bool	init_world_data(t_data *data, const char *buffer)
 {
 	cJSON	*root;
@@ -70,7 +77,10 @@ bool	init_world_data(t_data *data, const char *buffer)
 		return (false);
 	root = cJSON_Parse(buffer);
 	if (!root)
+	{
+		fprintf(stderr, "Map is invalid\n");
 		return (false);
+	}
 	data->rooms = extract_rooms(root, data);
 	data->items = extract_items(root, data);
 	data->npcs = extract_npcs(root, data);
@@ -80,6 +90,9 @@ bool	init_world_data(t_data *data, const char *buffer)
 	data->groups = extract_groups(root, data);
 	cJSON_Delete(root);
 	if (!data->extract)
+	{
+		fprintf(stderr, "An error occured during parsing\n");
 		return (false);
+	}
 	return (data_validator(data));
 }
