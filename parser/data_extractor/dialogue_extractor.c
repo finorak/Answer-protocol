@@ -51,7 +51,7 @@ bool	traverse_dialogue_object(
 				key, element, dialogue
 				);
 		if (!container->dialogues[container->len])
-			return (custom_free(container, container->len, TYPE_DIALOG), NULL);
+			return (custom_free(container, container->len, TYPE_DIALOG), false);
 		container->len += 1;
 		element = element->next;
 	}

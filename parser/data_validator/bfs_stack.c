@@ -6,24 +6,29 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 10:26:19 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/14 13:34:00 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdlib.h>
 #include "../../includes/parser.h"
+
 // Given a stack, we get the last element of that stack.
 t_stack	*get_last_stack(t_stack *stack)
 {
+	int	counter;
+
 	if (!stack)
 		return (NULL);
+	counter = 0;
 	while (stack->next)
 		stack = stack->next;
+	stack->counter = counter;
 	return (stack);
 }
 
-t_stack	*bfs_new_stack(void *data)
+t_stack	*new_stack(void *data)
 {
 	t_stack	*stack;
 
@@ -59,18 +64,12 @@ t_stack	*stack_append(t_stack **current_stack, t_stack *new_el)
 		*current_stack = new_el;
 		return (*current_stack);
 	}
-	if (!(*current_stack)->data)
-	{
-		free(*current_stack);
-		*current_stack = new_el;
-		return (*current_stack);
-	}
 	last = get_last_stack(*current_stack);
-	if (last)
-		last->next = new_el;
+	last->next = new_el;
 	return (*current_stack);
 }
 
+// Release stack from memory.
 void	stack_free(t_stack *stack)
 {
 	t_stack	*tmp;

@@ -55,8 +55,8 @@ typedef enum e_data_type
 typedef struct s_stack
 {
 	struct s_stack	*next;
-	bool			visited;
 	void			*data;
+	int				counter;
 }					t_stack;
 
 // JSON DATA PARSER
@@ -89,7 +89,7 @@ char				*extract_room_id(char *room_id);
 t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
 t_stack				*pop_first(t_stack **stack);
 t_stack				*get_last_stack(t_stack *stack);
-t_stack				*bfs_new_stack(void *data);
+t_stack				*new_stack(void *data);
 void				stack_free(t_stack *stack);
 
 // CJSON ARRAY HELPER

@@ -49,7 +49,7 @@ static void	append_exits_to_last(t_stack **stack,
 			index ++;
 			continue ;
 		}
-		curr_stack = bfs_new_stack(room);
+		curr_stack = new_stack(room);
 		last = get_last_stack(*stack);
 		if (last)
 			last->next = curr_stack;
@@ -57,56 +57,62 @@ static void	append_exits_to_last(t_stack **stack,
 			*stack = curr_stack;
 		index ++;
 	}
+	printf("%s, index: %d\n", curr_room->id, index);
 }
 
-// Iterating ovre the visited room, and see if the current
+// Iterating ovre the visited stack, and see if the current
 // one is inside, if yes, we return `true` overwise we return `false`
-static bool	room_visited(t_stack	*current, t_stack *seen)
+static bool	room_visited(t_stack *current, t_stack *seen)
 {
-	char	*curr_key;
-	char	*exits_key;
+	char	*curr_room_key;
+	char	*neighboor_key;
 
 	if (!current || !seen)
 		return (false);
 	if (!seen->data)
 		return (false);
-	curr_key = (char *)((t_room *)current->data)->id;
+	curr_room_key = (char *)((t_room *)current->data)->id;
 	while (seen)
 	{
-		exits_key = (char *)((t_room *)seen->data)->id;
-		if (strcmp(curr_key, exits_key) == 0)
+		neighboor_key = (char *)((t_room *)seen->data)->id;
+		if (strcmp(curr_room_key, neighboor_key) == 0)
 			return (true);
 		seen = seen->next;
 	}
 	return (false);
 }
 
+// Given a map, we iterate through all the
+// rooms and their exits: doing a simple
+// bfs and count the number of time we
+// visite a room, based on that count
+// we can assume that if it's > than
+// the `INTERCONNECTION_BASE_COUNT` the room do
+// intersect.
 bool	room_interconnect(t_stack **stack,
 			t_all_rooms *container, char **room_ids, int *counter)
 {
-	t_stack	*seen;
+	t_stack	*visited;
 	t_stack	*curr;
 
-	if (!room_ids)
-		return (false);
 	if (!stack)
 		return (stack_free(*stack), false);
-	seen = bfs_new_stack(NULL);
-	if (!seen)
-		return (stack_free(*stack), false);
+	if (!room_ids)
+		return (false);
+	visited = NULL;
 	while (*stack)
 	{
 		curr = pop_first(stack);
-		if (room_visited(curr, seen))
+		if (room_visited(curr, visited))
 		{
-			printf("%s\n", ((t_room *)curr->data)->id);
 			*counter += 1;
 			continue ;
 		}
-		stack_append(&seen, curr);
+		stack_append(&visited, curr);
 		append_exits_to_last(stack, (t_room *)curr->data, container);
 	}
-	stack_free(seen);
+	printf("%d\n", *counter);
+	stack_free(visited);
 	stack_free(*stack);
 	return (*counter >= INTERCONNECTION_BASE_COUNT);
 }

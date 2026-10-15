@@ -6,12 +6,11 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:42:35 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/14 13:54:54 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
@@ -84,13 +83,14 @@ static char	**get_room_ids(t_data *data)
 // IMPLEMENTATION:
 //			- get current rooom
 //			- iterating other it's exits using bfs
-//			- 
+//			- count how many time we enter a room
+//			- return `true` if count >= COUNTER (`8`)
+//				else `false`
 bool	data_validator(t_data *data)
 {
 	t_stack	*stack;
 	char	**room_ids;
 	bool	valid;
-	int		counter;
 
 	if (!data || !data->extract)
 		return (false);
@@ -98,9 +98,8 @@ bool	data_validator(t_data *data)
 	if (!room_ids)
 		return (false);
 	valid = true;
-	counter = 0;
-	stack = bfs_new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (!room_interconnect(&stack, data->rooms, room_ids, &counter))
+	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
+	if (!room_interconnect(&stack, data->rooms, room_ids, (int *)0))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 	return (valid);

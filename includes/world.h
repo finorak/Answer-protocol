@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:09:51 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/13 02:51:09 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/14 13:49:30 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ typedef struct all_rooms
 	int		len;
 }				t_all_rooms;
 
+// Store the data inside this struct
+// for a better manipulation.
 typedef struct s_data
 {
 	t_all_dialogues	*dialogues;
