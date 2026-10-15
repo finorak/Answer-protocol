@@ -76,7 +76,7 @@ t_all_npcs	*extract_npcs(const cJSON *root, t_data *data)
 	t_all_npcs	*npc_container;
 	t_all_npcs	*tmp;
 
-	if (!root || !data->extract)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	npc_container = (t_all_npcs *)calloc(1, sizeof(t_all_npcs));
 	if (!npc_container)

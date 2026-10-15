@@ -63,7 +63,7 @@ t_all_items	*extract_items(const cJSON *root, t_data *data)
 	const cJSON	*items_json;
 	t_all_items	*tmp;
 
-	if (!root || !data->extract)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	items_container = (t_all_items *)calloc(1, sizeof(t_all_items));
 	if (!items_container)

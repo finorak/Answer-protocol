@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:57:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/15 16:07:15 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,19 @@ char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 	return (buffer);
 }
 
-// TODO: liverage this functon because it start to be full of shit.
+static void	get_data(t_data *data, cJSON *root)
+{
+	if (!data || !root)
+		return ;
+	data->rooms = extract_rooms(root, data);
+	data->items = extract_items(root, data);
+	data->npcs = extract_npcs(root, data);
+	data->quests = extract_quests(root, data);
+	data->missions = extract_missions(root, data);
+	data->dialogues = extract_dialogues(root, data);
+	data->groups = extract_groups(root, data);
+}
+
 bool	init_world_data(t_data *data, const char *buffer)
 {
 	cJSON	*root;
@@ -70,16 +82,19 @@ bool	init_world_data(t_data *data, const char *buffer)
 		return (false);
 	root = cJSON_Parse(buffer);
 	if (!root)
+	{
+		fprintf(stderr, "Config provided isn't a valid JSON\n");
 		return (false);
-	data->rooms = extract_rooms(root, data);
-	data->items = extract_items(root, data);
-	data->npcs = extract_npcs(root, data);
-	data->quests = extract_quests(root, data);
-	data->missions = extract_missions(root, data);
-	data->dialogues = extract_dialogues(root, data);
-	data->groups = extract_groups(root, data);
+	}
+	get_data(data, root);
 	cJSON_Delete(root);
 	if (!data->extract)
+	{
+		fprintf(
+			stderr,
+			"An error occured during parsing. Possibly \
+due to a key missing or value invalid.\n");
 		return (false);
+	}
 	return (data_validator(data));
 }

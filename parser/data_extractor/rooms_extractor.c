@@ -70,7 +70,7 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
 	t_all_rooms	*tmp;
 	const cJSON	*rooms_json;
 
-	if (!root || !data->extract)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	rooms_container = (t_all_rooms *)calloc(1, sizeof(t_all_rooms));
 	if (!rooms_container)

@@ -85,7 +85,7 @@ t_all_missions	*extract_missions(const cJSON *root, t_data *data)
 	t_all_missions	*tmp;
 	const cJSON		*mission_json;
 
-	if (!root || !data->extract)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	mission_container = (t_all_missions *)calloc(1, sizeof(t_all_missions));
 	if (!mission_container)
