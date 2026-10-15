@@ -71,7 +71,7 @@ t_all_groups	*extract_groups(const cJSON *root, t_data *data)
 	const cJSON		*group_json;
 	t_all_groups	*tmp;
 
-	if (!root)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	group_container = (t_all_groups *)calloc(1, sizeof(t_all_groups));
 	if (!group_container)

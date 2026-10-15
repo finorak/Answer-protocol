@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfs_stack.c                                        :+:      :+:    :+:   */
+/*   bfs_helper_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 10:26:19 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/15 16:15:44 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_stack	*get_last_stack(t_stack *stack)
 	return (stack);
 }
 
-t_stack	*bfs_new_stack(void *data)
+t_stack	*new_stack(void *data)
 {
 	t_stack	*stack;
 

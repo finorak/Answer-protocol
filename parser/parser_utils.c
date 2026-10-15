@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/14 09:09:49 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/15 16:09:51 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 	return (buffer);
 }
 
+static void	get_data(t_data *data, cJSON *root)
+{
+	if (!data || !root)
+		return ;
+	data->rooms = extract_rooms(root, data);
+	data->items = extract_items(root, data);
+	data->npcs = extract_npcs(root, data);
+	data->quests = extract_quests(root, data);
+	data->missions = extract_missions(root, data);
+	data->dialogues = extract_dialogues(root, data);
+	data->groups = extract_groups(root, data);
+}
+
 bool	init_world_data(t_data *data, const char *buffer)
 {
 	cJSON	*root;
@@ -81,25 +94,14 @@ bool	init_world_data(t_data *data, const char *buffer)
 		fprintf(stderr, "Map is invalid\n");
 		return (false);
 	}
-	printf("0 %d\n", data->extract);
-	data->rooms = extract_rooms(root, data);
-	printf("1 %d\n", data->extract);
-	data->items = extract_items(root, data);
-	printf("2 %d\n", data->extract);
-	data->npcs = extract_npcs(root, data);
-	printf("3 %d\n", data->extract);
-	data->quests = extract_quests(root, data);
-	printf("4 %d\n", data->extract);
-	data->missions = extract_missions(root, data);
-	printf("5 %d\n", data->extract);
-	data->dialogues = extract_dialogues(root, data);
-	printf("6 %d\n", data->extract);
-	data->groups = extract_groups(root, data);
-	printf("7 %d\n", data->extract);
+	get_data(data, root);
 	cJSON_Delete(root);
 	if (!data->extract)
 	{
-		fprintf(stderr, "An error occured during parsing\n");
+		fprintf(
+			stderr,
+			"An error occured during parsing. Possibly \
+due to a key missing or value invalid.\n");
 		return (false);
 	}
 	return (data_validator(data));

@@ -5,9 +5,7 @@ parser.c
 
 *.py
 file.txt
-<<<<<<< HEAD
-=======
-world.json
->>>>>>> 6aa7c99f4d27aeec4be50454b4e280abed4e3f8a
 
 compile_commands.json
+
+*vgcore*

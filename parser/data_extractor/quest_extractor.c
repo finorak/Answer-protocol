@@ -73,7 +73,7 @@ t_all_quests	*extract_quests(const cJSON *root, t_data *data)
 	t_all_quests	*tmp;
 	const cJSON		*quest_json;
 
-	if (!root || !data->extract)
+	if (!root || !data || !data->extract)
 		return (NULL);
 	quest_container = (t_all_quests *)calloc(1, sizeof(t_all_quests));
 	if (!quest_container)

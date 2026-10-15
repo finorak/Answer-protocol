@@ -6,13 +6,14 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/14 13:54:54 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/15 16:12:34 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -91,6 +92,7 @@ bool	data_validator(t_data *data)
 	t_stack	*stack;
 	char	**room_ids;
 	bool	valid;
+	int		counter;
 
 	if (!data || !data->extract)
 		return (false);
@@ -98,8 +100,9 @@ bool	data_validator(t_data *data)
 	if (!room_ids)
 		return (false);
 	valid = true;
+	counter = 0;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (!interconnection_checker(&stack, data->rooms, room_ids, (int *)0))
+	if (!interconnection_checker(&stack, data->rooms, room_ids, &counter))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 	return (valid);
