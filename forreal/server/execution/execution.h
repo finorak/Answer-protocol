@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:58:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 11:04:39 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 16:40:15 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int			talk_attack_status_quest(t_command test, int client_fd,
 
 void		fill_with_all(t_signal *result, t_world *g_world);
 void		all_items_left(t_world *world, char *temp);
+
+void		strcat_number(char *message, int number);
 
 t_signal	execution(t_command test, int client_fd, t_world *g_world);
