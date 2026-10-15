@@ -129,8 +129,8 @@ bool				init_world_data(t_data *data, const char *buffer);
 
 // INTERCONECTION
 t_room				*get_room_from_id(t_all_rooms *container, char *id);
-bool				room_interconnect(t_stack **stack, t_all_rooms *container,
-						char **room_ids, int *counter);
+bool				interconnection_checker(t_stack **stack,
+						t_all_rooms *container, char **room_ids, int *counter);
 
 // CJSON ARRAY HELPER
 bool				traverse_npc_array(const cJSON *array, t_npc *room);

@@ -1,5 +1,9 @@
+SHELL := /bin/bash
+
 # just for the moment
 SERVER_APPLICATION_NAME = server_cli
+
+FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
 # source files for the sever
 
@@ -12,7 +16,8 @@ SERVER_SRC = parser/parser.c parser/parser_utils.c \
 	  parser/data_extractor/mission_extractor.c parser/data_extractor/dialogue_extractor.c \
 	  parser/data_extractor/group_extractor.c parser/data_validator/data_validator.c \
 	  parser/data_validator/data_validator_helper.c parser/memory_manager/memory_manager.c \
-	  parser/cJSON.c parser/data_validator/bfs_stack.c parser/data_validator/interconnect.c
+	  parser/cJSON.c parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c \
+      parser/data_validator/bfs_helper_2.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c
@@ -52,4 +57,11 @@ valgrind: all
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 
-.PHONY: re clean all fclean run valgrind
+debug:
+	@if [[ "$(FILE_TO_DEBUG)" == "$(firstword $())" ]]; then \
+		echo "server"; \
+	else \
+		echo "client"; \
+	fi
+
+.PHONY: re clean all fclean run valgrind lint debug
