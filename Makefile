@@ -1,8 +1,6 @@
 # just for the moment
 SERVER_APPLICATION_NAME = server_cli
 
-# source files for the sever
-
 HEADERS := includes/data_extractor.h includes/parser.h includes/world.h
 
 SERVER_SRC = parser/parser.c parser/parser_utils.c \
@@ -25,7 +23,9 @@ SERVER_OBJS = $(SERVER_SRC:.c=.o)
 
 CC := cc
 
-FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
+DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all
+
+FLAGS := -Wall -Wextra -Werror -g
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -47,9 +47,9 @@ run:
 	./$(SERVER_APPLICATION_NAME) world.json
 
 valgrind: all
-	valgrind --leak-check=full ./$(SERVER_APPLICATION_NAME) world.json
+	valgrind $(DEBUG_FLAGS) ./$(SERVER_APPLICATION_NAME) world.json
 
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 
-.PHONY: re clean all fclean run valgrind
+.PHONY: re clean all fclean run valgrind lint
