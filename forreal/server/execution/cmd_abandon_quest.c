@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:33:59 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/13 09:34:04 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/14 06:16:43 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 int	cmd_abandon_quest(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
+	return (1);
 }

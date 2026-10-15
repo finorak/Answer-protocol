@@ -5,7 +5,7 @@ t_room	*get_room_by_id(char *room_id, t_world *world)
 	int	i;
 
 	i = -1;
-	while (++i < world->rooms.len)
+	while (++i < MAX_LIST_LEN)
 	{
 		if (!strcmp(world->rooms.rooms[i].id, room_id))
 			return (&(world->rooms.rooms[i]));

@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 06:45:25 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/12 08:22:06 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/14 10:27:49 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <netinet/in.h>
 
 #define MAX_LIST_LEN 32
-#define MAX_ID_LEN 16
+#define MAX_ID_LEN 32
 #define MAX_NAME_LEN 32
 #define MAX_DESCRIPTION_LEN 128
 #define MAX_DIALOGUE_CONTENT_LEN 256

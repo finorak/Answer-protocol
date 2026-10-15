@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/13 09:18:21 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:24:41 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
+	send(client_fd, rec->message, strlen(rec->message), 0);
 	while (i < rec->players_0.len)
 	{
 		send(atoi(rec->players_0.ids[i]), rec->messages_0,
@@ -42,8 +43,7 @@ static void	server_act(t_signal *rec, int client_fd)
 			strlen(rec->messages_1), 0);
 		i++;
 	}
-	send(client_fd, rec->message, strlen(rec->message), 0);
-	strcpy(rec->message, "\0");
+	memset(rec->message, 0, sizeof(rec->message));
 	rec->players_0.len = 0;
 	rec->players_1.len = 0;
 }
@@ -55,7 +55,6 @@ static void	*client_host(void *arg)
 	t_signal	rec;
 
 	client_id = (int)(long)arg;
-	send(client_id, "OK hello proto=1\n", 18, 0);
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
@@ -90,6 +89,7 @@ static void	server_routine(void)
 			&addr_len);
 	if (client_fd < 0)
 		return ;
+	send(client_fd, "OK hello proto=1\n", 18, 0);
 	add_player(client_fd, &g_world);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
