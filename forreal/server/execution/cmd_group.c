@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:24:51 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:33:45 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	grp_join(t_command test, int client_fd, t_world *g_world,
 static void	grp_leave(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
-    char	temp[12];
+	char	temp[12];
 
 	sprintf(temp, "%d", client_fd);
 	if (get_group_by_player_fd(client_fd, g_world) == NULL)
@@ -115,9 +115,9 @@ static void	grp_leave(t_command test, int client_fd, t_world *g_world,
 	{
 		strcpy(result->message, "OK\n");
 		log_date();
-		printf("removing %s to %s\n", get_player_by_fd(client_fd, g_world)->name,
-        test.message);
-        remove_from(temp, &(get_group_by_name(test.message, g_world)->players));
+		printf("removing %s to %s\n", get_player_by_fd(client_fd,
+				g_world)->name, test.message);
+		remove_from(temp, &(get_group_by_name(test.message, g_world)->players));
 		result->players_0 = get_group_by_name(test.message, g_world)->players;
 		strcpy(result->messages_0, "EVT GROUP LEAVE ");
 		strcat(result->messages_0, get_player_by_fd(client_fd, g_world)->name);

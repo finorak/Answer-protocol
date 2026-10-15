@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+        
+	+:+     */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+      
+	+#+        */
+/*                                                +#+#+#+#+#+  
+	+#+           */
+/*   Created: 2026/10/15 10:26:42 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/15 10:26:49 by irraheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main_utils.h"
 
 t_command	validation_1(char *buf)
@@ -13,7 +28,7 @@ t_command	validation_1(char *buf)
 		not_first_term(buf);
 		if (!strcmp(result.type, "ERROR"))
 			return (result);
-        strcpy(result.message, buf);
+		strcpy(result.message, buf);
 	}
 	return (result);
 }

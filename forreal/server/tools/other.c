@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   other.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/15 10:27:44 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/15 10:27:45 by irraheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../main_utils.h"
 
-t_item	*get_item_by_id(char* id, t_world *world)
+t_item	*get_item_by_id(char *id, t_world *world)
 {
 	int	i;
 
@@ -14,7 +26,7 @@ t_item	*get_item_by_id(char* id, t_world *world)
 	return (NULL);
 }
 
-t_npc	*get_npc_by_id(char* id, t_world *world)
+t_npc	*get_npc_by_id(char *id, t_world *world)
 {
 	int	i;
 
@@ -28,7 +40,7 @@ t_npc	*get_npc_by_id(char* id, t_world *world)
 	return (NULL);
 }
 
-t_quest	*get_quest_by_id(char* id, t_world *world)
+t_quest	*get_quest_by_id(char *id, t_world *world)
 {
 	int	i;
 
@@ -42,7 +54,7 @@ t_quest	*get_quest_by_id(char* id, t_world *world)
 	return (NULL);
 }
 
-t_mission	*get_mission_by_id(char* id, t_world *world)
+t_mission	*get_mission_by_id(char *id, t_world *world)
 {
 	int	i;
 
@@ -56,7 +68,7 @@ t_mission	*get_mission_by_id(char* id, t_world *world)
 	return (NULL);
 }
 
-t_dialogue	*get_dialogue_by_id(char* id, t_world *world)
+t_dialogue	*get_dialogue_by_id(char *id, t_world *world)
 {
 	int	i;
 

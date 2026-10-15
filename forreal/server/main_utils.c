@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/15 10:36:45 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/15 10:36:50 by irraheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main_utils.h"
 
 void	log_date(void)
@@ -31,7 +43,7 @@ void	define_server_property(t_socket_property *server_property)
 	server_property->address.sin_port = htons(PORT);
 }
 
-int		player_id(int client_fd, t_world world)
+int	player_id(int client_fd, t_world world)
 {
 	int	i;
 

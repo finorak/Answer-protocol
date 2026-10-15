@@ -6,13 +6,13 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:59:04 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/14 06:58:16 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:34:02 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../main_utils.h"
 
-void strcat_double_quoted(char *message, char *element)
+void	strcat_double_quoted(char *message, char *element)
 {
 	strcat(message, "\"");
 	strcat(message, element);

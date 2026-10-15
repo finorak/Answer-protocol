@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:22 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 06:51:48 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:33:12 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ static void	room(char *message, t_room *room)
 
 int	cmd_look(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
-    t_room *room_;
+	t_room	*room_;
 
-    room_ = get_room_by_player_fd(client_fd, g_world);
+	room_ = get_room_by_player_fd(client_fd, g_world);
 	strcpy(result->message, "OK { \"room\": ");
 	room(result->message, room_);
-    strcat(result->message, ", \"players\": ");
-    concat_into_message(result->message, room_->players, 1, g_world);
-    strcat(result->message, ", \"items\": ");
-    concat_into_message(result->message, room_->items, 0, g_world);
-    strcat(result->message, ", \"npcs\": ");
-    concat_into_message(result->message, room_->npcs, 0, g_world);
+	strcat(result->message, ", \"players\": ");
+	concat_into_message(result->message, room_->players, 1, g_world);
+	strcat(result->message, ", \"items\": ");
+	concat_into_message(result->message, room_->items, 0, g_world);
+	strcat(result->message, ", \"npcs\": ");
+	concat_into_message(result->message, room_->npcs, 0, g_world);
 	strcat(result->message, " }\n");
 	return (1);
 }

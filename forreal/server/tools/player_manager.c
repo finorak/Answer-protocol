@@ -1,11 +1,25 @@
-#include "../main_utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_manager.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
+/*   Created: 2026/10/15 10:28:19 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/15 10:28:19 by irraheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../main_utils.h"
 
 void	mess(t_world *world)
 {
-	int i;
-	char mess[BUFFER_SIZE];
-	char temp[12];
+	int		i;
+	char	mess[BUFFER_SIZE];
+	char	temp[12];
 
 	i = 0;
 	strcpy(mess, "EVT STATS players=");
@@ -22,8 +36,8 @@ void	mess(t_world *world)
 
 void	add_player(int client_fd, t_world *world)
 {
-	int i;
-	char client_fd_char[12];
+	int		i;
+	char	client_fd_char[12];
 
 	i = 0;
 	while (i < MAX_PLAYER)
@@ -46,9 +60,9 @@ void	add_player(int client_fd, t_world *world)
 
 void	remove_player(int client_fd, t_world *world)
 {
-	t_room *room;
-	t_player *player;
-	char temp[12];
+	t_room		*room;
+	t_player	*player;
+	char		temp[12];
 
 	player = get_player_by_fd(client_fd, world);
 	room = get_room_by_player_fd(client_fd, world);

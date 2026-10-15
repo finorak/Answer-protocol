@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:26 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/14 10:28:26 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:33:04 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,22 @@ static void	move(t_room *current_room, int ids, t_world *g_world,
 	strcat(result->message, current_room->exits.ids[ids % MAX_LIST_LEN]);
 	strcat(result->message, "\n");
 	remove_from(str_id, &(current_room->players));
-	append_in(str_id, &(get_room_by_id(current_room->exits.ids[ids % MAX_LIST_LEN],
-				g_world)->players));
+	append_in(str_id, &(get_room_by_id(current_room->exits.ids[ids
+				% MAX_LIST_LEN], g_world)->players));
 	log_date();
 	printf("%s removed from '%s' and added to '%s'\n", get_player_by_fd(ids
-			/ MAX_LIST_LEN, g_world)->name, current_room->id, current_room->exits.ids[ids
-		% MAX_LIST_LEN]);
+			/ MAX_LIST_LEN, g_world)->name, current_room->id,
+		current_room->exits.ids[ids % MAX_LIST_LEN]);
 	result->players_0 = current_room->players;
-	result->players_1 = get_room_by_id(current_room->exits.ids[ids % MAX_LIST_LEN],
-			g_world)->players;
+	result->players_1 = get_room_by_id(current_room->exits.ids[ids
+			% MAX_LIST_LEN], g_world)->players;
 	strcpy(result->messages_0, "EVT ROOM PRESENCE LEAVE ");
-	strcat(result->messages_0, get_player_by_fd(ids / MAX_LIST_LEN, g_world)->name);
+	strcat(result->messages_0, get_player_by_fd(ids / MAX_LIST_LEN,
+			g_world)->name);
 	strcat(result->messages_0, "\n");
 	strcpy(result->messages_1, "EVT ROOM PRESENCE ENTER ");
-	strcat(result->messages_1, get_player_by_fd(ids / MAX_LIST_LEN, g_world)->name);
+	strcat(result->messages_1, get_player_by_fd(ids / MAX_LIST_LEN,
+			g_world)->name);
 	strcat(result->messages_1, "\n");
 }
 
@@ -55,8 +57,8 @@ int	cmd_move(t_command test, int client_fd, t_world *g_world, t_signal *result)
 			&& strcmp(get_room_by_player_fd(client_fd,
 					g_world)->exits.ids[dir_id], "none"))
 		{
-			move(get_room_by_player_fd(client_fd, g_world), dir_id + MAX_LIST_LEN
-				* client_fd, g_world, result);
+			move(get_room_by_player_fd(client_fd, g_world), dir_id
+				+ MAX_LIST_LEN * client_fd, g_world, result);
 			return (1);
 		}
 		dir_id++;

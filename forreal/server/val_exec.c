@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   val_exec.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/15 10:34:37 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/15 10:34:50 by irraheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main_utils.h"
 
-t_signal val_exec(int client_fd, char *buf, t_world *world)
+t_signal	val_exec(int client_fd, char *buf, t_world *world)
 {
 	t_signal	sign;
 	t_command	test;
