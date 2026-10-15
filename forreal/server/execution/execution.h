@@ -6,9 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:58:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:34:17 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 11:04:39 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../init_world.h"
 
 void		strcat_double_quoted(char *message, char *element);
 
@@ -49,5 +51,8 @@ int			who_group_item(t_command test, int client_fd, t_world *g_world,
 				t_signal *result);
 int			talk_attack_status_quest(t_command test, int client_fd,
 				t_world *g_world, t_signal *result);
+
+void		fill_with_all(t_signal *result, t_world *g_world);
+void		all_items_left(t_world *world, char *temp);
 
 t_signal	execution(t_command test, int client_fd, t_world *g_world);

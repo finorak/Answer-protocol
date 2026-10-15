@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:53 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:28:01 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:43:49 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_room	*get_room_by_player_fd(int client_fd, t_world *world)
 	return (NULL);
 }
 
-t_room	*get_room_by_item_id(int item_id, t_world *world)
+t_room	*get_room_by_item_id(char *item_id, t_world *world)
 {
 	int	i;
 	int	j;
@@ -54,14 +54,14 @@ t_room	*get_room_by_item_id(int item_id, t_world *world)
 		j = -1;
 		while (++j < world->rooms.rooms[i].items.len)
 		{
-			if (atoi(world->rooms.rooms[i].items.ids[j]) == item_id)
+			if (!strcmp((world->rooms.rooms[i].items.ids[j]), item_id))
 				return (&(world->rooms.rooms[i]));
 		}
 	}
 	return (NULL);
 }
 
-t_room	*get_room_by_npc_id(int npc_id, t_world *world)
+t_room	*get_room_by_npc_id(char *npc_id, t_world *world)
 {
 	int	i;
 	int	j;
@@ -72,7 +72,7 @@ t_room	*get_room_by_npc_id(int npc_id, t_world *world)
 		j = -1;
 		while (++j < world->rooms.rooms[i].npcs.len)
 		{
-			if (atoi(world->rooms.rooms[i].npcs.ids[j]) == npc_id)
+			if (!strcmp(world->rooms.rooms[i].npcs.ids[j], npc_id))
 				return (&(world->rooms.rooms[i]));
 		}
 	}

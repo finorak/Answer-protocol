@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:28:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:28:12 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 11:28:25 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ t_player	*get_player_by_name(char *name, t_world *world)
 	while (i < MAX_PLAYER)
 	{
 		if (!strcmp(world->players.players[i].name, name))
+			return (&(world->players.players[i]));
+		i++;
+	}
+	return (NULL);
+}
+
+t_player	*get_player_by_item(char *item_id, t_world *world)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PLAYER)
+	{
+		if (in(item_id, world->players.players[i].items))
 			return (&(world->players.players[i]));
 		i++;
 	}

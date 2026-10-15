@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 06:45:25 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/14 10:27:49 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 10:48:29 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>

@@ -6,13 +6,13 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:24 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/15 11:00:28 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../main_utils.h"
 
-static void	fill_with_all(t_signal *result, t_world *g_world)
+void	fill_with_all(t_signal *result, t_world *g_world)
 {
 	int		i;
 	int		index;
