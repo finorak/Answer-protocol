@@ -6,30 +6,16 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:21:28 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/15 05:34:57 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <string.h>
 #include "../../includes/parser.h"
 
-int	stack_size(t_stack *stack)
-{
-	int	counter;
-
-	if (!stack)
-		return (0);
-	counter = 0;
-	while (stack)
-	{
-		counter ++;
-		stack = stack->next;
-	}
-	return (counter);
-}
-
+// TODO: Fix error in this funciton, but still can't find what the
+// error is.
 static void	append_exits_to_last(t_stack **stack,
 				t_room *curr_room, t_all_rooms *container)
 {
@@ -43,21 +29,16 @@ static void	append_exits_to_last(t_stack **stack,
 	index = 0;
 	while (index < curr_room->exits.len)
 	{
-		room = get_room_from_id(container, curr_room->exits.ids[index]);
+		room = get_room_from_id(container, curr_room->exits.ids[index++]);
 		if (!room)
-		{
-			index ++;
 			continue ;
-		}
 		curr_stack = new_stack(room);
 		last = get_last_stack(*stack);
 		if (last)
 			last->next = curr_stack;
 		else
 			*stack = curr_stack;
-		index ++;
 	}
-	printf("%s, index: %d\n", curr_room->id, index);
 }
 
 // Iterating ovre the visited stack, and see if the current
@@ -89,7 +70,7 @@ static bool	room_visited(t_stack *current, t_stack *seen)
 // we can assume that if it's > than
 // the `INTERCONNECTION_BASE_COUNT` the room do
 // intersect.
-bool	room_interconnect(t_stack **stack,
+bool	interconnection_checker(t_stack **stack,
 			t_all_rooms *container, char **room_ids, int *counter)
 {
 	t_stack	*visited;
@@ -100,6 +81,8 @@ bool	room_interconnect(t_stack **stack,
 	if (!room_ids)
 		return (false);
 	visited = NULL;
+	if (!stack || !room_ids)
+		return (stack_free(*stack), false);
 	while (*stack)
 	{
 		curr = pop_first(stack);
@@ -111,7 +94,6 @@ bool	room_interconnect(t_stack **stack,
 		stack_append(&visited, curr);
 		append_exits_to_last(stack, (t_room *)curr->data, container);
 	}
-	printf("%d\n", *counter);
 	stack_free(visited);
 	stack_free(*stack);
 	return (*counter >= INTERCONNECTION_BASE_COUNT);

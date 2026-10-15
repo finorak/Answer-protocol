@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
+// Getting room id from the id given as parameter.
 t_room	*get_room_from_id(t_all_rooms *container, char *id)
 {
 	int	index;
@@ -45,16 +47,18 @@ static char	**key_verifier(char **keys, int size, char *to_cmp)
 			custom_free(keys, size, TYPE_STRING_TABLE);
 			return (NULL);
 		}
-		index ++;
+		index++;
 	}
 	return (keys);
 }
 
+// Extract all the room ids to verify if the
+// exist id is in the room.
 static char	**get_room_ids(t_data *data)
 {
-	t_room		*current_room;
-	char		**room_ids;
-	int			index;
+	t_room	*current_room;
+	char	**room_ids;
+	int		index;
 
 	if (!data)
 		return (NULL);
@@ -73,16 +77,12 @@ static char	**get_room_ids(t_data *data)
 			custom_free(room_ids, index, TYPE_STRING_TABLE);
 			return (NULL);
 		}
-		index ++;
+		index++;
 	}
 	room_ids[index] = NULL;
 	return (key_verifier(room_ids, index, "none"));
 }
 
-// verify if at least 8 room do intersect
-// IMPLEMENTATION:
-//			- get current rooom
-//			- iterating other it's exits using bfs
 //			- count how many time we enter a room
 //			- return `true` if count >= COUNTER (`8`)
 //				else `false`
@@ -99,7 +99,7 @@ bool	data_validator(t_data *data)
 		return (false);
 	valid = true;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (!room_interconnect(&stack, data->rooms, room_ids, (int *)0))
+	if (!interconnection_checker(&stack, data->rooms, room_ids, (int *)0))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 	return (valid);
