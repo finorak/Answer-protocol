@@ -13,6 +13,9 @@
 #include <stdlib.h>
 #include "../../includes/parser.h"
 
+// We regroup the release into a singular function
+// so that we can just add another datatype without
+// worrying about norminette.
 static void	release_data(void *data, t_data_type data_type, int index)
 {
 	if (data_type == TYPE_STRING_TABLE)
@@ -41,10 +44,7 @@ void	custom_free(void *data, int size, t_data_type data_type)
 		return ;
 	index = 0;
 	while (index < size)
-	{
-		release_data(data, data_type, index);
-		index ++;
-	}
+		release_data(data, data_type, index++);
 	free(data);
 }
 

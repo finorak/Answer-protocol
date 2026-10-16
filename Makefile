@@ -16,11 +16,11 @@ SERVER_SRC := parser/parser.c parser/parser_utils.c \
 	  parser/data_extractor/group_extractor.c parser/data_validator/data_validator.c \
 	  parser/data_validator/data_validator_helper.c parser/memory_manager/memory_manager.c \
 	  parser/cJSON.c parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c \
-      parser/data_validator/bfs_helper_2.c
+      parser/data_validator/bfs_helper_2.c parser/debug.c
 
 # put here files that we didn't create our own
-C_EXCEPT_FILES := parser/cJSON.c
-HEADER_EXCEPT_FILES := includes/cJSON.h
+C_EXCEPT_FILES := parser/cJSON.c parser/debug.c
+HEADER_EXCEPT_FILES := includes/cJSON.h includes/debug.h
 
 FILES_TO_LINT := $(filter-out $(C_EXCEPT_FILES), $(SERVER_SRC))
 HEADER_TO_LINT := $(filter-out $(HEADER_EXCEPT_FILES), $(HEADERS))
@@ -58,10 +58,12 @@ valgrind: all
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 
-	@if [[ "$(FILE_TO_DEBUG)" == "$(firstword $())" ]]; then \
-		echo "server"; \
+debug:
+	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
+		clear; \
+		gdb -tui --args ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
-		echo "client"; \
+		echo "test"; \
 	fi
 
 .PHONY: re clean all fclean run valgrind lint debug

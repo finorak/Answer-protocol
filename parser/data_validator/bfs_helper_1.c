@@ -48,27 +48,22 @@ t_stack	*pop_first(t_stack **stack)
 }
 
 // Given a stack, we append the new element to the stack.
-t_stack	*stack_append(t_stack **current_stack, t_stack *new_el)
+t_stack	*stack_append(t_stack **stack, t_stack *new_stack)
 {
 	t_stack	*last;
 
-	if (!current_stack)
+	if (!stack)
 		return (NULL);
-	if (!*current_stack)
+	if (!*stack || !(*stack)->data)
 	{
-		*current_stack = new_el;
-		return (*current_stack);
+		free(*stack);
+		*stack = new_stack;
+		return (*stack);
 	}
-	if (!(*current_stack)->data)
-	{
-		free(*current_stack);
-		*current_stack = new_el;
-		return (*current_stack);
-	}
-	last = get_last_stack(*current_stack);
+	last = get_last_stack(*stack);
 	if (last)
-		last->next = new_el;
-	return (*current_stack);
+		last->next = new_stack;
+	return (*stack);
 }
 
 void	stack_free(t_stack *stack)

@@ -56,7 +56,6 @@ typedef struct s_stack
 {
 	struct s_stack	*next;
 	void			*data;
-	int				counter;
 }					t_stack;
 
 // JSON DATA PARSER
@@ -86,7 +85,7 @@ bool				data_validator(t_data *data);
 char				*extract_room_id(char *room_id);
 
 // BFS UTILITIES
-t_stack				*stack_append(t_stack **current_stack, t_stack *new_el);
+t_stack				*stack_append(t_stack **stack, t_stack *new_stack);
 t_stack				*pop_first(t_stack **stack);
 t_stack				*get_last_stack(t_stack *stack);
 t_stack				*new_stack(void *data);
@@ -130,7 +129,7 @@ bool				init_world_data(t_data *data, const char *buffer);
 // INTERCONECTION
 t_room				*get_room_from_id(t_all_rooms *container, char *id);
 bool				interconnection_checker(t_stack **stack,
-						t_all_rooms *container, char **room_ids, int *counter);
+						t_all_rooms *container, char **room_ids);
 
 // CJSON ARRAY HELPER
 bool				traverse_npc_array(const cJSON *array, t_npc *room);

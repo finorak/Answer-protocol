@@ -13,6 +13,7 @@
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 

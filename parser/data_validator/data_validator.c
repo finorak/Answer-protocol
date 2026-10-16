@@ -10,30 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
-#include "../../includes/world.h"
-#include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../../includes/parser.h"
+#include "../../includes/world.h"
 
 // Getting room id from the id given as parameter.
 t_room	*get_room_from_id(t_all_rooms *container, char *id)
 {
-	int	index;
+	char	*key;
+	int		index;
 
 	if (!container)
 		return (NULL);
 	index = 0;
 	while (index < container->len)
 	{
-		if (strcmp(container->rooms[index]->id, id) == 0)
+		key = container->rooms[index]->id;
+		if (strcmp(key, id) == 0)
 			return (container->rooms[index]);
 		index += 1;
 	}
 	return (NULL);
 }
 
+// Might remove this later on as I don't really
+// understand why I created this function ?
 static char	**key_verifier(char **keys, int size, char *to_cmp)
 {
 	int	index;
@@ -84,6 +86,7 @@ static char	**get_room_ids(t_data *data)
 	return (key_verifier(room_ids, index, "none"));
 }
 
+//	VALIDATE data.
 //			- count how many time we enter a room
 //			- return `true` if count >= COUNTER (`8`)
 //				else `false`
@@ -92,7 +95,6 @@ bool	data_validator(t_data *data)
 	t_stack	*stack;
 	char	**room_ids;
 	bool	valid;
-	int		counter;
 
 	if (!data || !data->extract)
 		return (false);
@@ -100,9 +102,8 @@ bool	data_validator(t_data *data)
 	if (!room_ids)
 		return (false);
 	valid = true;
-	counter = 0;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
-	if (!interconnection_checker(&stack, data->rooms, room_ids, &counter))
+	if (!interconnection_checker(&stack, data->rooms, room_ids))
 		valid = false;
 	custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 	return (valid);
