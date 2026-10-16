@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 18:00:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/16 18:24:58 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 // Prototype for preprocessing
 static bool	room_visited(t_stack *current, t_stack *visited);
-static void	append_exits_to_last(t_stack **stack,
+static bool	append_exits_to_last(t_stack **stack,
 				t_room *curr_room, t_all_rooms *container);
 
 // TODO: Fix error in this funciton, but still can't find what the
 // error is.
-static void	append_exits_to_last(t_stack **stack,
+static bool	append_exits_to_last(t_stack **stack,
 				t_room *curr_room, t_all_rooms *container)
 {
 	t_stack	*curr_stack;
@@ -30,11 +30,13 @@ static void	append_exits_to_last(t_stack **stack,
 	int		index;
 
 	if (!stack || !curr_room || !container)
-		return ;
+		return (false);
 	index = 0;
 	while (index < curr_room->exits.len)
 	{
 		key = curr_room->exits.ids[index];
+		if (strcmp(key, curr_room->id) == 0)
+			return (false);
 		room = get_room_from_id(container, key);
 		if (room)
 		{
@@ -43,6 +45,7 @@ static void	append_exits_to_last(t_stack **stack,
 		}
 		index ++;
 	}
+	return (true);
 }
 
 // Iterating ovre the visited stack, and see if the current

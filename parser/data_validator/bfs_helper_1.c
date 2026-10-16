@@ -27,6 +27,8 @@ t_stack	*new_stack(t_room *room)
 {
 	t_stack	*stack;
 
+	if (!room)
+		return (NULL);
 	stack = (t_stack *)calloc(1, sizeof(t_stack));
 	if (!stack)
 		return (NULL);

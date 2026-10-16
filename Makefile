@@ -61,7 +61,11 @@ lint:
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
 		clear; \
-		gdbgui --args ./$(SERVER_APPLICATION_NAME) world.json; \
+		# git clone https://github.com/nakst/gf.git
+		# ./gf/build.sh
+		# echo "alias gf2=./gf/gf2" >> ~/.zshrc
+		# source ~/.zshrc
+		gf2 ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
 		echo "test"; \
 	fi
