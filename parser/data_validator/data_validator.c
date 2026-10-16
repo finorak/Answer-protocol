@@ -6,11 +6,10 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/15 16:12:34 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/16 18:00:55 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <string.h>
 #include "../../includes/parser.h"
 #include "../../includes/world.h"
@@ -57,18 +56,14 @@ static char	**key_verifier(char **keys, int size, char *to_cmp)
 
 // Extract all the room ids to verify if the
 // exist id is in the room.
-static char	**get_room_ids(t_data *data)
+static char	**get_room_ids(t_data *data, char **room_ids)
 {
 	t_room	*current_room;
-	char	**room_ids;
 	int		index;
 
 	if (!data)
 		return (NULL);
 	if (!data->rooms)
-		return (NULL);
-	room_ids = (char **)calloc(data->rooms->len + 1, sizeof(char *));
-	if (!room_ids)
 		return (NULL);
 	index = 0;
 	while (index < data->rooms->len)
@@ -93,14 +88,12 @@ static char	**get_room_ids(t_data *data)
 bool	data_validator(t_data *data)
 {
 	t_stack	*stack;
-	char	**room_ids;
+	char	*room_ids[MAX_ID_LEN];
 	bool	valid;
 
 	if (!data || !data->extract)
 		return (false);
-	room_ids = get_room_ids(data);
-	if (!room_ids)
-		return (false);
+	get_room_ids(data, room_ids);
 	valid = true;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
 	if (!interconnection_checker(&stack, data->rooms, room_ids))

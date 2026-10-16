@@ -6,11 +6,10 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 12:57:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 13:50:03 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/16 18:00:42 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include "../../includes/parser.h"
@@ -36,7 +35,6 @@ static void	append_exits_to_last(t_stack **stack,
 	while (index < curr_room->exits.len)
 	{
 		key = curr_room->exits.ids[index];
-		printf("key -> %s\n", key);
 		room = get_room_from_id(container, key);
 		if (room)
 		{
@@ -56,10 +54,10 @@ static bool	room_visited(t_stack *current, t_stack *visited)
 
 	if (!current || !visited)
 		return (false);
-	curr_room_key = ((t_room *)current->data)->id;
+	curr_room_key = current->room->id;
 	while (visited)
 	{
-		neighboor_key = ((t_room *)visited->data)->id;
+		neighboor_key = visited->room->id;
 		if (strcmp(curr_room_key, neighboor_key) == 0)
 			return (true);
 		visited = visited->next;
@@ -95,7 +93,8 @@ bool	interconnection_checker(t_stack **stack,
 			continue ;
 		}
 		stack_append(&visited, curr);
-		append_exits_to_last(stack, (t_room *)curr->data, container);
+		curr->next = NULL;
+		append_exits_to_last(stack, curr->room, container);
 	}
 	stack_free(visited);
 	stack_free(*stack);

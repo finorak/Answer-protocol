@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:03:08 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/16 18:01:05 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum e_data_type
 typedef struct s_stack
 {
 	struct s_stack	*next;
-	void			*data;
+	t_room			*room;
 }					t_stack;
 
 // JSON DATA PARSER
@@ -88,7 +88,7 @@ char				*extract_room_id(char *room_id);
 t_stack				*stack_append(t_stack **stack, t_stack *new_stack);
 t_stack				*pop_first(t_stack **stack);
 t_stack				*get_last_stack(t_stack *stack);
-t_stack				*new_stack(void *data);
+t_stack				*new_stack(t_room *room);
 void				stack_free(t_stack *stack);
 
 // CJSON ARRAY HELPER

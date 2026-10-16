@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 11:51:35 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/15 16:15:44 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/16 18:01:00 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_stack	*get_last_stack(t_stack *stack)
 	return (stack);
 }
 
-t_stack	*new_stack(void *data)
+t_stack	*new_stack(t_room *room)
 {
 	t_stack	*stack;
 
 	stack = (t_stack *)calloc(1, sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	stack->data = data;
+	stack->room = room;
 	stack->next = NULL;
 	return (stack);
 }
@@ -54,7 +54,7 @@ t_stack	*stack_append(t_stack **stack, t_stack *new_stack)
 
 	if (!stack)
 		return (NULL);
-	if (!*stack || !(*stack)->data)
+	if (!*stack || !(*stack)->room)
 	{
 		free(*stack);
 		*stack = new_stack;

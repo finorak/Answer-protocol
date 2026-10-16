@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: megalonia </var/spool/mail/megalonia>      +#+  +:+       +#+        */
+/*   By: finorako </var/spool/mail/finorako>	    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/16 13:38:51 by megalonia         #+#    #+#             */
-/*   Updated: 2026/10/16 13:43:25 by megalonia        ###   ########.fr       */
+/*   Created: 2026/10/16 13:38:51 by finorako          #+#    #+#             */
+/*   Updated: 2026/10/16 18:01:53 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

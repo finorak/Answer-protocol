@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 14:25:05 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 09:42:33 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/16 18:00:47 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	custom_free(void *data, int size, t_data_type data_type)
 	index = 0;
 	while (index < size)
 		release_data(data, data_type, index++);
-	free(data);
+	if (data_type != TYPE_STRING_TABLE)
+		free(data);
 }
 
 void	free_data(t_data *data, char *buffer)

@@ -31,7 +31,7 @@ CC := cc
 
 DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all
 
-FLAGS := -Wall -Wextra -Werror -g
+FLAGS := -Wall -Wextra -Werror -ggdb -O0
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -61,7 +61,7 @@ lint:
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
 		clear; \
-		gdb -tui --args ./$(SERVER_APPLICATION_NAME) world.json; \
+		gdbgui --args ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
 		echo "test"; \
 	fi
