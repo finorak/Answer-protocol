@@ -6,25 +6,35 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:36 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 17:04:17 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/16 06:33:28 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../main_utils.h"
 
-static void add_quest(char *message, char *quest_id, t_world *g_world)
+static void	add_quest(char *message, char *quest_id, t_world *g_world)
 {
-	t_quest *quest;
+	t_quest	*quest;
 
 	quest = get_quest_by_id(quest_id, g_world);
 	strcat(message, "{\"quest_id\": ");
 	strcat_double_quoted(message, quest->id);
 	strcat(message, ", \"status\": ");
-	if (quest->done == 1)
-		strcat_double_quoted(message, "active");
+	if (quest->done == 1 && quest->available == 0)
+		strcat_double_quoted(message, "completed");
 	else
-		strcat_double_quoted(message, "inactive");
-	// LEFT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	{
+		if (quest->done == 0 && quest->available == 0)
+			strcat_double_quoted(message, "active");
+		else
+			strcat_double_quoted(message, "available");
+		strcat(message, ", \"progress\": ");
+		strcat(message, "\"");
+		strcat_number(message, quest->done_missions);
+		strcat(message, "/");
+		strcat_number(message, quest->missions.len);
+		strcat(message, "\"");
+	}
 	strcat(message, "}");
 }
 
