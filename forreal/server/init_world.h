@@ -6,17 +6,17 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 06:45:25 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:48:29 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/16 06:48:04 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 #define MAX_LIST_LEN 32
 #define MAX_ID_LEN 32
@@ -203,3 +203,4 @@ typedef struct s_signal
 }						t_signal;
 
 void					initialize_world(t_world *world);
+int						generate_weighted_attack(void);

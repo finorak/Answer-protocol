@@ -58,12 +58,30 @@ void	add_player(int client_fd, t_world *world)
 	exit(0);
 }
 
+static void	reinitialize_player(t_player *player, t_world *world)
+{
+	player->fd = -1;
+	player->status = 0;
+	log_date();
+	printf("REMOVED '%s' FROM list of player\n", player->name);
+	strcpy(player->name, "UNAUTHENTICATED");
+	player->quests.len = 0;
+	player->hp = player->max_hp;
+	player->attack = 10;
+	strcpy(player->status_hp, "healthy");
+	world->players.len--;
+}
+
 void	remove_player(int client_fd, t_world *world)
 {
 	t_room		*room;
 	t_player	*player;
 	char		temp[12];
 
+	log_date();
+	if (!(get_player_by_fd(client_fd, world)))
+		return ;
+	printf("Player %d DISCONNECTED\n", player_id(client_fd, *world));
 	player = get_player_by_fd(client_fd, world);
 	room = get_room_by_player_fd(client_fd, world);
 	snprintf(temp, sizeof(temp), "%d", player->fd);
@@ -71,16 +89,6 @@ void	remove_player(int client_fd, t_world *world)
 	log_date();
 	printf("REMOVED '%s' FROM room (%s)\n", player->name, room->name);
 	merge(&(player->items), &(room->items));
-	player->fd = -1;
-	player->status = 0;
-	log_date();
-	printf("REMOVED '%s' FROM list of player\n", player->name);
-	strcpy(player->name, "UNAUTHENTICATED");
-	player->quests.len = 0;
-	player->hp = 100;
-	player->max_hp = 100;
-	player->attack = 10;
-	strcpy(player->status_hp, "healthy");
-	world->players.len--;
+	reinitialize_player(player, world);
 	mess(world);
 }

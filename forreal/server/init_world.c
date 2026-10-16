@@ -221,8 +221,8 @@ static void	initialize_npcs(t_all_npcs *npcs)
 	strcpy(npcs->npcs[8].description, "A bald man in a plain cape, whose power is matched only by his ennui.");
 	npcs->npcs[8].dialogues = dialogues[8];
 	npcs->npcs[8].dialogue_index = 0;
-	npcs->npcs[8].hp = 100;
-	npcs->npcs[8].attack = 30;
+	npcs->npcs[8].hp = 1000000;
+	npcs->npcs[8].attack = 80;
 	strcpy(npcs->npcs[8].quest_id, "none");
 	strcpy(dialogues[9].ids[0], "president_dialogue0");
 	strcpy(dialogues[9].ids[1], "dialogues_about_religion");
@@ -446,7 +446,7 @@ static void	initialize_rooms(t_all_rooms *rooms)
 
 // initialization of client manager
 
-static int	generate_weighted_attack(void)
+int	generate_weighted_attack(void)
 {
 	int	r;
 	int	attack;

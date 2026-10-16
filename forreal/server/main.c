@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:24:41 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/16 07:21:14 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ static void	*client_host(void *arg)
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
-		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
+		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0
+			|| get_player_by_fd(client_id, &g_world) == NULL)
 		{
-			log_date();
-			printf("Player %d DISCONNECTED\n", player_id(client_id, g_world));
 			remove_player(client_id, &g_world);
 			break ;
 		}
