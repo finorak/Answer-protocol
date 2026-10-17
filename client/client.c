@@ -30,7 +30,7 @@ static void	*wait_for_server(void *arg)
 			g_disconnect = 1;
 			break ;
 		}
-		printf("\r%s", buffer);
+		printf("\rS: %s", buffer);
 	}
 	return (NULL);
 }
@@ -49,6 +49,7 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
+		printf("C: ");
 		fgets(buffer, BUFFER_SIZE, stdin);
 		send(sock, buffer, strlen(buffer), 0);
 	}
@@ -78,7 +79,7 @@ int	main(int argc, char **argv)
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
-		printf("Unable to connect with the server\n");
+		printf("ERR 900 CONNECTION_FAILED\n");
 		return (end(sock));
 	}
 	pthread_create(&(client_mods[0]), NULL, wait_for_server, &sock);
