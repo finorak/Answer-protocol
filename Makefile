@@ -6,17 +6,27 @@ SERVER_APPLICATION_NAME := server_cli
 
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
-HEADERS := includes/data_extractor.h includes/parser.h includes/world.h
+HEADERS := includes/data_extractor.h includes/parser.h includes/world.h \
+		   server/tools/tools.h server/validation/validation.h
 
-SERVER_SRC := parser/parser.c parser/parser_utils.c \
-	  parser/data_extractor/rooms_extractor.c parser/data_extractor/helper_part_1.c \
-	  parser/data_extractor/helper_part_2.c parser/data_extractor/item_extractor.c \
-	  parser/data_extractor/npc_extractor.c parser/data_extractor/quest_extractor.c \
-	  parser/data_extractor/mission_extractor.c parser/data_extractor/dialogue_extractor.c \
-	  parser/data_extractor/group_extractor.c parser/data_validator/data_validator.c \
-	  parser/memory_manager/memory_manager.c parser/cJSON.c \
-	  parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c \
-      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_verifiyer.c parser/debug.c
+SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
+	  parser/data_extractor/helper_part_1.c parser/data_extractor/helper_part_2.c \
+	  parser/data_extractor/item_extractor.c parser/data_extractor/npc_extractor.c \
+	  parser/data_extractor/quest_extractor.c parser/data_extractor/mission_extractor.c \
+	  parser/data_extractor/dialogue_extractor.c parser/data_extractor/group_extractor.c \
+	  parser/data_validator/data_validator.c parser/memory_manager/memory_manager.c parser/cJSON.c \
+	  parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c parser/buffer_utils.c \
+      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_verifiyer.c parser/debug.c \
+	  server/main.c server/val_exec.c server/main_utils.c server/tools/list.c server/tools/other.c \
+	  server/tools/group_and_world.c server/tools/player_manager.c server/tools/room_and_world.c \
+	  server/tools/player_and_world.c server/validation/tools_1.c server/validation/tools_2.c \
+	  server/validation/validation.c server/execution/cmd_attack.c server/execution/cmd_chat.c \
+	  server/execution/cmd_connect.c server/execution/cmd_drop.c server/execution/cmd_group.c \
+	  server/execution/cmd_inventory.c server/execution/cmd_look.c server/execution/cmd_move.c \
+	  server/execution/cmd_quest.c server/execution/cmd_quests.c server/execution/cmd_status.c \
+	  server/execution/cmd_take.c server/execution/cmd_talk.c server/execution/cmd_who.c \
+	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
+	  server/execution/cmd_complete_quest.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c parser/debug.c

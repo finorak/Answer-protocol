@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../init_world.h"
+#include "../../includes/world.h"
 
 void		strcat_double_quoted(char *message, char *element);
 

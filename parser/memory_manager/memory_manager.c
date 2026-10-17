@@ -50,7 +50,7 @@ void	custom_free(void *data, int size, t_data_type data_type)
 		free(data);
 }
 
-void	free_data(t_data *data, char *buffer, bool free_all_data)
+void	free_data(t_world *data, char *buffer, bool free_all_data)
 {
 	if (buffer)
 		free(buffer);
@@ -66,7 +66,7 @@ void	free_data(t_data *data, char *buffer, bool free_all_data)
 	free(data);
 }
 
-void	free_world_fail(t_data *data, char *buffer)
+void	free_world_fail(t_world *data, char *buffer)
 {
 	free(buffer);
 	free(data);

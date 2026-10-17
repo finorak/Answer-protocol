@@ -77,7 +77,7 @@ static char	**key_verifier(char **keys, int size, char *to_cmp)
 
 // Extract all the room ids to verify if the
 // exist id is in the room.
-static char	**get_room_ids(t_data *data, char **room_ids)
+static char	**get_room_ids(t_world *data, char **room_ids)
 {
 	t_room	*current_room;
 	int		index;
@@ -106,7 +106,7 @@ static char	**get_room_ids(t_data *data, char **room_ids)
 //			- count how many time we enter a room
 //			- return `true` if count >= COUNTER (`8`)
 //				else `false`
-bool	data_validator(t_data *data)
+bool	data_validator(t_world *data)
 {
 	t_stack	*stack;
 	char	*room_ids[MAX_ID_LEN];
@@ -121,7 +121,7 @@ bool	data_validator(t_data *data)
 	if (!stack)
 		return (false);
 	room_len = data->rooms->len;
-	if (!verify_exit(data, room_ids) || !interconnection_checker(&stack, data->rooms, room_ids))
+	if (!interconnection_checker(&stack, data->rooms, room_ids))
 	{
 		valid = false;
 		free_data(data, NULL, true);

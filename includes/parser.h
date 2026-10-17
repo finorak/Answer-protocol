@@ -78,11 +78,11 @@ t_group				*extract_goup_from_key(const char *key, cJSON *group_json,
 						t_npc *group);
 t_dialogue			*extract_dialogues_from_key(const char *key,
 						cJSON *dialogue_json, t_dialogue *dialogue);
-bool				init_world_data(t_data *data, const char *buffer);
+bool				init_world_data(t_world *data, const char *buffer);
 
 // DATA VALIDATOR
-bool				data_validator(t_data *data);
-bool				verify_exit(t_data *data, char **room_ids);
+bool				data_validator(t_world *data);
+bool				verify_exit(t_world *data, char **room_ids);
 
 // BFS UTILITIES
 t_stack				*stack_append(t_stack **stack, t_stack *new_stack);
@@ -124,7 +124,7 @@ t_group				*extract_goup_from_key(const char *key, cJSON *group_json,
 						t_npc *group);
 t_dialogue			*extract_dialogues_from_key(const char *key,
 						cJSON *dialogue_json, t_dialogue *dialogue);
-bool				init_world_data(t_data *data, const char *buffer);
+bool				init_world_data(t_world *data, const char *buffer);
 
 // INTERCONECTION
 t_room				*get_room_from_id(t_all_rooms *container, char *id);
@@ -150,8 +150,8 @@ bool				traverse_mission_object(const cJSON *mission_json,
 						t_all_missions *mission_container);
 
 // MEMORY MANAGMENT
-void				free_data(t_data *data, char *buffer, bool free_all_data);
-void				free_world_fail(t_data *data, char *buffer);
+void				free_data(t_world *data, char *buffer, bool free_all_data);
+void				free_world_fail(t_world *data, char *buffer);
 void				custom_free(void *data, int size, t_data_type data_type);
 
 #endif

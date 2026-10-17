@@ -67,7 +67,7 @@ static t_all_quests	*get_quests(
 	return (quest_container);
 }
 
-t_all_quests	*extract_quests(const cJSON *root, t_data *data)
+t_all_quests	*extract_quests(const cJSON *root, t_world *data)
 {
 	t_all_quests	*quest_container;
 	t_all_quests	*tmp;

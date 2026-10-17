@@ -24,7 +24,6 @@
 
 #define PORT 8080
 #include "execution/execution.h"
-#include "init_world.h"
 #include "tools/tools.h"
 #include "validation/validation.h"
 

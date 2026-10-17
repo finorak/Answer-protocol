@@ -31,7 +31,7 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 		log_date();
 		printf("new group - %s (%s)\n", new_group.name,
 			get_player_by_fd(client_fd, g_world)->name);
-		g_world->groups->groups[g_world->groups->len] = new_group;
+		g_world->groups->groups[g_world->groups->len] = &new_group;
 		g_world->groups->len++;
 		strcpy(result->message, "OK group=");
 		strcat(result->message, test.message);

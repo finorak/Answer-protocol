@@ -48,7 +48,7 @@ void	add_player(int client_fd, t_world *world)
 			world->players->players[i].status = 1;
 			snprintf(client_fd_char, sizeof(client_fd_char), "%d", client_fd);
 			world->players->len++;
-			append_in(client_fd_char, &(world->rooms->rooms[0].players));
+			append_in(client_fd_char, &(world->rooms->rooms[0]->players));
 			return ;
 		}
 		i++;

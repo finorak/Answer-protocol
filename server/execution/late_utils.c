@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../init_world.h"
+#include <string.h>
+#include "../../includes/world.h"
 #include <stdio.h>
 
 void	strcat_number(char *message, int number)

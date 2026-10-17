@@ -57,7 +57,7 @@ static t_all_items	*get_items(
 	return (items_container);
 }
 
-t_all_items	*extract_items(const cJSON *root, t_data *data)
+t_all_items	*extract_items(const cJSON *root, t_world *data)
 {
 	t_all_items	*items_container;
 	const cJSON	*items_json;

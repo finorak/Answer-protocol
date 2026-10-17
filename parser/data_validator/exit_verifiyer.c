@@ -51,7 +51,7 @@ static bool	exit_valid(t_room *curr_room, char **room_ids)
 	return (true);
 }
 
-bool	verify_exit(t_data *data, char **room_ids)
+bool	verify_exit(t_world *data, char **room_ids)
 {
 	t_room	*curr_room;
 	int		index;

@@ -65,7 +65,7 @@ static t_all_groups	*get_dialogue(
 	return (group_container);
 }
 
-t_all_groups	*extract_groups(const cJSON *root, t_data *data)
+t_all_groups	*extract_groups(const cJSON *root, t_world *data)
 {
 	t_all_groups	*group_container;
 	const cJSON		*group_json;

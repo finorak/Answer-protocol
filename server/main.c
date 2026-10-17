@@ -6,15 +6,20 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:35:47 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 19:44:56 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/parser.h"
 #include "main_utils.h"
 #include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-t_socket_property	g_server;
-t_world				g_world;
+t_socket_property	g_server = {0};
+t_buffer_store		g_buffer_store = {0};
+t_world				*g_world;
 
 static void	handle_shutdown(int sig)
 {
@@ -61,16 +66,16 @@ static void	*client_host(void *arg)
 		memset(buf, 0, sizeof(buf));
 		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
 		{
-			remove_player(client_id, &g_world);
+			remove_player(client_id, g_world);
 			break ;
 		}
 		log_date();
 		buf[strlen(buf) - 1] = '\0';
 		printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
-				g_world));
-		rec = val_exec(client_id, buf, &g_world);
+				*g_world));
+		rec = val_exec(client_id, buf, g_world);
 		server_act(&rec, client_id);
-		if (!player_in(client_id, g_world))
+		if (!player_in(client_id, *g_world))
 			break ;
 	}
 	close(client_id);
@@ -91,18 +96,23 @@ static void	server_routine(void)
 	if (client_fd < 0)
 		return ;
 	send(client_fd, "OK hello proto=1\n", 18, 0);
-	add_player(client_fd, &g_world);
+	add_player(client_fd, g_world);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
-	printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, g_world),
+	printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, *g_world),
 		client_ip);
 	pthread_create(&client_mess_rec, NULL, client_host,
 		(void *)(long)client_fd);
 	pthread_detach(client_mess_rec);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	if (argc != 2)
+		return (fprintf(stderr, "ARGUMENT MISSING\n"), 1);
+	g_buffer_store.buffer_size = get_buffer_size(argv[1]);
+	g_buffer_store.buffer = get_buffer(argv[1], g_buffer_store.buffer_size);
+	g_world = (t_world *)calloc(1, sizeof(t_world));
 	log_date();
 	printf("Server IP address: ");
 	print_ip_addr();
@@ -112,9 +122,14 @@ int	main(void)
 	bind(g_server.server_fd, (struct sockaddr *)&(g_server.address),
 		sizeof(g_server.address));
 	listen(g_server.server_fd, 128);
-	initialize_world(&g_world);
+	if (!init_world_data(g_world, g_buffer_store.buffer))
+	{
+		free_data(g_world, g_buffer_store.buffer, false);
+		return (1);
+	}
 	log_date();
 	printf("Server is initialized\n");
 	while (1)
 		server_routine();
+	free_data(g_world, g_buffer_store.buffer, true);
 }

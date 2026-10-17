@@ -64,7 +64,7 @@ static t_all_rooms	*get_rooms(
 	return (rooms_container);
 }
 
-t_all_rooms	*extract_rooms(const cJSON *root, t_data *data)
+t_all_rooms	*extract_rooms(const cJSON *root, t_world *data)
 {
 	t_all_rooms	*rooms_container;
 	t_all_rooms	*tmp;

@@ -70,7 +70,7 @@ static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 	return (npc_container);
 }
 
-t_all_npcs	*extract_npcs(const cJSON *root, t_data *data)
+t_all_npcs	*extract_npcs(const cJSON *root, t_world *data)
 {
 	const cJSON	*items_json;
 	t_all_npcs	*npc_container;

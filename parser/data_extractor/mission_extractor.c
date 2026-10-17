@@ -79,7 +79,7 @@ static t_all_missions	*get_missions(
 	return (mission_container);
 }
 
-t_all_missions	*extract_missions(const cJSON *root, t_data *data)
+t_all_missions	*extract_missions(const cJSON *root, t_world *data)
 {
 	t_all_missions	*mission_container;
 	t_all_missions	*tmp;

@@ -14,8 +14,11 @@
 # define WORLD_H
 
 # include <stdbool.h>
-# define BUFFER_SIZE 1024
+# include <arpa/inet.h>
+# include <netdb.h>
+# include <netinet/in.h>
 
+# define BUFFER_SIZE 1024
 # define MAX_LIST_LEN 32
 # define MAX_ID_LEN 32
 # define MAX_NAME_LEN 32
@@ -156,7 +159,7 @@ typedef struct all_rooms
 
 // Store the data inside this struct
 // for a better manipulation.
-typedef struct s_data
+typedef struct s_world
 {
 	t_all_dialogues	*dialogues;
 	t_all_missions	*missions;
@@ -167,7 +170,29 @@ typedef struct s_data
 	t_all_items		*items;
 	t_all_npcs		*npcs;
 	bool			extract;
-	bool			freed;
-}				t_data;
+}				t_world;
 
+typedef struct s_command
+{
+	int					is_valid;
+	char				type[32];
+	char				message[128];
+}						t_command;
+
+typedef struct s_socket_property
+{
+	int					server_fd;
+	struct sockaddr_in	address;
+}						t_socket_property;
+
+typedef struct s_signal
+{
+	t_list_of			players_0;
+	char				messages_0[BUFFER_SIZE];
+	t_list_of			players_1;
+	char				messages_1[BUFFER_SIZE];
+	char				message[BUFFER_SIZE];
+}						t_signal;
+
+int						generate_weighted_attack(void);
 #endif // !WORLD_H

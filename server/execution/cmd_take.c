@@ -21,7 +21,7 @@ void	all_items_left(t_world *world, char *temp)
 	result = 0;
 	while (i < world->rooms->len)
 	{
-		result += world->rooms->rooms[i].items.len;
+		result += world->rooms->rooms[i]->items.len;
 		i++;
 	}
 	sprintf(temp, "%d", result);

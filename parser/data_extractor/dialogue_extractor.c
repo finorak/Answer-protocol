@@ -72,7 +72,7 @@ static t_all_dialogues	*get_dialogue(
 }
 
 // Extracting dialogues from the root json.
-t_all_dialogues	*extract_dialogues(const cJSON *root, t_data *data)
+t_all_dialogues	*extract_dialogues(const cJSON *root, t_world *data)
 {
 	t_all_dialogues	*dialogue_container;
 	t_all_dialogues	*tmp;

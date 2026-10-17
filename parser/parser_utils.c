@@ -6,70 +6,70 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 18:02:09 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/17 19:36:50 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "../includes/parser.h"
 #include "../includes/data_extractor.h"
 #include "../includes/cJSON.h"
 
-// Given a file, we try to get the actual size
-// of that file so that we don't use a static
-// value.
-// TODO: Remove this function and use the getline
-// function.
-size_t	get_buffer_size(const char *world_config_file)
+// distribution:
+// p   : min-max
+// 0.30: 001-005
+// 0.25: 006-010
+// 0.20: 011-014
+// 0.15: 015-017
+// 0.10: 018-020
+int	generate_weighted_attack(void)
 {
-	size_t	buffer_size;
-	FILE	*fd;
-	char	*curr_line;
-	char	buffer[1024];
+	int	r;
+	int	attack;
 
-	fd = fopen(world_config_file, "rb");
-	if (!fd)
-		return (-1);
-	buffer_size = 0;
-	curr_line = fgets(buffer, 1024, fd);
-	while (curr_line)
-	{
-		buffer_size += strlen(curr_line);
-		curr_line = fgets(buffer, 1024, fd);
-	}
-	fclose(fd);
-	return (buffer_size);
+	srand(time(NULL));
+	r = rand() % 100;
+	if (r < 30)
+		attack = 1 + (rand() % 5);
+	else if (r < 55)
+		attack = 6 + (rand() % 5);
+	else if (r < 75)
+		attack = 11 + (rand() % 4);
+	else if (r < 90)
+		attack = 15 + (rand() % 3);
+	else
+		attack = 18 + (rand() % 3);
+	return (attack);
 }
 
-// TODO: might replace this because why the fuk
-// did I do this. getline will be the function to
-// replace this.
-char	*get_buffer(const char *world_config_file, const size_t buffer_size)
+static void	initialize_client_manager(t_all_players *players)
 {
-	char	*buffer;
-	int		fd;
+	int	i;
 
-	buffer = (char *)calloc(buffer_size + 1, sizeof(char));
-	if (!buffer)
-		return (NULL);
-	fd = open(world_config_file, O_RDONLY);
-	if (fd < 0)
+	i = 0;
+	while (i < MAX_PLAYER)
 	{
-		free(buffer);
-		return (NULL);
+		players->players[i].fd = -1;
+		players->players[i].status = 0;
+		strcpy(players->players[i].name, "UNAUTHENTICATED");
+		players->players[i].items.len = 0;
+		players->players[i].quests.len = 0;
+		players->players[i].hp = 1000;
+		players->players[i].max_hp = 1000;
+		players->players[i].attack = generate_weighted_attack();
+		strcpy(players->players[i].status_hp, "healthy");
+		i++;
 	}
-	read(fd, buffer, buffer_size);
-	buffer[buffer_size] = '\0';
-	close(fd);
-	return (buffer);
+	players->len = 0;
 }
 
-static void	get_data(t_data *data, cJSON *root)
+static void	get_data(t_world *data, cJSON *root)
 {
 	if (!data || !root)
 		return ;
@@ -80,9 +80,18 @@ static void	get_data(t_data *data, cJSON *root)
 	data->missions = extract_missions(root, data);
 	data->dialogues = extract_dialogues(root, data);
 	data->groups = extract_groups(root, data);
+	if (!data->extract)
+		return ;
+	data->players = (t_all_players *)calloc(MAX_PLAYER, sizeof(t_all_players));
+	if (!data->players)
+	{
+		data->extract = false;
+		return ;
+	}
+	initialize_client_manager(data->players);
 }
 
-bool	init_world_data(t_data *data, const char *buffer)
+bool	init_world_data(t_world *data, const char *buffer)
 {
 	cJSON	*root;
 
@@ -94,7 +103,7 @@ bool	init_world_data(t_data *data, const char *buffer)
 		fprintf(stderr, "Map is invalid\n");
 		return (false);
 	}
-	data->freed = false;
+	data->extract = true;
 	get_data(data, root);
 	cJSON_Delete(root);
 	if (!data->extract)
