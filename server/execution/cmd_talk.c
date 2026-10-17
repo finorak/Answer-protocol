@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 16:36:06 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:18:00 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	cmd_talk(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	t_npc		*npc;
 	t_dialogue	*dialogue;
 
+	(void)test;
+	(void)client_fd;
 	npc = get_npc_by_id(test.message, g_world);
 	if (!npc)
 	{

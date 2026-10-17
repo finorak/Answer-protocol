@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:22 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:12 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:14:32 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	cmd_look(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
 	t_room	*room_;
 
+	(void)test;
 	room_ = get_room_by_player_fd(client_fd, g_world);
 	strcpy(result->message, "OK { \"room\": ");
 	room(result->message, room_);

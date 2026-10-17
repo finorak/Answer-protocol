@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:59:04 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:34:02 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:13:08 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
 		return (cmd_quest(test, client_fd, g_world, result));
 	else if (!strcmp(test.type, "QUESTS") && i)
 		return (cmd_quests(test, client_fd, g_world, result));
-	else if (!strcmp(test.type, "ABANDON_QUEST") && i)
-		return (cmd_abandon_quest(test, client_fd, g_world, result));
+	else if (!strcmp(test.type, "COMPLETE_QUEST") && i)
+		return (cmd_complete_quest(test, client_fd, g_world, result));
 	else
 		return (0);
 }

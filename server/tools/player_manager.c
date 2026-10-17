@@ -67,7 +67,7 @@ static void	reinitialize_player(t_player *player, t_world *world)
 	strcpy(player->name, "UNAUTHENTICATED");
 	player->quests.len = 0;
 	player->hp = player->max_hp;
-	player->attack = 10;
+	player->attack = generate_weighted_attack();
 	strcpy(player->status_hp, "healthy");
 	world->players.len--;
 }
@@ -79,8 +79,6 @@ void	remove_player(int client_fd, t_world *world)
 	char		temp[12];
 
 	log_date();
-	if (!(get_player_by_fd(client_fd, world)))
-		return ;
 	printf("Player %d DISCONNECTED\n", player_id(client_fd, *world));
 	player = get_player_by_fd(client_fd, world);
 	room = get_room_by_player_fd(client_fd, world);

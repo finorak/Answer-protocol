@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:30 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:27:31 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:38:05 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	first_term(char *str)
 	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
-	if (i == strlen(str))
+	if (i == (int)strlen(str))
 		return (0);
 	else
 	{
@@ -50,7 +50,7 @@ void	first_word_parsing(char *buf, t_command *result)
 	if (!strcmp(buf, "CONNECT") || !strcmp(buf, "MOVE") || !strcmp(buf, "TAKE")
 		|| !strcmp(buf, "DROP") || !strcmp(buf, "TALK") || !strcmp(buf,
 			"ATTACK") || !strcmp(buf, "QUEST") || !strcmp(buf, "CHAT")
-		|| !strcmp(buf, "GROUP") || !strcmp(buf, "ABANDON_QUEST"))
+		|| !strcmp(buf, "GROUP") || !strcmp(buf, "COMPLETE_QUEST"))
 		strcpy(result->type, buf);
 	else
 	{
@@ -79,7 +79,7 @@ void	not_first_term(char *str)
 	j = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
-	if (i == strlen(str))
+	if (i == (int)strlen(str))
 		return ;
 	else
 	{

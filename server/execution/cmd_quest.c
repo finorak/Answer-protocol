@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:31 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 06:33:20 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 07:07:01 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	cmd_quest(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	t_quest	*quest;
 
 	npc = get_npc_by_id(test.message, g_world);
-	if (!(in(npc->id, get_room_by_player_fd(client_fd, g_world)->npcs)))
+	if (npc == NULL || !(in(npc->id, get_room_by_player_fd(client_fd,
+					g_world)->npcs)))
 		strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n");
 	else
 	{

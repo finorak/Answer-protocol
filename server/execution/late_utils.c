@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_inventory.c                                    :+:      :+:    :+:   */
+/*   late_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/13 09:35:15 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 16:14:51 by irraheri         ###   ########.fr       */
+/*   Created: 2026/10/15 16:43:57 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/17 06:28:47 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../main_utils.h"
+#include "../init_world.h"
+#include <stdio.h>
 
-int	cmd_inventory(t_command test, int client_fd, t_world *g_world,
-		t_signal *result)
+void	strcat_number(char *message, int number)
 {
-	strcpy(result->message, "OK ");
-	concat_into_message(result->message, get_player_by_fd(client_fd,
-			g_world)->items, 0, g_world);
-	strcat(result->message, "\n");
-	return (1);
+	char	temp[12];
+
+	sprintf(temp, "%d", number);
+	strcat(message, temp);
+}
+
+int	player_in(int client_fd, t_world g_world)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PLAYER)
+	{
+		if (client_fd == g_world.players.players[i].fd)
+			return (1);
+		i++;
+	}
+	return (0);
 }

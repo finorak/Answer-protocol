@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:58:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 16:40:15 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:11:32 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			cmd_quest(t_command test, int client_fd, t_world *g_world,
 				t_signal *result);
 int			cmd_quests(t_command test, int client_fd, t_world *g_world,
 				t_signal *result);
-int			cmd_abandon_quest(t_command test, int client_fd, t_world *g_world,
+int			cmd_complete_quest(t_command test, int client_fd, t_world *g_world,
 				t_signal *result);
 
 int			connect_look_move_chat(t_command test, int client_fd,
@@ -56,5 +56,6 @@ void		fill_with_all(t_signal *result, t_world *g_world);
 void		all_items_left(t_world *world, char *temp);
 
 void		strcat_number(char *message, int number);
+int			player_in(int client_fd, t_world g_world);
 
 t_signal	execution(t_command test, int client_fd, t_world *g_world);

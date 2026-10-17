@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.h                                           :+:      :+:    :+:   */
+/*   cmd_inventory.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/29 09:32:31 by irraheri          #+#    #+#             */
-/*   Updated: 2026/09/29 10:30:26 by irraheri         ###   ########.fr       */
+/*   Created: 2026/10/13 09:35:15 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/17 06:14:22 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <pthread.h>
-#include <string.h>
+#include "../main_utils.h"
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-#include <stdatomic.h>
-
-#define BUFFER_SIZE 1024
-#define PORT 8080
+int	cmd_inventory(t_command test, int client_fd, t_world *g_world,
+		t_signal *result)
+{
+	(void)test;
+	strcpy(result->message, "OK ");
+	concat_into_message(result->message, get_player_by_fd(client_fd,
+			g_world)->items, 0, g_world);
+	strcat(result->message, "\n");
+	return (1);
+}

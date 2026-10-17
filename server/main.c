@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 07:21:14 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:35:47 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_world				g_world;
 
 static void	handle_shutdown(int sig)
 {
+	(void)sig;
 	log_date();
 	printf("shutdown...\n");
 	close(g_server.server_fd);
@@ -58,8 +59,7 @@ static void	*client_host(void *arg)
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
-		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0
-			|| get_player_by_fd(client_id, &g_world) == NULL)
+		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
 		{
 			remove_player(client_id, &g_world);
 			break ;
@@ -70,6 +70,8 @@ static void	*client_host(void *arg)
 				g_world));
 		rec = val_exec(client_id, buf, &g_world);
 		server_act(&rec, client_id);
+		if (!player_in(client_id, g_world))
+			break ;
 	}
 	close(client_id);
 	return (NULL);

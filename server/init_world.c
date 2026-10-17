@@ -97,7 +97,7 @@ static void	initialize_quests(t_all_quests *quests)
 	strcpy(quests->quests[1].id, "doogy_saitama");
 	strcpy(quests->quests[1].name, "The Clearing");
 	strcpy(quests->quests[1].description,
-		" the wanderer and the bored one to restore peace to the crossroads.");
+		"Kill the wanderer and the bored one to restore peace to the crossroads.");
 	quests->quests[1].missions = missions[1];
 	quests->quests[1].done_missions = 0;
 	strcpy(quests->quests[1].reward_id, "philosophical_stone");
@@ -221,8 +221,8 @@ static void	initialize_npcs(t_all_npcs *npcs)
 	strcpy(npcs->npcs[8].description, "A bald man in a plain cape, whose power is matched only by his ennui.");
 	npcs->npcs[8].dialogues = dialogues[8];
 	npcs->npcs[8].dialogue_index = 0;
-	npcs->npcs[8].hp = 1000000;
-	npcs->npcs[8].attack = 80;
+	npcs->npcs[8].hp = 100;
+	npcs->npcs[8].attack = 10;
 	strcpy(npcs->npcs[8].quest_id, "none");
 	strcpy(dialogues[9].ids[0], "president_dialogue0");
 	strcpy(dialogues[9].ids[1], "dialogues_about_religion");

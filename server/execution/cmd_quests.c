@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:36 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 06:33:28 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:14:41 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	cmd_quests(t_command test, int client_fd, t_world *g_world,
 {
 	int	i;
 
+	(void)test;
 	i = 0;
 	strcpy(result->message, "OK [");
 	while (i < get_player_by_fd(client_fd, g_world)->quests.len)

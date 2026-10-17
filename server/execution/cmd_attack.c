@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 07:16:12 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:00:15 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static int	consequence(t_player *player, t_signal *result, int client_fd,
 		t_world *g_world)
 {
+	if (player->hp <= player->max_hp / 2)
+		strcpy(player->status_hp, "unhealthy");
 	if (player->hp == 0)
 	{
 		strcpy(result->message, "OK ... YOU DIED\n");
