@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:02:11 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 18:01:05 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:27:32 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ bool				init_world_data(t_data *data, const char *buffer);
 
 // DATA VALIDATOR
 bool				data_validator(t_data *data);
+bool				verify_exit(t_data *data, char **room_ids);
 
 // BFS UTILITIES
 t_stack				*stack_append(t_stack **stack, t_stack *new_stack);

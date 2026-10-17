@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 14:53:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 18:00:55 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:39:44 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ bool	data_validator(t_data *data)
 	if (!stack)
 		return (false);
 	room_len = data->rooms->len;
-	if (!interconnection_checker(&stack, data->rooms, room_ids))
+	if (!verify_exit(data, room_ids) || !interconnection_checker(&stack, data->rooms, room_ids))
 	{
 		valid = false;
 		free_data(data, NULL, true);
