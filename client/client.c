@@ -6,11 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 07:47:37 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 21:25:13 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
+#include <stdio.h>
 
 static atomic_int	g_disconnect = 0;
 
@@ -73,6 +74,7 @@ int	main(int argc, char **argv)
 		printf("Please use the format ./client <server-ip-addr>\n");
 		return (1);
 	}
+	printf("%s\n", argv[1]);
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(PORT);
 	addr.sin_addr.s_addr = inet_addr(argv[1]);
