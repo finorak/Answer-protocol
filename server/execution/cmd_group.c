@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:45 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:54:52 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 		strcpy(result->message, "ERR 201 GROUP_NAME_IN_USE\n");
 	else if (get_group_by_player_fd(client_fd, g_world) != NULL)
 		strcpy(result->message, "ERR 402 ALREADY_IN_GROUP\n");
-	else if (g_world->groups.len < MAX_LIST_LEN)
+	else if (g_world->groups->len < MAX_LIST_LEN)
 	{
 		log_date();
 		printf("new group - %s (%s)\n", new_group.name,
 			get_player_by_fd(client_fd, g_world)->name);
-		g_world->groups.groups[g_world->groups.len] = new_group;
-		g_world->groups.len++;
+		g_world->groups->groups[g_world->groups->len] = new_group;
+		g_world->groups->len++;
 		strcpy(result->message, "OK group=");
 		strcat(result->message, test.message);
 		strcat(result->message, "\n");

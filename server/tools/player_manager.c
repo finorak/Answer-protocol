@@ -23,13 +23,13 @@ void	mess(t_world *world)
 
 	i = 0;
 	strcpy(mess, "EVT STATS players=");
-	sprintf(temp, "%d", world->players.len);
+	sprintf(temp, "%d", world->players->len);
 	strcat(mess, temp);
 	strcat(mess, "\n");
 	while (i < MAX_PLAYER)
 	{
-		if (world->players.players[i].fd != -1)
-			send(world->players.players[i].fd, mess, strlen(mess), 0);
+		if (world->players->players[i].fd != -1)
+			send(world->players->players[i].fd, mess, strlen(mess), 0);
 		i++;
 	}
 }
@@ -42,13 +42,13 @@ void	add_player(int client_fd, t_world *world)
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		if (world->players.players[i].status == 0)
+		if (world->players->players[i].status == 0)
 		{
-			world->players.players[i].fd = client_fd;
-			world->players.players[i].status = 1;
+			world->players->players[i].fd = client_fd;
+			world->players->players[i].status = 1;
 			snprintf(client_fd_char, sizeof(client_fd_char), "%d", client_fd);
-			world->players.len++;
-			append_in(client_fd_char, &(world->rooms.rooms[0].players));
+			world->players->len++;
+			append_in(client_fd_char, &(world->rooms->rooms[0].players));
 			return ;
 		}
 		i++;
@@ -69,7 +69,7 @@ static void	reinitialize_player(t_player *player, t_world *world)
 	player->hp = player->max_hp;
 	player->attack = generate_weighted_attack();
 	strcpy(player->status_hp, "healthy");
-	world->players.len--;
+	world->players->len--;
 }
 
 void	remove_player(int client_fd, t_world *world)

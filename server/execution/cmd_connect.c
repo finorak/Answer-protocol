@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:06:44 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:22 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:54:17 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	cmd_connect(t_command test, int client_fd, t_world *g_world,
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		if (!strcmp(g_world->players.players[i].name, test.message))
+		if (!strcmp(g_world->players->players[i].name, test.message))
 		{
 			strcpy(result->message, "ERR 201 NAME_IN_USE\n");
 			return (1);

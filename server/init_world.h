@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 06:45:25 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 06:48:04 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:58:57 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,14 +170,14 @@ typedef struct s_all_players
 
 typedef struct s_world
 {
-	t_all_rooms			rooms;
-	t_all_items			items;
-	t_all_npcs			npcs;
-	t_all_quests		quests;
-	t_all_missions		missions;
-	t_all_dialogues		dialogues;
-	t_all_groups		groups;
-	t_all_players		players;
+	t_all_rooms			*rooms;
+	t_all_items			*items;
+	t_all_npcs			*npcs;
+	t_all_quests		*quests;
+	t_all_missions		*missions;
+	t_all_dialogues		*dialogues;
+	t_all_groups		*groups;
+	t_all_players		*players;
 }						t_world;
 
 typedef struct s_command

@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 11:00:28 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:54:20 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	fill_with_all(t_signal *result, t_world *g_world)
 	index = 0;
 	while (i < MAX_PLAYER)
 	{
-		if (g_world->players.players[i].fd != -1)
+		if (g_world->players->players[i].fd != -1)
 		{
-			snprintf(temp, sizeof(temp), "%d", g_world->players.players[i].fd);
+			snprintf(temp, sizeof(temp), "%d", g_world->players->players[i].fd);
 			strcpy(result->players_0.ids[index], temp);
 			index++;
 		}

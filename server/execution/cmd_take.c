@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:46 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 07:17:23 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:56:16 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	all_items_left(t_world *world, char *temp)
 
 	i = 0;
 	result = 0;
-	while (i < world->rooms.len)
+	while (i < world->rooms->len)
 	{
-		result += world->rooms.rooms[i].items.len;
+		result += world->rooms->rooms[i].items.len;
 		i++;
 	}
 	sprintf(temp, "%d", result);

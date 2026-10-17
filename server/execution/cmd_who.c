@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:53 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:55 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:54:17 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cmd_who(t_command test, int client_fd, t_world *g_world, t_signal *result)
 
 	(void)test;
 	(void)client_fd;
-	sprintf(len, "%d", g_world->players.len);
+	sprintf(len, "%d", g_world->players->len);
 	strcpy(result->message, "OK players=");
 	strcat(result->message, len);
 	strcat(result->message, "\n");

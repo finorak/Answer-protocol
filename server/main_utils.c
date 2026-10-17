@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:36:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:36:50 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 09:50:24 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	player_id(int client_fd, t_world world)
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		if (world.players.players[i].fd == client_fd)
+		if (world.players->players[i].fd == client_fd)
 			return (i + 1);
 		else
 			i++;

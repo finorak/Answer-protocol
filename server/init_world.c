@@ -516,12 +516,12 @@ void	initialize_world(t_world *world)
 	initialize_items(&items);
 	initialize_rooms(&rooms);
 	initialize_client_manager(&players);
-	world->groups = groups;
-	world->dialogues = dialogues;
-	world->missions = missions;
-	world->quests = quests;
-	world->npcs = npcs;
-	world->items = items;
-	world->rooms = rooms;
-	world->players = players;
+	world->groups = &groups;
+	world->dialogues = &dialogues;
+	world->missions = &missions;
+	world->quests = &quests;
+	world->npcs = &npcs;
+	world->items = &items;
+	world->rooms = &rooms;
+	world->players = &players;
 }
