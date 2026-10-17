@@ -68,6 +68,8 @@ int	cmd_complete_quest(t_command test, int client_fd, t_world *g_world,
 	{
 		complete_quest(get_quest_by_id(test.message, g_world), g_world,
 			client_fd);
+		log_date();
+		printf("Actualizing quest %s\n", test.message);
 		strcpy(result->message, "OK done_missions=");
 		strcat_number(result->message, get_quest_by_id(test.message,
 				g_world)->done_missions);
