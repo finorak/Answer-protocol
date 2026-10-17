@@ -1,3 +1,11 @@
 *.o
+server_cli
 parser_cli
 parser.c
+
+*.py
+file.txt
+
+compile_commands.json
+
+*vgcore*

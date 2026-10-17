@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 bool	traverse_quest_object(
-	const cJSON *world_json, t_all_quests *quest_container)
+	const cJSON *world_json, t_all_quests *container)
 {
 	t_quest	*quest;
 	cJSON	*element;
@@ -25,19 +25,22 @@ bool	traverse_quest_object(
 
 	if (!world_json)
 		return (false);
-	if (!quest_container)
+	if (!container)
 		return (false);
 	element = world_json->child;
 	while (element)
 	{
 		key = element->string;
-		quest = (t_quest *)calloc(sizeof(t_quest), 1);
-		quest_container->quests[quest_container->len] = extract_quest_from_key(
+		quest = (t_quest *)calloc(1, sizeof(t_quest));
+		container->quests[container->len] = extract_quest_from_key(
 				key, element, quest
 				);
-		if (!quest_container->quests[quest_container->len])
-			return (free_quests(quest_container, quest_container->len), NULL);
-		quest_container->len += 1;
+		if (!container->quests[container->len])
+		{
+			custom_free(container, container->len, TYPE_QUEST);
+			return (false);
+		}
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);

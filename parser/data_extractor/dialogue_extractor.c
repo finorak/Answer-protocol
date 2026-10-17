@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -30,7 +31,7 @@ t_dialogue	*extract_dialogues_from_key(
 }
 
 bool	traverse_dialogue_object(
-	cJSON *dialogue_json, t_all_dialogues *dialogue_container)
+	const cJSON *dialogue_json, t_all_dialogues *container)
 {
 	t_dialogue	*dialogue;
 	cJSON		*element;
@@ -38,27 +39,27 @@ bool	traverse_dialogue_object(
 
 	if (!dialogue_json)
 		return (NULL);
-	if (!dialogue_container)
+	if (!container)
 		return (NULL);
 	element = dialogue_json->child;
 	while (element)
 	{
 		key = element->string;
-		dialogue = (t_dialogue *)calloc(sizeof(t_dialogue), 1);
-		dialogue_container->dialogues[
-			dialogue_container->len] = extract_dialogues_from_key(
+		dialogue = (t_dialogue *)calloc(1, sizeof(t_dialogue));
+		container->dialogues[
+			container->len] = extract_dialogues_from_key(
 				key, element, dialogue
 				);
-		if (!dialogue_container->dialogues[dialogue_container->len])
-			return (NULL);
-		dialogue_container->len += 1;
+		if (!container->dialogues[container->len])
+			return (custom_free(container, container->len, TYPE_DIALOG), false);
+		container->len += 1;
 		element = element->next;
 	}
 	return (true);
 }
 
 static t_all_dialogues	*get_dialogue(
-	cJSON *dialogue_json, t_all_dialogues *dialogue_container)
+	const cJSON *dialogue_json, t_all_dialogues *dialogue_container)
 {
 	if (!dialogue_json)
 		return (NULL);
@@ -70,21 +71,30 @@ static t_all_dialogues	*get_dialogue(
 	return (dialogue_container);
 }
 
-t_all_dialogues	*extract_dialogues(const cJSON *root)
+// Extracting dialogues from the root json.
+t_all_dialogues	*extract_dialogues(const cJSON *root, t_world *data)
 {
 	t_all_dialogues	*dialogue_container;
-	cJSON			*dialogue_json;
+	t_all_dialogues	*tmp;
+	const cJSON		*dialogue_json;
 
-	if (!root)
+	if (!root || !data || !data->extract)
 		return (NULL);
-	dialogue_container = (t_all_dialogues *)calloc(sizeof(t_all_dialogues), 1);
+	dialogue_container = (t_all_dialogues *)calloc(1, sizeof(t_all_dialogues));
 	if (!dialogue_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	dialogue_json = cJSON_GetObjectItemCaseSensitive(root, "dialogues");
 	if (!dialogue_json)
 	{
+		data->extract = false;
 		free(dialogue_container);
 		return (NULL);
 	}
-	return (get_dialogue(dialogue_json, dialogue_container));
+	tmp = get_dialogue(dialogue_json, dialogue_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }

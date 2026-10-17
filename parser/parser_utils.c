@@ -6,89 +6,93 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 14:55:26 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/17 19:55:33 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "../includes/parser.h"
 #include "../includes/data_extractor.h"
 #include "../includes/cJSON.h"
 
-size_t	get_buffer_size(const char *world_config_file)
+// distribution:
+// p   : min-max
+// 0.30: 001-005
+// 0.25: 006-010
+// 0.20: 011-014
+// 0.15: 015-017
+// 0.10: 018-020
+int	generate_weighted_attack(void)
 {
-	size_t	buffer_size;
-	FILE	*fd;
-	char	*curr_line;
-	char	buffer[SIZE];
+	int	r;
+	int	attack;
 
-	fd = fopen(world_config_file, "rb");
-	if (!fd)
-		return (-1);
-	buffer_size = 0;
-	curr_line = fgets(buffer, SIZE, fd);
-	while (curr_line)
+	srand(time(NULL));
+	r = rand() % 100;
+	if (r < 30)
+		attack = 1 + (rand() % 5);
+	else if (r < 55)
+		attack = 6 + (rand() % 5);
+	else if (r < 75)
+		attack = 11 + (rand() % 4);
+	else if (r < 90)
+		attack = 15 + (rand() % 3);
+	else
+		attack = 18 + (rand() % 3);
+	return (attack);
+}
+
+static void	initialize_client_manager(t_all_players *players)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PLAYER)
 	{
-		buffer_size += strlen(curr_line);
-		curr_line = fgets(buffer, SIZE, fd);
+		players->players[i].fd = -1;
+		players->players[i].status = 0;
+		strcpy(players->players[i].name, "UNAUTHENTICATED");
+		players->players[i].items.len = 0;
+		players->players[i].quests.len = 0;
+		players->players[i].hp = 1000;
+		players->players[i].max_hp = 1000;
+		players->players[i].attack = generate_weighted_attack();
+		strcpy(players->players[i].status_hp, "healthy");
+		i++;
 	}
-	fclose(fd);
-	return (buffer_size);
+	players->len = 0;
 }
 
-char	*get_buffer(const char *world_config_file, const size_t buffer_size)
+static void	get_data(t_world *data, cJSON *root)
 {
-	char	*buffer;
-	int		fd;
-
-	buffer = (char *)calloc(sizeof(char), buffer_size + 1);
-	if (!buffer)
-		return (NULL);
-	fd = open(world_config_file, O_RDONLY);
-	if (fd < 0)
+	if (!data || !root)
+		return ;
+	data->rooms = extract_rooms(root, data);
+	data->items = extract_items(root, data);
+	data->npcs = extract_npcs(root, data);
+	data->quests = extract_quests(root, data);
+	data->missions = extract_missions(root, data);
+	data->dialogues = extract_dialogues(root, data);
+	data->groups = extract_groups(root, data);
+	data->players = NULL;
+	if (!data->extract)
+		return ;
+	data->players = (t_all_players *)calloc(MAX_PLAYER, sizeof(t_all_players));
+	if (!data->players)
 	{
-		free(buffer);
-		return (NULL);
+		data->extract = false;
+		return ;
 	}
-	read(fd, buffer, buffer_size);
-	buffer[buffer_size] = '\0';
-	close(fd);
-	return (buffer);
+	initialize_client_manager(data->players);
 }
 
-static bool	validate_other_data(cJSON *root, t_data *data)
-{
-	data->quests = extract_quests(root);
-	if (!data->quests)
-		return (
-			cJSON_Delete(root),
-			free_npcs(data->npcs, data->npcs->len), false);
-	data->missions = extract_missions(root);
-	if (!data->missions)
-		return (
-			cJSON_Delete(root),
-			free_quests(data->quests, data->quests->len), false);
-	data->dialogues = extract_dialogues(root);
-	if (!data->dialogues)
-		return (
-			cJSON_Delete(root),
-			free_missions(data->missions, data->missions->len), false);
-	data->groups = extract_groups(root);
-	if (!data->groups)
-		return (
-			cJSON_Delete(root),
-			free_dialogues(data->dialogues, data->dialogues->len), false);
-	cJSON_Delete(root);
-	return (true);
-}
-
-// TODO: liverage this functon because it start to be full of shit.
-bool	init_world_data(t_data *data, const char *buffer)
+bool	init_world_data(t_world *data, const char *buffer)
 {
 	cJSON	*root;
 
@@ -96,20 +100,20 @@ bool	init_world_data(t_data *data, const char *buffer)
 		return (false);
 	root = cJSON_Parse(buffer);
 	if (!root)
+	{
+		fprintf(stderr, "Map is invalid\n");
 		return (false);
-	printf("her hkhlje\n");
-	data->rooms = extract_rooms(root);
-	if (!data->rooms)
-		return (cJSON_Delete(root), NULL);
-	data->items = extract_items(root);
-	if (!data->items)
-		return (
-			cJSON_Delete(root),
-			free_rooms(data->rooms, data->rooms->len), false);
-	data->npcs = extract_npcs(root);
-	if (!data->npcs)
-		return (
-			cJSON_Delete(root),
-			free_items(data->items, data->items->len), false);
-	return (validate_other_data(root, data));
+	}
+	data->extract = true;
+	get_data(data, root);
+	cJSON_Delete(root);
+	if (!data->extract)
+	{
+		fprintf(
+			stderr,
+			"An error occured during parsing. Possibly \
+due to a key missing or value invalid.\n");
+		return (false);
+	}
+	return (data_validator(data));
 }

@@ -22,7 +22,7 @@ static t_quest	*get_owner(
 	strncpy(quest->reward_id, content->valuestring, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(
 			quest_json, "npc_owner");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	strncpy(quest->npc_owner_id, content->valuestring, MAX_ID_LEN);
 	return (quest);
@@ -41,15 +41,15 @@ t_quest	*extract_quest_from_key(
 	strncpy(quest->name, content->valuestring, MAX_NAME_LEN);
 	strncpy(quest->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "missions");
-	if (!cJSON_IsArray(content))
+	if (!content || !cJSON_IsArray(content))
 		return (free(quest), NULL);
-	if (!traverse_quest_array(content, quest))
+	if (!content || !traverse_quest_array(content, quest))
 		return (free(quest), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "reward");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	return (get_owner(content, quest_json, quest));
 }
@@ -67,22 +67,30 @@ static t_all_quests	*get_quests(
 	return (quest_container);
 }
 
-t_all_quests	*extract_quests(const cJSON *root)
+t_all_quests	*extract_quests(const cJSON *root, t_world *data)
 {
 	t_all_quests	*quest_container;
+	t_all_quests	*tmp;
 	const cJSON		*quest_json;
 
-	if (!root)
+	if (!root || !data || !data->extract)
 		return (NULL);
-	quest_container = (t_all_quests *)calloc(sizeof(t_all_quests), 1);
+	quest_container = (t_all_quests *)calloc(1, sizeof(t_all_quests));
 	if (!quest_container)
+	{
+		data->extract = false;
 		return (NULL);
+	}
 	quest_json = cJSON_GetObjectItemCaseSensitive(root, QUEST_KEY);
 	if (!quest_json)
 	{
+		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", QUEST_KEY);
 		free(quest_container);
 		return (NULL);
 	}
-	return (get_quests(quest_json, quest_container));
+	tmp = get_quests(quest_json, quest_container);
+	if (!tmp)
+		data->extract = false;
+	return (tmp);
 }
