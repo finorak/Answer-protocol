@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include "../../includes/parser.h"
 
@@ -49,11 +50,11 @@ void	custom_free(void *data, int size, t_data_type data_type)
 		free(data);
 }
 
-void	free_data(t_data *data, char *buffer)
+void	free_data(t_data *data, char *buffer, bool free_all_data)
 {
 	if (buffer)
 		free(buffer);
-	if (!data)
+	if (!data || !free_all_data)
 		return ;
 	custom_free(data->rooms, data->rooms->len, TYPE_ROOM);
 	custom_free(data->items, data->items->len, TYPE_ITEM);
@@ -62,6 +63,11 @@ void	free_data(t_data *data, char *buffer)
 	custom_free(data->missions, data->missions->len, TYPE_MISSION);
 	custom_free(data->dialogues, data->dialogues->len, TYPE_DIALOG);
 	custom_free(data->groups, data->groups->len, TYPE_GROUP);
-	if (data)
-		free(data);
+	free(data);
+}
+
+void	free_world_fail(t_data *data, char *buffer)
+{
+	free(buffer);
+	free(data);
 }

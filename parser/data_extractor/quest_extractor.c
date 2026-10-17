@@ -22,7 +22,7 @@ static t_quest	*get_owner(
 	strncpy(quest->reward_id, content->valuestring, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(
 			quest_json, "npc_owner");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	strncpy(quest->npc_owner_id, content->valuestring, MAX_ID_LEN);
 	return (quest);
@@ -41,15 +41,15 @@ t_quest	*extract_quest_from_key(
 	strncpy(quest->name, content->valuestring, MAX_NAME_LEN);
 	strncpy(quest->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "missions");
-	if (!cJSON_IsArray(content))
+	if (!content || !cJSON_IsArray(content))
 		return (free(quest), NULL);
-	if (!traverse_quest_array(content, quest))
+	if (!content || !traverse_quest_array(content, quest))
 		return (free(quest), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "reward");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	return (get_owner(content, quest_json, quest));
 }

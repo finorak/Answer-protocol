@@ -82,7 +82,6 @@ bool				init_world_data(t_data *data, const char *buffer);
 
 // DATA VALIDATOR
 bool				data_validator(t_data *data);
-char				*extract_room_id(char *room_id);
 
 // BFS UTILITIES
 t_stack				*stack_append(t_stack **stack, t_stack *new_stack);
@@ -150,7 +149,8 @@ bool				traverse_mission_object(const cJSON *mission_json,
 						t_all_missions *mission_container);
 
 // MEMORY MANAGMENT
-void				free_data(t_data *data, char *buffer);
+void				free_data(t_data *data, char *buffer, bool free_all_data);
+void				free_world_fail(t_data *data, char *buffer);
 void				custom_free(void *data, int size, t_data_type data_type);
 
 #endif

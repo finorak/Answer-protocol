@@ -14,8 +14,8 @@ SERVER_SRC := parser/parser.c parser/parser_utils.c \
 	  parser/data_extractor/npc_extractor.c parser/data_extractor/quest_extractor.c \
 	  parser/data_extractor/mission_extractor.c parser/data_extractor/dialogue_extractor.c \
 	  parser/data_extractor/group_extractor.c parser/data_validator/data_validator.c \
-	  parser/data_validator/data_validator_helper.c parser/memory_manager/memory_manager.c \
-	  parser/cJSON.c parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c \
+	  parser/memory_manager/memory_manager.c parser/cJSON.c \
+	  parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c \
       parser/data_validator/bfs_helper_2.c parser/debug.c
 
 # put here files that we didn't create our own

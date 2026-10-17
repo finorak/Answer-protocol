@@ -94,6 +94,7 @@ bool	init_world_data(t_data *data, const char *buffer)
 		fprintf(stderr, "Map is invalid\n");
 		return (false);
 	}
+	data->freed = false;
 	get_data(data, root);
 	cJSON_Delete(root);
 	if (!data->extract)

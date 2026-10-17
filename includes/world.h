@@ -167,6 +167,7 @@ typedef struct s_data
 	t_all_items		*items;
 	t_all_npcs		*npcs;
 	bool			extract;
+	bool			freed;
 }				t_data;
 
 #endif // !WORLD_H

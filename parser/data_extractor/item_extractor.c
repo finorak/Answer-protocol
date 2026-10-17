@@ -26,20 +26,20 @@ t_item	*extract_item_from_key(
 		return (free(item), NULL);
 	strncpy(item->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(item_json, "name");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(item), NULL);
 	strncpy(item->name, content->valuestring, MAX_NAME_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(item_json, "description");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(item), NULL);
 	strncpy(item->description, content->valuestring, MAX_DESCRIPTION_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(
 			item_json, "obtainable");
-	if (!cJSON_IsNumber(content))
+	if (!content || !cJSON_IsNumber(content))
 		return (free(item), NULL);
 	item->obtainable = content->valueint;
 	content = cJSON_GetObjectItemCaseSensitive(item_json, "heal");
-	if (!cJSON_IsNumber(content))
+	if (!content || !cJSON_IsNumber(content))
 		return (free(item), NULL);
 	return (item);
 }

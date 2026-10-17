@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 #include "../../includes/parser.h"
 
@@ -35,7 +36,7 @@ static bool	append_exits_to_last(t_stack **stack,
 	while (index < curr_room->exits.len)
 	{
 		key = curr_room->exits.ids[index];
-		if (strcmp(key, curr_room->id) == 0)
+		if (!*key || strcmp(key, curr_room->id) == 0)
 			return (false);
 		room = get_room_from_id(container, key);
 		if (room)
@@ -68,6 +69,12 @@ static bool	room_visited(t_stack *current, t_stack *visited)
 	return (false);
 }
 
+static void	release_stack(t_stack *stack, t_stack *visited)
+{
+	stack_free(visited);
+	stack_free(stack);
+}
+
 // Given a map, we iterate through all the
 // rooms and their exits: doing a simple
 // bfs and count the number of time we
@@ -93,13 +100,14 @@ bool	interconnection_checker(t_stack **stack,
 		if (room_visited(curr, visited))
 		{
 			counter += 1;
+			free(curr);
 			continue ;
 		}
 		stack_append(&visited, curr);
 		curr->next = NULL;
-		append_exits_to_last(stack, curr->room, container);
+		if (!append_exits_to_last(stack, curr->room, container))
+			return (release_stack(*stack, visited), false);
 	}
-	stack_free(visited);
-	stack_free(*stack);
+	release_stack(*stack, visited);
 	return (counter >= INTERCONNECTION_BASE_COUNT);
 }

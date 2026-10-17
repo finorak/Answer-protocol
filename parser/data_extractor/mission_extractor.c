@@ -26,11 +26,11 @@ t_mission	*extract_mission_from_key(const char *key, const cJSON *npc_json,
 		return (NULL);
 	strncpy(mission->id, key, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "type");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (NULL);
 	strncpy(mission->type, content->valuestring, MAX_ID_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "goal");
-	if (!cJSON_IsString(content) || !content->valuestring)
+	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (NULL);
 	strncpy(mission->goal_id, content->valuestring, MAX_ID_LEN);
 	return (mission);
