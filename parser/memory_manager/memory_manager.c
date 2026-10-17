@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 14:25:05 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/16 18:00:47 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/17 19:56:19 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	free_data(t_world *data, char *buffer, bool free_all_data)
 	custom_free(data->missions, data->missions->len, TYPE_MISSION);
 	custom_free(data->dialogues, data->dialogues->len, TYPE_DIALOG);
 	custom_free(data->groups, data->groups->len, TYPE_GROUP);
+	if (data->players)
+		free(data->players);
 	free(data);
 }
 

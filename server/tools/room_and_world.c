@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:53 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:55:42 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:01:59 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <stdlib.h>
 #include "../main_utils.h"
 #include <stdio.h>
 

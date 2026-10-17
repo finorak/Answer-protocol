@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:44 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:58:35 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:01:09 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 t_item	*get_item_by_id(char *id, t_world *world)

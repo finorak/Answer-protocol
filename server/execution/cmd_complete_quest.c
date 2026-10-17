@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:33:59 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 07:33:33 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:09:13 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static int	take(char *item_id, t_world *g_world, int client_fd)

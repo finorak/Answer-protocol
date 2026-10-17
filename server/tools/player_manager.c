@@ -13,6 +13,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "../main_utils.h"
 
 void	mess(t_world *world)

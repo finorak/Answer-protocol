@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 06:28:34 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 06:52:00 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:04:52 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <string.h>
 #include "../main_utils.h"
 
 int	in(char *element, t_list_of list)

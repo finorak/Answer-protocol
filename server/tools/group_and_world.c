@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:56:15 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:01:00 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 t_group	*get_group_by_name(char *name, t_world *world)

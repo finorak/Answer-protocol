@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:30 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:38:05 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:05:57 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 int	first_term(char *str)

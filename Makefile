@@ -39,9 +39,10 @@ SERVER_OBJS := $(SERVER_SRC:.c=.o)
 
 CC := cc
 
-DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all
+DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all \
+			   --track-origins=yes --error-exitcode=1
 
-FLAGS := -Wall -Wextra -Werror -ggdb -O0
+FLAGS := -Wall -Wextra -Werror -g
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

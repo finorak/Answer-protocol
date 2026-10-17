@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/17 19:36:50 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/17 19:55:33 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	get_data(t_world *data, cJSON *root)
 	data->missions = extract_missions(root, data);
 	data->dialogues = extract_dialogues(root, data);
 	data->groups = extract_groups(root, data);
+	data->players = NULL;
 	if (!data->extract)
 		return ;
 	data->players = (t_all_players *)calloc(MAX_PLAYER, sizeof(t_all_players));

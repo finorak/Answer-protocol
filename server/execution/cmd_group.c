@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:54:52 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:00:42 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static void	grp_create(t_command test, int client_fd, t_world *g_world,

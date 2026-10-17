@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:26 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:04 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:08:04 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static void	move(t_room *current_room, int ids, t_world *g_world,

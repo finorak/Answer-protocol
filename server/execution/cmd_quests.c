@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:36 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:14:41 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:07:36 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 static void	add_quest(char *message, char *quest_id, t_world *g_world)

@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:46 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:56:16 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:00:54 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 void	all_items_left(t_world *world, char *temp)

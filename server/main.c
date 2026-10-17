@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 19:44:56 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/17 20:02:55 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 t_socket_property	g_server = {0};
 t_buffer_store		g_buffer_store = {0};
@@ -27,6 +29,7 @@ static void	handle_shutdown(int sig)
 	log_date();
 	printf("shutdown...\n");
 	close(g_server.server_fd);
+	free_data(g_world, g_buffer_store.buffer, true);
 	exit(0);
 }
 

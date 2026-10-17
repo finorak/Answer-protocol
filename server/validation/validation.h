@@ -6,9 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:25:32 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:26:25 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:05:27 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/world.h"
 
 int			first_term(char *str);
 void		one_word_parsing(char *buf, t_command *result);

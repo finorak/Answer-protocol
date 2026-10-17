@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:51:18 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:09:50 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static int	consequence(t_player *player, t_signal *result, int client_fd,

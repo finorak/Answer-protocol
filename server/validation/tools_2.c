@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:27 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:38:20 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:05:49 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 void	one_word_parsing_mess(t_command test, t_command *result)

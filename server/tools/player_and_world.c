@@ -6,10 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:28:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:56:56 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:01:19 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 t_player	*get_player_by_fd(int client_fd, t_world *world)

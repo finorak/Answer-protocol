@@ -6,9 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:29:35 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 11:28:36 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:04:32 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/world.h"
 
 void		mess(t_world *world);
 void		add_player(int client_fd, t_world *world);

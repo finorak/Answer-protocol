@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:54:20 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:09:28 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 void	fill_with_all(t_signal *result, t_world *g_world)
