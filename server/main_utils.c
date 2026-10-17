@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_initializer.c                                :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/25 12:41:18 by irraheri          #+#    #+#             */
-/*   Updated: 2026/09/22 10:22:41 by irraheri         ###   ########.fr       */
+/*   Created: 2026/10/15 10:36:45 by irraheri          #+#    #+#             */
+/*   Updated: 2026/10/17 09:50:24 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "main_utils.h"
 
-pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
+void	log_date(void)
+{
+	time_t	timestamp;
+	char	*date;
+
+	timestamp = time(NULL);
+	date = ctime(&timestamp);
+	date[strlen(date) - 1] = '\0';
+	printf("\r[%s] - ", date);
+}
 
 void	print_ip_addr(void)
 {
@@ -26,7 +35,7 @@ void	print_ip_addr(void)
 	printf("%s\n", ip);
 }
 
-void	define_server_property(t_property *server_property)
+void	define_server_property(t_socket_property *server_property)
 {
 	server_property->server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	server_property->address.sin_family = AF_INET;
@@ -34,35 +43,17 @@ void	define_server_property(t_property *server_property)
 	server_property->address.sin_port = htons(PORT);
 }
 
-void	log_date(void)
+int	player_id(int client_fd, t_world world)
 {
-	time_t	timestamp;
-	char	*date;
-
-	timestamp = time(NULL);
-	date = ctime(&timestamp);
-	date[strlen(date) - 1] = '\0';
-	printf("\r[%s] - ", date);
-}
-
-void	initialize_client_manager(t_client_manager *manager)
-{
-	int				i;
+	int	i;
 
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		manager->players[i].fd = -1;
-		manager->players[i].status = 0;
-		strcpy(manager->players[i].name, "UNAUTHENTICATED");
-		manager->players[i].items.len = 0;
-		manager->players[i].quests.len = 0;
-		manager->players[i].hp = 100;
-		manager->players[i].max_hp = 100;
-		manager->players[i].attack = 10;
-		strcpy(manager->players[i].status_hp, "healthy");
-		i++;
+		if (world.players->players[i].fd == client_fd)
+			return (i + 1);
+		else
+			i++;
 	}
-	manager->number_of_player = 0;
-	manager->mutex = g_mutex;
+	return (0);
 }

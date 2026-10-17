@@ -1,55 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/09/28 08:03:07 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 06:35:47 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
+#include "main_utils.h"
+#include <signal.h>
 
-t_property			g_server;
-t_client_manager	g_manager;
+t_socket_property	g_server;
 t_world				g_world;
 
-void	handle_shutdown(int sig)
+static void	handle_shutdown(int sig)
 {
+	(void)sig;
 	log_date();
-	printf("Server shutdown...\n");
+	printf("shutdown...\n");
 	close(g_server.server_fd);
 	exit(0);
 }
 
-void	server_act(t_signal rec, int client_id)
+static void	server_act(t_signal *rec, int client_fd)
 {
 	int	i;
 
 	i = 0;
-	while (i < rec.number_of_them)
+	send(client_fd, rec->message, strlen(rec->message), 0);
+	while (i < rec->players_0.len)
 	{
-		if (rec.all_fd[i] == client_id)
-			send(client_id, rec.specific_to_id_er, strlen(rec.specific_to_id_er), 0);
-		else
-			send(rec.all_fd[i], rec.message, strlen(rec.message), 0);
+		send(atoi(rec->players_0.ids[i]), rec->messages_0,
+			strlen(rec->messages_0), 0);
 		i++;
 	}
 	i = 0;
-	while (i < rec.additional_group.number_of_them)
+	while (i < rec->players_1.len)
 	{
-		send(rec.additional_group.all_fd[i], rec.additional_group.message,
-			strlen(rec.additional_group.message), 0);
+		send(atoi(rec->players_1.ids[i]), rec->messages_1,
+			strlen(rec->messages_1), 0);
 		i++;
 	}
-	rec.number_of_them = 0;
-	rec.additional_group.number_of_them = 0;
-	strcpy(rec.message, "\0");
+	memset(rec->message, 0, sizeof(rec->message));
+	rec->players_0.len = 0;
+	rec->players_1.len = 0;
 }
 
-void	*client_host(void *arg)
+static void	*client_host(void *arg)
 {
 	int			client_id;
 	char		buf[BUFFER_SIZE];
@@ -59,26 +59,25 @@ void	*client_host(void *arg)
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
-		if (recv(client_id, buf, 1024, 0) <= 0)
+		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
 		{
-			log_date();
-			printf("Player %d DISCONNECTED\n", player_id(client_id, g_manager));
-			_player(client_id, &g_manager);
-			_player_in_world(client_id, &g_world);
+			remove_player(client_id, &g_world);
 			break ;
 		}
 		log_date();
 		buf[strlen(buf) - 1] = '\0';
 		printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
-				g_manager));
-		rec = cohesion(client_id, buf, &g_world, &g_manager);
-		server_act(rec, client_id);
+				g_world));
+		rec = val_exec(client_id, buf, &g_world);
+		server_act(&rec, client_id);
+		if (!player_in(client_id, g_world))
+			break ;
 	}
 	close(client_id);
 	return (NULL);
 }
 
-void	server_routine(void)
+static void	server_routine(void)
 {
 	pthread_t			client_mess_rec;
 	int					client_fd;
@@ -91,13 +90,11 @@ void	server_routine(void)
 			&addr_len);
 	if (client_fd < 0)
 		return ;
-	pthread_mutex_lock(&(g_manager.mutex));
-	add_player(client_fd, &g_manager, &g_world);
-	g_manager.number_of_player += 1;
-	pthread_mutex_unlock(&(g_manager.mutex));
+	send(client_fd, "OK hello proto=1\n", 18, 0);
+	add_player(client_fd, &g_world);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
-	printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, g_manager),
+	printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, g_world),
 		client_ip);
 	pthread_create(&client_mess_rec, NULL, client_host,
 		(void *)(long)client_fd);
@@ -115,8 +112,7 @@ int	main(void)
 	bind(g_server.server_fd, (struct sockaddr *)&(g_server.address),
 		sizeof(g_server.address));
 	listen(g_server.server_fd, 128);
-	initialize_client_manager(&g_manager);
-	initialize_world(&g_world, &g_manager);
+	initialize_world(&g_world);
 	log_date();
 	printf("Server is initialized\n");
 	while (1)
