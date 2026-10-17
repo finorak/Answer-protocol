@@ -1,7 +1,6 @@
 *.o
 server_cli
-parser_cli
-parser.c
+client_cli
 
 *.py
 file.txt

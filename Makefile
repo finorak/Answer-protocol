@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 # just for the moment
 SERVER_APPLICATION_NAME := server_cli
-
+CLIENT_APPLICATION_NAME := client_cli
 
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
@@ -16,7 +16,7 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  parser/data_extractor/dialogue_extractor.c parser/data_extractor/group_extractor.c \
 	  parser/data_validator/data_validator.c parser/memory_manager/memory_manager.c parser/cJSON.c \
 	  parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c parser/buffer_utils.c \
-      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_verifiyer.c parser/debug.c \
+      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_verifiyer.c \
 	  server/main.c server/val_exec.c server/main_utils.c server/tools/list.c server/tools/other.c \
 	  server/tools/group_and_world.c server/tools/player_manager.c server/tools/room_and_world.c \
 	  server/tools/player_and_world.c server/validation/tools_1.c server/validation/tools_2.c \
@@ -28,6 +28,8 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
 	  server/execution/cmd_complete_quest.c
 
+CLIENT_SRC := client/client.c
+
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c parser/debug.c
 HEADER_EXCEPT_FILES := includes/cJSON.h includes/debug.h
@@ -36,6 +38,7 @@ FILES_TO_LINT := $(filter-out $(C_EXCEPT_FILES), $(SERVER_SRC))
 HEADER_TO_LINT := $(filter-out $(HEADER_EXCEPT_FILES), $(HEADERS))
 
 SERVER_OBJS := $(SERVER_SRC:.c=.o)
+CLIENT_OBJS := $(CLIENT_SRC:.c=.o)
 
 CC := cc
 
@@ -47,16 +50,19 @@ FLAGS := -Wall -Wextra -Werror -g
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: $(SERVER_APPLICATION_NAME)
+all: $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 $(SERVER_APPLICATION_NAME): $(SERVER_OBJS)
 	$(CC) $(FLAGS) $(SERVER_OBJS) -o $(SERVER_APPLICATION_NAME)
 
+$(CLIENT_APPLICATION_NAME): $(CLIENT_OBJS)
+	$(CC) $(FLAGS) $(CLIENT_OBJS) -o $(CLIENT_APPLICATION_NAME)
+
 clean:
-	rm -rf $(SERVER_OBJS)
+	rm -rf $(SERVER_OBJS) $(CLIENT_OBJS)
 
 fclean: clean
-	rm -rf $(SERVER_APPLICATION_NAME)
+	rm -rf $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 re: fclean all
 
@@ -71,14 +77,9 @@ lint:
 
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
-		clear; \
-		# git clone https://github.com/nakst/gf.git
-		# ./gf/build.sh
-		# echo "alias gf2=./gf/gf2" >> ~/.zshrc
-		# source ~/.zshrc
-		gf2 ./$(SERVER_APPLICATION_NAME) world.json; \
+		gdb --tui --args ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
-		echo "test"; \
+		gdb --tui --args ./$(CLIENT_APPLICATION_NAME) test; \
 	fi
 
 .PHONY: re clean all fclean run valgrind lint debug
