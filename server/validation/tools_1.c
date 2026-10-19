@@ -22,11 +22,8 @@ int	first_term(char *str)
 		i++;
 	if (i == (int)strlen(str))
 		return (0);
-	else
-	{
-		str[i] = '\0';
-		return (1);
-	}
+	str[i] = '\0';
+	return (1);
 }
 
 void	one_word_parsing(char *buf, t_command *result)
@@ -36,13 +33,13 @@ void	one_word_parsing(char *buf, t_command *result)
 	if (!strcmp(buf, "LOOK") || !strcmp(buf, "QUIT") || !strcmp(buf, "WHO")
 		|| !strcmp(buf, "INVENTORY") || !strcmp(buf, "STATUS") || !strcmp(buf,
 			"QUESTS"))
-		strcpy(result->type, buf);
-	else
 	{
-		result->is_valid = 0;
-		strcpy(result->type, "ERROR");
-		strcpy(result->message, "ERR 901 SEND_FAILED\n");
+		strcpy(result->type, buf);
+		return ;
 	}
+	result->is_valid = 0;
+	strcpy(result->type, "ERROR");
+	strcpy(result->message, "ERR 901 SEND_FAILED\n");
 }
 
 void	first_word_parsing(char *buf, t_command *result)
@@ -52,13 +49,13 @@ void	first_word_parsing(char *buf, t_command *result)
 		|| !strcmp(buf, "DROP") || !strcmp(buf, "TALK") || !strcmp(buf,
 			"ATTACK") || !strcmp(buf, "QUEST") || !strcmp(buf, "CHAT")
 		|| !strcmp(buf, "GROUP") || !strcmp(buf, "COMPLETE_QUEST"))
-		strcpy(result->type, buf);
-	else
 	{
-		result->is_valid = 0;
-		strcpy(result->type, "ERROR");
-		strcpy(result->message, "ERR 901 SEND_FAILED\n");
+		strcpy(result->type, buf);
+		return ;
 	}
+	result->is_valid = 0;
+	strcpy(result->type, "ERROR");
+	strcpy(result->message, "ERR 901 SEND_FAILED\n");
 }
 
 void	restore_from_first_term(char *str)
@@ -82,15 +79,12 @@ void	not_first_term(char *str)
 		i++;
 	if (i == (int)strlen(str))
 		return ;
-	else
+	i++;
+	while (str[i])
 	{
+		str[j] = str[i];
+		j++;
 		i++;
-		while (str[i])
-		{
-			str[j] = str[i];
-			j++;
-			i++;
-		}
-		str[j] = '\0';
 	}
+	str[j] = '\0';
 }

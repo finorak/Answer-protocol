@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_verifiyer.c                                   :+:      :+:    :+:   */
+/*   exit_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 09:06:23 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/17 09:26:40 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/18 14:14:11 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include "../../includes/world.h"
 
-static bool	key_exist(char *key, char **room_ids)
+bool	key_exist(char *key, char **room_ids)
 {
 	int	index;
 
@@ -41,6 +41,11 @@ static bool	exit_valid(t_room *curr_room, char **room_ids)
 	while (index < curr_room->exits.len)
 	{
 		key = curr_room->exits.ids[index];
+		if (strcmp(key, "none") == 0)
+		{
+			index ++;
+			continue ;
+		}
 		if (
 			!*key || strcmp(key, curr_room->id) == 0
 			|| !key_exist(key, room_ids)

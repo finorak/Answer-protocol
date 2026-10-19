@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:23:10 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:44:08 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/18 14:13:20 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ bool	traverse_dialogue_object(
 	element = dialogue_json->child;
 	while (element)
 	{
+		if (!is_string(element))
+			return (custom_free(container, container->len, TYPE_DIALOG), false);
 		key = element->string;
 		dialogue = (t_dialogue *)calloc(1, sizeof(t_dialogue));
 		container->dialogues[
@@ -87,14 +89,12 @@ t_all_dialogues	*extract_dialogues(const cJSON *root, t_world *data)
 		return (NULL);
 	}
 	dialogue_json = cJSON_GetObjectItemCaseSensitive(root, "dialogues");
-	if (!dialogue_json)
+	if (!is_object(dialogue_json))
 	{
 		data->extract = false;
-		free(dialogue_container);
-		return (NULL);
+		return (free(dialogue_container), NULL);
 	}
 	tmp = get_dialogue(dialogue_json, dialogue_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

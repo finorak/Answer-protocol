@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "../../includes/parser.h"
+
 // Given a stack, we get the last element of that stack.
 t_stack	*get_last_stack(t_stack *stack)
 {
@@ -23,6 +24,9 @@ t_stack	*get_last_stack(t_stack *stack)
 	return (stack);
 }
 
+// Creating a new stack.
+// Might change the data passed to be a `void *`
+// so that our implementation become more modulable.
 t_stack	*new_stack(t_room *room)
 {
 	t_stack	*stack;
@@ -46,6 +50,7 @@ t_stack	*pop_first(t_stack **stack)
 		return (NULL);
 	head = *stack;
 	*stack = (*stack)->next;
+	head->next = NULL;
 	return (head);
 }
 
@@ -68,6 +73,8 @@ t_stack	*stack_append(t_stack **stack, t_stack *new_stack)
 	return (*stack);
 }
 
+// Release the stack and it's child node from
+// memory to avoid memory leak
 void	stack_free(t_stack *stack)
 {
 	t_stack	*tmp;

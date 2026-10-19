@@ -20,23 +20,27 @@ void	strcat_double_quoted(char *message, char *element)
 	strcat(message, "\"");
 }
 
-int	connect_look_move_chat(t_command test, int client_fd, t_world *g_world,
+int	connect_look_move_chat(t_command command, int client_fd, t_world *g_world,
 		t_signal *result)
 {
-	int	i;
+	t_player	*player;
+	int			i;
 
-	i = strcmp(get_player_by_fd(client_fd, g_world)->name, "UNAUTHENTICATED");
-	if (!strcmp(test.type, "CONNECT"))
-		return (cmd_connect(test, client_fd, g_world, result));
-	else if (!strcmp(test.type, "LOOK") && i)
-		return (cmd_look(test, client_fd, g_world, result));
-	else if (!strcmp(test.type, "MOVE") && i)
-		return (cmd_move(test, client_fd, g_world, result));
-	else if ((!strcmp(test.type, "CHATGLOBAL") || !strcmp(test.type, "CHATROOM")
-			|| !strcmp(test.type, "CHATGROUP")) && i)
-		return (cmd_chat(test, client_fd, g_world, result));
-	else
+	player = get_player_by_fd(client_fd, g_world);
+	if (!player)
 		return (0);
+	i = strcmp(player->name, "UNAUTHENTICATED");
+	if (!strcmp(command.type, "CONNECT"))
+		return (cmd_connect(command, client_fd, g_world, result));
+	else if (!strcmp(command.type, "LOOK") && i)
+		return (cmd_look(command, client_fd, g_world, result));
+	else if (!strcmp(command.type, "MOVE") && i)
+		return (cmd_move(command, client_fd, g_world, result));
+	else if ((!strcmp(command.type, "CHATGLOBAL")
+			|| !strcmp(command.type, "CHATROOM")
+			|| !strcmp(command.type, "CHATGROUP")) && i)
+		return (cmd_chat(command, client_fd, g_world, result));
+	return (0);
 }
 
 int	who_group_item(t_command test, int client_fd, t_world *g_world,
@@ -64,9 +68,13 @@ int	who_group_item(t_command test, int client_fd, t_world *g_world,
 int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
-	int	i;
+	t_player	*player;
+	int			i;
 
-	i = strcmp(get_player_by_fd(client_fd, g_world)->name, "UNAUTHENTICATED");
+	player = get_player_by_fd(client_fd, g_world);
+	if (!player)
+		return (0);
+	i = strcmp(player->name, "UNAUTHENTICATED");
 	if (!strcmp(test.type, "TALK") && i)
 		return (cmd_talk(test, client_fd, g_world, result));
 	else if ((!strcmp(test.type, "ATTACK")) && i)
@@ -79,6 +87,5 @@ int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
 		return (cmd_quests(test, client_fd, g_world, result));
 	else if (!strcmp(test.type, "COMPLETE_QUEST") && i)
 		return (cmd_complete_quest(test, client_fd, g_world, result));
-	else
-		return (0);
+	return (0);
 }

@@ -6,12 +6,13 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:02:55 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/18 13:39:12 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parser.h"
 #include "main_utils.h"
+#include <errno.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -20,8 +21,8 @@
 #include <string.h>
 
 t_socket_property	g_server = {0};
-t_buffer_store		g_buffer_store = {0};
 t_world				*g_world;
+char				*g_buffer;
 
 static void	handle_shutdown(int sig)
 {
@@ -29,7 +30,7 @@ static void	handle_shutdown(int sig)
 	log_date();
 	printf("shutdown...\n");
 	close(g_server.server_fd);
-	free_data(g_world, g_buffer_store.buffer, true);
+	free_data(g_world, g_buffer, true);
 	exit(0);
 }
 
@@ -112,27 +113,27 @@ static void	server_routine(void)
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
-		return (fprintf(stderr, "ARGUMENT MISSING\n"), 1);
-	g_buffer_store.buffer_size = get_buffer_size(argv[1]);
-	g_buffer_store.buffer = get_buffer(argv[1], g_buffer_store.buffer_size);
+		return (fprintf(stderr, "run with %s <world.json>\n", argv[0]), 1);
+	g_buffer = get_buffer(argv[1], get_buffer_size(argv[1]));
 	g_world = (t_world *)calloc(1, sizeof(t_world));
+	if (!g_world)
+		return (free(g_buffer), 1);
 	log_date();
 	printf("Server IP address: ");
 	print_ip_addr();
 	define_server_property(&g_server);
 	signal(SIGINT, handle_shutdown);
 	signal(SIGTERM, handle_shutdown);
-	bind(g_server.server_fd, (struct sockaddr *)&(g_server.address),
-		sizeof(g_server.address));
+	if (bind(g_server.server_fd, (struct sockaddr *)&(g_server.address),
+			sizeof(g_server.address)) < 0)
+		return (free_world_fail(g_world, g_buffer), 1);
 	listen(g_server.server_fd, 128);
-	if (!init_world_data(g_world, g_buffer_store.buffer))
-	{
-		free_data(g_world, g_buffer_store.buffer, false);
-		return (1);
-	}
+	if (!init_world_data(g_world, g_buffer))
+		return (free_data(g_world, g_buffer, false), 1);
 	log_date();
 	printf("Server is initialized\n");
 	while (1)
 		server_routine();
-	free_data(g_world, g_buffer_store.buffer, true);
+	free_data(g_world, g_buffer, true);
+	return (0);
 }

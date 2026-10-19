@@ -52,6 +52,8 @@ char	*get_buffer(const char *world_config_file, const size_t buffer_size)
 	char	*buffer;
 	int		fd;
 
+	if (buffer_size <= 10)
+		return (NULL);
 	buffer = (char *)calloc(buffer_size + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);

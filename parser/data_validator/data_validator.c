@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../../includes/parser.h"
@@ -77,29 +78,27 @@ static char	**key_verifier(char **keys, int size, char *to_cmp)
 
 // Extract all the room ids to verify if the
 // exist id is in the room.
-static char	**get_room_ids(t_world *data, char **room_ids)
+static char	**get_ids(t_world *data, char **ids)
 {
 	t_room	*current_room;
 	int		index;
 
 	if (!data)
 		return (NULL);
-	if (!data->rooms)
-		return (NULL);
 	index = 0;
 	while (index < data->rooms->len)
 	{
 		current_room = data->rooms->rooms[index];
-		room_ids[index] = extract_room_id(current_room->id);
-		if (!room_ids[index])
+		ids[index] = extract_room_id(current_room->id);
+		if (!ids[index])
 		{
-			custom_free(room_ids, index, TYPE_STRING_TABLE);
+			custom_free(ids, index, TYPE_STRING_TABLE);
 			return (NULL);
 		}
 		index++;
 	}
-	room_ids[index] = NULL;
-	return (key_verifier(room_ids, index, "none"));
+	ids[index] = NULL;
+	return (key_verifier(ids, index, "none"));
 }
 
 //	VALIDATE data.
@@ -115,15 +114,20 @@ bool	data_validator(t_world *data)
 
 	if (!data || !data->extract)
 		return (false);
-	get_room_ids(data, room_ids);
+	get_ids(data, room_ids);
 	valid = true;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
 	if (!stack)
 		return (false);
 	room_len = data->rooms->len;
-	if (!interconnection_checker(&stack, data->rooms, room_ids))
+	if (!verify_exit(data, room_ids)
+		|| !interconnection_checker(&stack, data->rooms, room_ids)
+	)
 	{
 		valid = false;
+		free(stack);
+		fprintf(stdout, "Room doesn't interconnect or \
+room doesn't exist\n");
 		free_data(data, NULL, true);
 	}
 	custom_free(room_ids, room_len, TYPE_STRING_TABLE);

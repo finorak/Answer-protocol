@@ -6,16 +6,17 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/11 16:34:18 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/18 14:12:54 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "../../includes/world.h"
+#include "../../includes/data_extractor.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 bool	traverse_room_array(
 	const cJSON *array, t_room *room, const char *element_to_extract)
@@ -79,15 +80,14 @@ bool	traverse_room_object(
 	element = world_json->child;
 	while (element)
 	{
+		if (!is_object(element))
+			return (custom_free(container, container->len, TYPE_ROOM), false);
 		key = element->string;
 		room = (t_room *)calloc(1, sizeof(t_room));
 		container->rooms[container->len] = extract_room_from_key(
 				key, element, room);
 		if (!container->rooms[container->len])
-		{
-			custom_free(container, container->len, TYPE_ROOM);
-			return (false);
-		}
+			return (custom_free(container, container->len, TYPE_ROOM), false);
 		container->rooms[container->len]->exits.len = 4;
 		container->len += 1;
 		element = element->next;
@@ -107,15 +107,14 @@ bool	traverse_item_object(
 	element = item_json->child;
 	while (element)
 	{
+		if (!cJSON_IsObject(element))
+			return (custom_free(container, container->len, TYPE_ITEM), false);
 		key = element->string;
 		item = (t_item *)calloc(1, sizeof(t_item));
 		container->items[container->len] = extract_item_from_key(
 				key, element, item);
 		if (!container->items[container->len])
-		{
-			custom_free(container, container->len, TYPE_ITEM);
-			return (false);
-		}
+			return (custom_free(container, container->len, TYPE_ITEM), false);
 		container->len += 1;
 		element = element->next;
 	}
@@ -135,16 +134,14 @@ bool	traverse_npc_object(
 	element = npc_json->child;
 	while (element)
 	{
+		if (!is_object(element))
+			return (custom_free(container, container->len, TYPE_NPC), false);
 		key = element->string;
 		npc = (t_npc *)calloc(1, sizeof(t_npc));
 		container->npcs[container->len] = extract_npc_from_key(
-				key, element, npc
-				);
+				key, element, npc);
 		if (!container->npcs[container->len])
-		{
-			custom_free(container, container->len, TYPE_NPC);
-			return (false);
-		}
+			return (custom_free(container, container->len, TYPE_NPC), false);
 		container->len += 1;
 		element = element->next;
 	}

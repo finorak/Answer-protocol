@@ -193,6 +193,4 @@ typedef struct s_signal
 	char				messages_1[BUFFER_SIZE];
 	char				message[BUFFER_SIZE];
 }						t_signal;
-
-int						generate_weighted_attack(void);
 #endif // !WORLD_H

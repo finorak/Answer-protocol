@@ -83,6 +83,8 @@ bool				init_world_data(t_world *data, const char *buffer);
 // DATA VALIDATOR
 bool				data_validator(t_world *data);
 bool				verify_exit(t_world *data, char **room_ids);
+// DATA VALIDATOR HELPER
+bool				key_exist(char *key, char **room_ids);
 
 // BFS UTILITIES
 t_stack				*stack_append(t_stack **stack, t_stack *new_stack);

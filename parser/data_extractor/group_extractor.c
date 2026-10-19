@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/01 08:47:09 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:44:32 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/18 13:42:54 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,15 @@ bool	traverse_group_object(
 	element = group_json->child;
 	while (element)
 	{
+		if (!cJSON_IsString(element))
+			return (custom_free(container, container->len, TYPE_GROUP), false);
 		key = element->string;
 		group = (t_group *)calloc(1, sizeof(t_group));
 		container->groups[container->len] = extract_group_from_key(
 				key, element, group
 				);
 		if (!container->groups[container->len])
-		{
-			custom_free(container, container->len, TYPE_GROUP);
-			return (false);
-		}
+			return (custom_free(container, container->len, TYPE_GROUP), false);
 		container->len += 1;
 		element = element->next;
 	}
@@ -68,22 +67,18 @@ static t_all_groups	*get_dialogue(
 t_all_groups	*extract_groups(const cJSON *root, t_world *data)
 {
 	t_all_groups	*group_container;
-	const cJSON		*group_json;
 	t_all_groups	*tmp;
+	const cJSON		*group_json;
 
 	if (!root || !data || !data->extract)
 		return (NULL);
 	group_container = (t_all_groups *)calloc(1, sizeof(t_all_groups));
 	if (!group_container)
 		return (NULL);
-	group_json = cJSON_GetObjectItemCaseSensitive(root, "groups");
-	if (!group_json)
-	{
-		free(group_container);
-		return (NULL);
-	}
+	group_json = cJSON_GetObjectItemCaseSensitive(root, GROUP_KEY);
+	if (!is_object(group_json))
+		return (free(group_container), NULL);
 	tmp = get_dialogue(group_json, group_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

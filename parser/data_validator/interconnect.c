@@ -20,8 +20,9 @@ static bool	room_visited(t_stack *current, t_stack *visited);
 static bool	append_exits_to_last(t_stack **stack,
 				t_room *curr_room, t_all_rooms *container);
 
-// TODO: Fix error in this funciton, but still can't find what the
-// error is.
+// We iterate other the exit of the current stack, if it's
+// exit is the same as itself, we assume the map is invalid.
+// and don't append it to the stack
 static bool	append_exits_to_last(t_stack **stack,
 				t_room *curr_room, t_all_rooms *container)
 {
@@ -69,6 +70,8 @@ static bool	room_visited(t_stack *current, t_stack *visited)
 	return (false);
 }
 
+// Wrapper function to release the memory used by
+// stack and visited to avoid breaking the 25 lines of codes.
 static void	release_stack(t_stack *stack, t_stack *visited)
 {
 	stack_free(visited);
@@ -104,7 +107,6 @@ bool	interconnection_checker(t_stack **stack,
 			continue ;
 		}
 		stack_append(&visited, curr);
-		curr->next = NULL;
 		if (!append_exits_to_last(stack, curr->room, container))
 			return (release_stack(*stack, visited), false);
 	}

@@ -27,5 +27,6 @@ void		log_date(void);
 void		define_server_property(t_socket_property *server_property);
 void		print_ip_addr(void);
 int			player_id(int client_fd, t_world world);
+int			generate_weighted_attack(void);
 
 t_signal	val_exec(int client_fd, char *buf, t_world *world);

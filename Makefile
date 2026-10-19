@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
 # just for the moment
-SERVER_APPLICATION_NAME := server_cli
-CLIENT_APPLICATION_NAME := client_cli
+SERVER_APPLICATION_NAME := tap_server_cli
+CLIENT_APPLICATION_NAME := tap_client_cli
 
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
@@ -16,7 +16,7 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  parser/data_extractor/dialogue_extractor.c parser/data_extractor/group_extractor.c \
 	  parser/data_validator/data_validator.c parser/memory_manager/memory_manager.c parser/cJSON.c \
 	  parser/data_validator/bfs_helper_1.c parser/data_validator/interconnect.c parser/buffer_utils.c \
-      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_verifiyer.c \
+      parser/data_validator/bfs_helper_2.c parser/data_validator/exit_validator.c \
 	  server/main.c server/val_exec.c server/main_utils.c server/tools/list.c server/tools/other.c \
 	  server/tools/group_and_world.c server/tools/player_manager.c server/tools/room_and_world.c \
 	  server/tools/player_and_world.c server/validation/tools_1.c server/validation/tools_2.c \
@@ -26,9 +26,9 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/cmd_quest.c server/execution/cmd_quests.c server/execution/cmd_status.c \
 	  server/execution/cmd_take.c server/execution/cmd_talk.c server/execution/cmd_who.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
-	  server/execution/cmd_complete_quest.c
+	  server/execution/cmd_complete_quest.c parser/utilities.c
 
-CLIENT_SRC := client/client.c
+CLIENT_SRC := client/client.c client/ft_split.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c parser/debug.c
@@ -42,10 +42,9 @@ CLIENT_OBJS := $(CLIENT_SRC:.c=.o)
 
 CC := cc
 
-DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all \
-			   --track-origins=yes --error-exitcode=1
+DEBUG_FLAGS := --leak-check=full --show-leak-kinds=all
 
-FLAGS := -Wall -Wextra -Werror -g
+FLAGS := -Wall -Wextra -Werror -pthread -g
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

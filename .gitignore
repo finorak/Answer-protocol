@@ -2,6 +2,9 @@
 server_cli
 client_cli
 
+tap_server_cli
+tap_client_cli
+
 *.py
 file.txt
 
