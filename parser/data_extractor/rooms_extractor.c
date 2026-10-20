@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:57:55 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/20 08:38:34 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_world *data)
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
 		data->extract = false;
-		free(rooms_container);
-		return (NULL);
+		return (free(rooms_container), NULL);
 	}
 	tmp = get_rooms(rooms_json, rooms_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }
