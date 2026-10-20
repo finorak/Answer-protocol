@@ -17,6 +17,8 @@ t_player	*get_player_by_fd(int client_fd, t_world *world)
 {
 	int	i;
 
+	if (!world)
+		return (NULL);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
@@ -31,6 +33,8 @@ t_player	*get_player_by_name(char *name, t_world *world)
 {
 	int	i;
 
+	if (!name || !world)
+		return (NULL);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
@@ -45,6 +49,8 @@ t_player	*get_player_by_item(char *item_id, t_world *world)
 {
 	int	i;
 
+	if (!item_id || !world)
+		return (NULL);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
@@ -59,6 +65,8 @@ int	get_id_by_name(char *name, t_world *world)
 {
 	int	i;
 
+	if (!world || !name)
+		return (-1);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{

@@ -16,6 +16,8 @@
 int	cmd_inventory(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
+	if (!g_world || !result)
+		return (0);
 	(void)test;
 	strcpy(result->message, "OK ");
 	concat_into_message(result->message, get_player_by_fd(client_fd,

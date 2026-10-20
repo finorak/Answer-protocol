@@ -15,6 +15,8 @@
 
 void	one_word_parsing_mess(t_command test, t_command *result)
 {
+	if (!result)
+		return ;
 	result->is_valid = 1;
 	strcpy(result->message, test.message);
 	if (!strcmp(test.type, "CONNECT") || !strcmp(test.type, "MOVE")
@@ -32,6 +34,8 @@ void	one_word_parsing_mess(t_command test, t_command *result)
 
 static int	intermediate_step(t_command test, t_command *result, int chat)
 {
+	if (!result)
+		return (0);
 	strcat(result->type, test.message);
 	restore_from_first_term(test.message);
 	not_first_term(test.message);
@@ -53,6 +57,8 @@ static int	intermediate_step(t_command test, t_command *result, int chat)
 
 static int	chat_and_group_management(t_command test, t_command *result)
 {
+	if (!result)
+		return (0);
 	if (!strcmp(test.type, "CHAT"))
 	{
 		if (!strcmp(test.message, "GLOBAL") || !strcmp(test.message, "ROOM")
@@ -70,6 +76,8 @@ static int	chat_and_group_management(t_command test, t_command *result)
 
 void	first_word_parsing_mess(t_command test, t_command *result)
 {
+	if (!result)
+		return ;
 	result->is_valid = 1;
 	strcpy(result->type, test.type);
 	if (!strcmp(test.type, "TAKE") || !strcmp(test.type, "DROP"))

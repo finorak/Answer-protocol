@@ -3,6 +3,8 @@ SHELL := /bin/bash
 # just for the moment
 SERVER_APPLICATION_NAME := server_cli
 CLIENT_APPLICATION_NAME := client_cli
+LIBFT_DIR := libft
+LIBFT := $(LIBFT_DIR)/libft.a
 
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
@@ -50,18 +52,23 @@ FLAGS := -Wall -Wextra -Werror -g
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
+all: $(LIBFT) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
+
+$(LIBFT):
+	$(MAKE) -C libft
 
 $(SERVER_APPLICATION_NAME): $(SERVER_OBJS)
 	$(CC) $(FLAGS) $(SERVER_OBJS) -o $(SERVER_APPLICATION_NAME)
 
 $(CLIENT_APPLICATION_NAME): $(CLIENT_OBJS)
-	$(CC) $(FLAGS) $(CLIENT_OBJS) -o $(CLIENT_APPLICATION_NAME)
+	$(CC) $(FLAGS) $(CLIENT_OBJS) ./$(LIBFT) -o $(CLIENT_APPLICATION_NAME)
 
 clean:
+	$(MAKE) clean -C $(LIBFT_DIR)
 	rm -rf $(SERVER_OBJS) $(CLIENT_OBJS)
 
 fclean: clean
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -rf $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 re: fclean all

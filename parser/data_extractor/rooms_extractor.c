@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:53:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/13 08:57:55 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/20 08:38:34 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static t_room	*get_room(cJSON *content, const cJSON *room_json, t_room *room)
 {
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "items");
-	if (!content || !traverse_room_array(content, room, "items"))
+	if (!content || !traverse_room_array(content, &room->items))
 		return (free(room), NULL);
 	return (room);
 }
@@ -44,10 +44,10 @@ t_room	*extract_room_from_key(
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
 	if (!content || !cJSON_IsArray(content))
 		return (free(room), NULL);
-	if (!content || !traverse_room_array(content, room, "exits"))
+	if (!content || !traverse_room_array(content, &room->exits))
 		return (free(room), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
-	if (!content || !traverse_room_array(content, room, "npcs"))
+	if (!content || !traverse_room_array(content, &room->npcs))
 		return (free(room), NULL);
 	return (get_room(content, room_json, room));
 }
@@ -80,11 +80,9 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_world *data)
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
 		data->extract = false;
-		free(rooms_container);
-		return (NULL);
+		return (free(rooms_container), NULL);
 	}
 	tmp = get_rooms(rooms_json, rooms_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

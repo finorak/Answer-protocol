@@ -17,6 +17,8 @@ t_item	*get_item_by_id(char *id, t_world *world)
 {
 	int	i;
 
+	if (!id || !world)
+		return (NULL);
 	i = 0;
 	while (i < world->items->len)
 	{
@@ -31,6 +33,8 @@ t_npc	*get_npc_by_id(char *id, t_world *world)
 {
 	int	i;
 
+	if (!id || !world)
+		return (NULL);
 	i = 0;
 	while (i < world->npcs->len)
 	{
@@ -59,6 +63,8 @@ t_mission	*get_mission_by_id(char *id, t_world *world)
 {
 	int	i;
 
+	if (!world || !id)
+		return (NULL);
 	i = 0;
 	while (i < world->missions->len)
 	{
@@ -73,6 +79,8 @@ t_dialogue	*get_dialogue_by_id(char *id, t_world *world)
 {
 	int	i;
 
+	if (!world)
+		return (NULL);
 	i = 0;
 	while (i < world->dialogues->len)
 	{

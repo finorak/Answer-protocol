@@ -23,6 +23,13 @@
 #include "tools/tools.h"
 #include "validation/validation.h"
 
+typedef struct s_data
+{
+	t_socket_property	server;
+	char				*buffer;
+	t_world				*world;
+}				t_data;
+
 void		log_date(void);
 void		define_server_property(t_socket_property *server_property);
 void		print_ip_addr(void);

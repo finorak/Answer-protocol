@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdlib.h>
-#include "../main_utils.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../main_utils.h"
 
 t_room	*get_room_by_id(char *room_id, t_world *world)
 {
 	int	i;
 
+	if (!world)
+		return (NULL);
 	i = -1;
 	while (++i < MAX_LIST_LEN)
 	{
@@ -33,6 +35,8 @@ t_room	*get_room_by_player_fd(int client_fd, t_world *world)
 	int	i;
 	int	j;
 
+	if (!world)
+		return (NULL);
 	i = -1;
 	printf("%d\n", world->rooms->len);
 	while (++i < world->rooms->len)
@@ -52,6 +56,8 @@ t_room	*get_room_by_item_id(char *item_id, t_world *world)
 	int	i;
 	int	j;
 
+	if (!world)
+		return (NULL);
 	i = -1;
 	while (++i < world->rooms->len)
 	{
@@ -70,6 +76,8 @@ t_room	*get_room_by_npc_id(char *npc_id, t_world *world)
 	int	i;
 	int	j;
 
+	if (!world)
+		return (NULL);
 	i = -1;
 	while (++i < world->rooms->len)
 	{

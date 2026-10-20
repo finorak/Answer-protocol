@@ -13,12 +13,21 @@
 #include <string.h>
 #include "../main_utils.h"
 
+static void	exits_helper(char *message, char dirs[4][6], t_room *room, int i)
+{
+	strcat_double_quoted(message, dirs[i]);
+	strcat(message, ": ");
+	strcat_double_quoted(message, room->exits.ids[i]);
+}
+
 static void	exits(char *message, t_room *room)
 {
 	int		i;
 	int		curr_available_room;
 	char	dirs[4][6];
 
+	if (!message || !room)
+		return ;
 	strcpy(dirs[0], "north");
 	strcpy(dirs[1], "south");
 	strcpy(dirs[2], "west");
@@ -32,9 +41,7 @@ static void	exits(char *message, t_room *room)
 		{
 			if (curr_available_room != 0)
 				strcat(message, ", ");
-			strcat_double_quoted(message, dirs[i]);
-			strcat(message, ": ");
-			strcat_double_quoted(message, room->exits.ids[i]);
+			exits_helper(message, dirs, room, i);
 			curr_available_room++;
 		}
 		i++;
@@ -44,6 +51,8 @@ static void	exits(char *message, t_room *room)
 
 static void	room(char *message, t_room *room)
 {
+	if (!message || !room)
+		return ;
 	strcat(message, "{ \"id\": ");
 	strcat_double_quoted(message, room->id);
 	strcat(message, ", \"name\": ");
@@ -59,6 +68,8 @@ int	cmd_look(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
 	t_room	*room_;
 
+	if (!g_world || !result)
+		return (0);
 	(void)test;
 	room_ = get_room_by_player_fd(client_fd, g_world);
 	strcpy(result->message, "OK { \"room\": ");

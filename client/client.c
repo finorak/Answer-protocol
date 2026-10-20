@@ -6,18 +6,44 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 21:25:13 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 07:43:42 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include "client.h"
+#include "../libft/libft.h"
 
 static atomic_int	g_disconnect = 0;
+
+static void	print_buffer(char **strings, char header)
+{
+	int	index;
+
+	if (!strings)
+		return ;
+	if (!*strings)
+	{
+		free(strings);
+		return ;
+	}
+	index = 0;
+	while (strings[index])
+	{
+		printf("%c: %s\n", header, strings[index]);
+		free(strings[index]);
+		index++;
+	}
+	free(strings);
+}
 
 static void	*wait_for_server(void *arg)
 {
 	char	buffer[BUFFER_SIZE];
+	char	**strings;
 	int		sock;
 
 	sock = *(int *)(arg);
@@ -31,7 +57,8 @@ static void	*wait_for_server(void *arg)
 			g_disconnect = 1;
 			break ;
 		}
-		printf("\r%s", buffer);
+		strings = ft_split(buffer, '\n');
+		print_buffer(strings, 'S');
 	}
 	return (NULL);
 }
@@ -39,6 +66,7 @@ static void	*wait_for_server(void *arg)
 static void	*wait_for_user(void *arg)
 {
 	char	buffer[BUFFER_SIZE];
+	char	**strings;
 	int		sock;
 
 	sock = *(int *)(arg);
@@ -50,8 +78,10 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
-		printf("\rC: ");
-		fgets(buffer, BUFFER_SIZE, stdin);
+		if (!fgets(buffer, BUFFER_SIZE, stdin))
+			continue ;
+		strings = ft_split(buffer, '\n');
+		print_buffer(strings, 'C');
 		send(sock, buffer, strlen(buffer), 0);
 	}
 	return (NULL);
@@ -71,7 +101,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Please use the format ./client <server-ip-addr>\n");
+		fprintf(stderr, "Please use the format ./client <server-ip-addr>\n");
 		return (1);
 	}
 	printf("%s\n", argv[1]);
@@ -81,7 +111,7 @@ int	main(int argc, char **argv)
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
-		printf("ERR 900 CONNECTION_FAILED\n");
+		fprintf(stderr, "ERR 900 CONNECTION_FAILED\n");
 		return (end(sock));
 	}
 	pthread_create(&(client_mods[0]), NULL, wait_for_server, &sock);

@@ -22,15 +22,14 @@ int	first_term(char *str)
 		i++;
 	if (i == (int)strlen(str))
 		return (0);
-	else
-	{
-		str[i] = '\0';
-		return (1);
-	}
+	str[i] = '\0';
+	return (1);
 }
 
 void	one_word_parsing(char *buf, t_command *result)
 {
+	if (!buf || !result)
+		return ;
 	result->is_valid = 1;
 	strcpy(result->message, "one column message");
 	if (!strcmp(buf, "LOOK") || !strcmp(buf, "QUIT") || !strcmp(buf, "WHO")
@@ -47,6 +46,8 @@ void	one_word_parsing(char *buf, t_command *result)
 
 void	first_word_parsing(char *buf, t_command *result)
 {
+	if (!buf || !result)
+		return ;
 	result->is_valid = 1;
 	if (!strcmp(buf, "CONNECT") || !strcmp(buf, "MOVE") || !strcmp(buf, "TAKE")
 		|| !strcmp(buf, "DROP") || !strcmp(buf, "TALK") || !strcmp(buf,
@@ -82,15 +83,12 @@ void	not_first_term(char *str)
 		i++;
 	if (i == (int)strlen(str))
 		return ;
-	else
+	i++;
+	while (str[i])
 	{
+		str[j] = str[i];
+		j++;
 		i++;
-		while (str[i])
-		{
-			str[j] = str[i];
-			j++;
-			i++;
-		}
-		str[j] = '\0';
 	}
+	str[j] = '\0';
 }

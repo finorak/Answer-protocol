@@ -6,7 +6,7 @@
 /*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 10:23:08 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/17 19:55:33 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 08:37:54 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,10 @@ bool	init_world_data(t_world *data, const char *buffer)
 	cJSON	*root;
 
 	if (!data)
-		return (false);
+		return (fprintf(stdout, "Error\n"), false);
 	root = cJSON_Parse(buffer);
 	if (!root)
-	{
-		fprintf(stderr, "Map is invalid\n");
-		return (false);
-	}
+		return (fprintf(stderr, "Map is invalid\n"), false);
 	data->extract = true;
 	get_data(data, root);
 	cJSON_Delete(root);
