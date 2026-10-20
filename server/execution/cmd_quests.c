@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:36 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:07:36 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 07:53:17 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	add_quest(char *message, char *quest_id, t_world *g_world)
 	t_quest	*quest;
 
 	quest = get_quest_by_id(quest_id, g_world);
+	if (!quest)
+		return ;
 	strcat(message, "{\"quest_id\": ");
 	strcat_double_quoted(message, quest->id);
 	strcat(message, ", \"status\": ");
@@ -44,6 +46,8 @@ int	cmd_quests(t_command test, int client_fd, t_world *g_world,
 {
 	int	i;
 
+	if (!g_world)
+		return (0);
 	(void)test;
 	i = 0;
 	strcpy(result->message, "OK [");

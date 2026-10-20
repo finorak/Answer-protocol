@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:31 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:07:48 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 07:54:43 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 static void	ok_quest(t_quest *quest, int client_fd, t_world *g_world,
 		t_signal *result)
 {
+	if (!g_world || !result)
+		return ;
 	log_date();
 	printf("power off quest:%s from npc:%s\n", quest->id, quest->npc_owner_id);
 	quest->available = 0;
@@ -41,14 +43,11 @@ int	cmd_quest(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	npc = get_npc_by_id(test.message, g_world);
 	if (npc == NULL || !(in(npc->id, get_room_by_player_fd(client_fd,
 					g_world)->npcs)))
-		strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n");
+		return (strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n"), 0);
+	quest = get_quest_by_id(npc->quest_id, g_world);
+	if (quest == NULL || quest->available == 0 || quest->done == 1)
+		strcpy(result->message, "ERR 406 NO_QUEST_AVAILABLE\n");
 	else
-	{
-		quest = get_quest_by_id(npc->quest_id, g_world);
-		if (quest == NULL || quest->available == 0 || quest->done == 1)
-			strcpy(result->message, "ERR 406 NO_QUEST_AVAILABLE\n");
-		else
-			ok_quest(quest, client_fd, g_world, result);
-	}
+		ok_quest(quest, client_fd, g_world, result);
 	return (1);
 }
