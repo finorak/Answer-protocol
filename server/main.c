@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
-#include "main_utils.h"
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../includes/parser.h"
+#include "main_utils.h"
 
 t_data	g_data = {0};
 

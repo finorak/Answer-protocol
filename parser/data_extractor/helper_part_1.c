@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <stdlib.h>
 #include "../../includes/world.h"
 #include "../../includes/parser.h"
 #include "../../includes/cJSON.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 // TODO: Modify this function to accept t_list_of instead
 // so that it easer to modify.
+// example: extracting exits
+//			-> strncpy(exit.ids[index], element->valuestring);
 bool	traverse_room_array(
-	const cJSON *array, t_room *room, const char *element_to_extract)
+	const cJSON *array, t_list_of *list)
 {
 	cJSON	*element;
 	char	*value;
@@ -30,35 +31,16 @@ bool	traverse_room_array(
 		return (false);
 	index = 0;
 	element = array->child;
-	if (strcmp(element_to_extract, "items") == 0)
-		room->items.len = 0;
-	else if (strcmp(element_to_extract, "exits") == 0)
-		room->exits.len = 0;
-	else if (strcmp(element_to_extract, "npcs") == 0)
-		room->npcs.len = 0;
 	while (element)
 	{
 		if (!cJSON_IsString(element) || !element->valuestring)
 			return (NULL);
 		value = element->valuestring;
-		if (strcmp(element_to_extract, "exits") == 0)
-		{
-			strncpy(room->exits.ids[index], value, MAX_ID_LEN);
-			room->exits.len ++;
-		}
-		else if (strcmp(element_to_extract, "npcs") == 0)
-		{
-			strncpy(room->npcs.ids[index], value, MAX_ID_LEN);
-			room->npcs.len ++;
-		}
-		else if (strcmp(element_to_extract, "items") == 0)
-		{
-			strncpy(room->items.ids[index], value, MAX_ID_LEN);
-			room->items.len ++;
-		}
+		strncpy(list->ids[index], value, MAX_ID_LEN);
 		element = element->next;
 		index++;
 	}
+	list->len = index;
 	return (true);
 }
 
@@ -91,7 +73,7 @@ bool	traverse_room_object(
 	cJSON	*element;
 	char	*key;
 
-	if (!world_json)
+	if (!world_json || !container)
 		return (false);
 	element = world_json->child;
 	while (element)

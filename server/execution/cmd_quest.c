@@ -40,6 +40,8 @@ int	cmd_quest(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	t_npc	*npc;
 	t_quest	*quest;
 
+	if (!g_world || !result)
+		return (0);
 	npc = get_npc_by_id(test.message, g_world);
 	if (npc == NULL || !(in(npc->id, get_room_by_player_fd(client_fd,
 					g_world)->npcs)))

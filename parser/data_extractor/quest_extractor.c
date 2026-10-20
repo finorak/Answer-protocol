@@ -86,11 +86,9 @@ t_all_quests	*extract_quests(const cJSON *root, t_world *data)
 	{
 		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", QUEST_KEY);
-		free(quest_container);
-		return (NULL);
+		return (free(quest_container), NULL);
 	}
 	tmp = get_quests(quest_json, quest_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

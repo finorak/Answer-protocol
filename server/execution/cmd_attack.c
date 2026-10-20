@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:09:50 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 21:14:21 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	cmd_attack(t_command test, int client_fd, t_world *g_world,
 {
 	t_npc	*attacked;
 
+	if (!g_world || !result)
+		return (0);
 	attacked = get_npc_by_id(test.message, g_world);
 	if (!attacked || !in(attacked->id, get_room_by_player_fd(client_fd,
 				g_world)->npcs))

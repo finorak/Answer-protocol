@@ -19,7 +19,6 @@ int	cmd_talk(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	t_npc		*npc;
 	t_dialogue	*dialogue;
 
-	(void)test;
 	(void)client_fd;
 	npc = get_npc_by_id(test.message, g_world);
 	if (!npc)
@@ -31,6 +30,8 @@ int	cmd_talk(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	strcat(result->message, ", \"dialogue\": ");
 	if (dialogue)
 		strcat_double_quoted(result->message, dialogue->content);
+	else
+		strcat_double_quoted(result->message, "");
 	strcat(result->message, " }\n");
 	log_date();
 	printf("dialogue_index = (dialogue_index + 1) mod(dialogue_len)");

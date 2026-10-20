@@ -18,6 +18,8 @@ int	cmd_status(t_command test, int client_fd, t_world *g_world,
 {
 	t_player	*player;
 
+	if (!g_world)
+		return (0);
 	(void)test;
 	player = get_player_by_fd(client_fd, g_world);
 	if (!player)

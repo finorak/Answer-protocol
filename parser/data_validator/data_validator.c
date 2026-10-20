@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -119,7 +120,10 @@ bool	data_validator(t_world *data)
 	valid = true;
 	stack = new_stack(get_room_from_id(data->rooms, *room_ids));
 	if (!stack)
+	{
+		custom_free(room_ids, data->rooms->len, TYPE_STRING_TABLE);
 		return (false);
+	}
 	room_len = data->rooms->len;
 	if (!interconnection_checker(&stack, data->rooms, room_ids))
 	{

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,8 +37,11 @@ static bool	append_exits_to_last(t_stack **stack,
 	while (index < curr_room->exits.len)
 	{
 		key = curr_room->exits.ids[index];
-		if (!*key || strcmp(key, curr_room->id) == 0)
+		if (strcmp(key, curr_room->id) == 0)
+		{
+			printf("%d, %s\n", index, key);
 			return (false);
+		}
 		room = get_room_from_id(container, key);
 		if (room)
 		{
@@ -104,7 +108,6 @@ bool	interconnection_checker(t_stack **stack,
 			continue ;
 		}
 		stack_append(&visited, curr);
-		curr->next = NULL;
 		if (!append_exits_to_last(stack, curr->room, container))
 			return (release_stack(*stack, visited), false);
 	}

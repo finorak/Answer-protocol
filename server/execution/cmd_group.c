@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_group.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
+/*   By: irraheri <rraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:00:42 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 20:56:34 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ static void	grp_leave(t_command test, int client_fd, t_world *g_world,
 
 int	cmd_group(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
+	if (!g_world || !result)
+		return (0);
 	if (test.type[5] == 'C')
 		grp_create(test, client_fd, g_world, result);
 	else if (test.type[5] == 'I')

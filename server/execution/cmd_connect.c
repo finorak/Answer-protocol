@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:06:44 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:08:55 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/20 20:57:13 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	cmd_connect(t_command test, int client_fd, t_world *g_world,
 {
 	int	i;
 
+	if (!result || !g_world)
+		return (0);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{

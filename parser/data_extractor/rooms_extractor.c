@@ -19,7 +19,7 @@
 static t_room	*get_room(cJSON *content, const cJSON *room_json, t_room *room)
 {
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "items");
-	if (!content || !traverse_room_array(content, room, "items"))
+	if (!content || !traverse_room_array(content, &room->items))
 		return (free(room), NULL);
 	return (room);
 }
@@ -44,10 +44,10 @@ t_room	*extract_room_from_key(
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "exits");
 	if (!content || !cJSON_IsArray(content))
 		return (free(room), NULL);
-	if (!content || !traverse_room_array(content, room, "exits"))
+	if (!content || !traverse_room_array(content, &room->exits))
 		return (free(room), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(room_json, "npcs");
-	if (!content || !traverse_room_array(content, room, "npcs"))
+	if (!content || !traverse_room_array(content, &room->npcs))
 		return (free(room), NULL);
 	return (get_room(content, room_json, room));
 }

@@ -18,6 +18,8 @@ int	cmd_who(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
 	char	len[12];
 
+	if (!result || !g_world)
+		return (0);
 	(void)test;
 	(void)client_fd;
 	sprintf(len, "%d", g_world->players->len);

@@ -46,6 +46,7 @@ t_stack	*pop_first(t_stack **stack)
 		return (NULL);
 	head = *stack;
 	*stack = (*stack)->next;
+	head->next = NULL;
 	return (head);
 }
 
