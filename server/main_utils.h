@@ -13,15 +13,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include <pthread.h>
-#include <sys/socket.h>
-#include <unistd.h>
+#ifndef MAIN_UTILS_H
+# define MAIN_UTILS_H
 
-#define PORT 8080
-#include "execution/execution.h"
-#include "tools/tools.h"
-#include "validation/validation.h"
+# include <pthread.h>
+# include <sys/socket.h>
+# include <unistd.h>
+
+# define PORT 8080
+# include "execution/execution.h"
+# include "tools/tools.h"
+# include "validation/validation.h"
 
 typedef struct s_data
 {
@@ -30,9 +32,13 @@ typedef struct s_data
 	t_world				*world;
 }				t_data;
 
+typedef struct sockaddr	t_sock;
+
 void		log_date(void);
 void		define_server_property(t_socket_property *server_property);
 void		print_ip_addr(void);
 int			player_id(int client_fd, t_world world);
 
 t_signal	val_exec(int client_fd, char *buf, t_world *world);
+
+#endif
