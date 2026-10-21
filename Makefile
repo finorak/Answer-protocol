@@ -30,7 +30,7 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
 	  server/execution/cmd_complete_quest.c
 
-CLIENT_SRC := client/client.c
+CLIENT_SRC := client/main.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c parser/debug.c

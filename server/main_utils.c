@@ -54,8 +54,7 @@ int	player_id(int client_fd, t_world world)
 	{
 		if (world.players->players[i].fd == client_fd)
 			return (i + 1);
-		else
-			i++;
+		i++;
 	}
 	return (0);
 }
