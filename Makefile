@@ -11,7 +11,8 @@ PRINTF := $(PRINTF_DIR)/libftprintf.a
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
 HEADERS := includes/data_extractor.h includes/parser.h includes/world.h \
-		   server/tools/tools.h server/validation/validation.h
+		   server/tools/tools.h server/validation/validation.h \
+		   server/execution/execution.h server/main_utils.h
 
 SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  parser/data_extractor/helper_part_1.c parser/data_extractor/helper_part_2.c \
@@ -89,12 +90,13 @@ valgrind: all
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 	$(MAKE) lint -C $(LIBFT_DIR)
+	$(MAKE) lint -C $(PRINTF_DIR)
 
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
-		gdb --tui --args ./$(SERVER_APPLICATION_NAME) world.json; \
+		gdb --args ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
-		gdb --tui --args ./$(CLIENT_APPLICATION_NAME) test; \
+		gdb --args ./$(CLIENT_APPLICATION_NAME) test; \
 	fi
 
 .PHONY: re clean all fclean run valgrind lint debug

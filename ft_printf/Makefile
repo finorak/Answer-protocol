@@ -4,6 +4,8 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
+HEADERS := ft_printf.h
+
 SRCS = ft_putnbr.c ft_printf.c str_utils.c print_unsigned.c ft_puthex.c print_memory.c
 
 OBJS = $(SRCS:.c=.o)

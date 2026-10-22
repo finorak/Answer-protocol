@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -113,17 +114,18 @@ int	main(int argc, char **argv)
 		return (fprintf(stderr, "run with %s <world.json>\n", argv[0]), 1);
 	g_data.buffer = get_buffer(argv[1], get_buffer_size(argv[1]));
 	g_data.world = (t_world *)calloc(1, sizeof(t_world));
+	if (!init_world_data(g_data.world, g_data.buffer))
+		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
 	printf("Server IP address: ");
 	print_ip_addr();
 	define_server_property(&g_data.server);
 	signal(SIGINT, handle_shutdown);
 	signal(SIGTERM, handle_shutdown);
-	bind(g_data.server.server_fd, (struct sockaddr *)&(g_data.server.address),
-		sizeof(g_data.server.address));
+	if (bind(g_data.server.server_fd, (t_socket *)&(g_data.server.address),
+			sizeof(g_data.server.address)) < 0)
+		return (fprintf(stderr, "Error %d\n", errno), 1);
 	listen(g_data.server.server_fd, 128);
-	if (!init_world_data(g_data.world, g_data.buffer))
-		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
 	printf("Server is initialized\n");
 	while (1)
