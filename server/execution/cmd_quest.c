@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <string.h>
 #include "../main_utils.h"
 
@@ -20,7 +19,7 @@ static void	ok_quest(t_quest *quest, int client_fd, t_world *g_world,
 	if (!g_world || !result)
 		return ;
 	log_date();
-	printf("power off quest:%s from npc:%s\n", quest->id, quest->npc_owner_id);
+	ft_printf("power off quest:%s from npc:%s\n", quest->id, quest->npc_owner_id);
 	quest->available = 0;
 	append_in(quest->id, &get_player_by_fd(client_fd, g_world)->quests);
 	strcpy(result->message, "OK {\"quest_id\": ");

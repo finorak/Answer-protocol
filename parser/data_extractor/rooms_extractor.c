@@ -12,7 +12,7 @@
 
 #include "../../includes/data_extractor.h"
 #include "../../includes/parser.h"
-#include <stdio.h>
+#include "../../ft_printf/ft_printf.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -78,7 +78,7 @@ t_all_rooms	*extract_rooms(const cJSON *root, t_world *data)
 	rooms_json = cJSON_GetObjectItemCaseSensitive(root, ROOM_KEY);
 	if (!rooms_json || !cJSON_IsObject(rooms_json))
 	{
-		fprintf(stderr, "'%s' key not found or is not an object\n", ROOM_KEY);
+		ft_printf("'%s' key not found or is not an object\n", ROOM_KEY);
 		data->extract = false;
 		return (free(rooms_container), NULL);
 	}

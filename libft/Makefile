@@ -2,6 +2,8 @@ GCC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
+HEADERS := libft.h
+
 SRCS = ft_memmove.c ft_strncmp.c ft_strdup.c ft_bzero.c ft_atoi.c \
 	   ft_substr.c ft_calloc.c ft_isalnum.c ft_memset.c \
 	   ft_isdigit.c ft_isalpha.c ft_isascii.c ft_isprint.c \
@@ -32,4 +34,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: fclean re clean all
+lint:
+	norminette $(SRCS) $(HEADERS)
+
+.PHONY: fclean re clean all lint

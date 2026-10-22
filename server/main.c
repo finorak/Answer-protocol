@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "../includes/parser.h"
 #include "main_utils.h"
 
@@ -25,7 +26,7 @@ static void	handle_shutdown(int sig)
 {
 	(void)sig;
 	log_date();
-	printf("shutdown...\n");
+	ft_printf("shutdown...\n");
 	close(g_data.server.server_fd);
 	free_data(g_data.world, g_data.buffer, true);
 	exit(0);
@@ -70,11 +71,12 @@ static void	*client_host(void *arg)
 			remove_player(client_id, g_data.world);
 			break ;
 		}
-		log_date();
 		buf[strlen(buf) - 1] = '\0';
-		printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
+		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
 				*g_data.world));
+		pthread_mutex_lock(&g_data.trafic);
 		rec = val_exec(client_id, buf, g_data.world);
+		pthread_mutex_unlock(&g_data.trafic);
 		server_act(&rec, client_id);
 		if (!player_in(client_id, *g_data.world))
 			break ;
@@ -100,7 +102,7 @@ static void	server_routine(void)
 	add_player(client_fd, g_data.world);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
-	printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, *g_data.world),
+	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, *g_data.world),
 		client_ip);
 	pthread_create(&client_mess_rec, NULL, client_host,
 		(void *)(long)client_fd);
@@ -110,22 +112,24 @@ static void	server_routine(void)
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
-		return (fprintf(stderr, "run with %s <world.json>\n", argv[0]), 1);
+		return (ft_printf("run with %s <world.json>\n", argv[0]), 1);
 	g_data.buffer = get_buffer(argv[1], get_buffer_size(argv[1]));
 	g_data.world = (t_world *)calloc(1, sizeof(t_world));
+	if (!init_world_data(g_data.world, g_data.buffer))
+		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
-	printf("Server IP address: ");
+	pthread_mutex_init(&g_data.trafic, NULL);
+	ft_printf("Server IP address: ");
 	print_ip_addr();
 	define_server_property(&g_data.server);
 	signal(SIGINT, handle_shutdown);
 	signal(SIGTERM, handle_shutdown);
-	bind(g_data.server.server_fd, (struct sockaddr *)&(g_data.server.address),
-		sizeof(g_data.server.address));
+	if (bind(g_data.server.server_fd, (t_sock *)&(g_data.server.address),
+			sizeof(g_data.server.address)) < 0)
+		return (ft_printf("Error %d\n", errno), 1);
 	listen(g_data.server.server_fd, 128);
-	if (!init_world_data(g_data.world, g_data.buffer))
-		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
-	printf("Server is initialized\n");
+	ft_printf("Server is initialized\n");
 	while (1)
 		server_routine();
 	return (free_data(g_data.world, g_data.buffer, true), 0);

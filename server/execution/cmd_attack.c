@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 21:14:21 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:10:13 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	attack(t_npc *attacked, int client_fd, t_world *g_world,
 			g_world))
 		return ;
 	log_date();
-	printf("%s attacked %s (-%d for damage=%d)\n", get_player_by_fd(client_fd,
+	ft_printf("%s attacked %s (-%d for damage=%d)\n", get_player_by_fd(client_fd,
 			g_world)->name, attacked->id, attacker_damage, damage);
 	strcpy(result->message, "OK {\"attacker_hp\" : ");
 	strcat_number(result->message, get_player_by_fd(client_fd, g_world)->hp);

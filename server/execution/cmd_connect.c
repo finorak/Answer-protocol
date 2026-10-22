@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:06:44 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 20:57:13 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:10:20 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_connect(t_command test, int client_fd, t_world *g_world,
 		i++;
 	}
 	log_date();
-	printf("Client fd %d has changed his name %s into %s\n", client_fd,
+	ft_printf("Client fd %d has changed his name %s into %s\n", client_fd,
 		get_player_by_fd(client_fd, g_world)->name, test.message);
 	strcpy(get_player_by_fd(client_fd, g_world)->name, test.message);
 	strcpy(result->message, "OK connected\n");

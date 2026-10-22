@@ -6,11 +6,14 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:58:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:06:16 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:10:01 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/world.h"
+#ifndef EXECUTION_H
+# define EXECUTION_H
+
+# include "../../includes/world.h"
 
 void		strcat_double_quoted(char *message, char *element);
 
@@ -59,3 +62,5 @@ void		strcat_number(char *message, int number);
 int			player_in(int client_fd, t_world g_world);
 
 t_signal	execution(t_command test, int client_fd, t_world *g_world);
+
+#endif
