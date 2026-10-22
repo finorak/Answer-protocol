@@ -30,6 +30,8 @@ typedef struct s_data
 	t_world				*world;
 }				t_data;
 
+typedef struct sockaddr	t_socket;
+
 void		log_date(void);
 void		define_server_property(t_socket_property *server_property);
 void		print_ip_addr(void);

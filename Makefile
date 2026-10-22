@@ -5,11 +5,14 @@ SERVER_APPLICATION_NAME := server_cli
 CLIENT_APPLICATION_NAME := client_cli
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
+PRINTF_DIR := ft_printf
+PRINTF := $(PRINTF_DIR)/libftprintf.a
 
 FILE_TO_DEBUG ?= $(SERVER_APPLICATION_NAME)
 
 HEADERS := includes/data_extractor.h includes/parser.h includes/world.h \
-		   server/tools/tools.h server/validation/validation.h
+		   server/tools/tools.h server/validation/validation.h \
+		   server/execution/execution.h server/main_utils.h
 
 SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  parser/data_extractor/helper_part_1.c parser/data_extractor/helper_part_2.c \
@@ -30,7 +33,7 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
 	  server/execution/cmd_complete_quest.c
 
-CLIENT_SRC := client/client.c
+CLIENT_SRC := client/main.c
 
 # put here files that we didn't create our own
 C_EXCEPT_FILES := parser/cJSON.c parser/debug.c
@@ -52,23 +55,28 @@ FLAGS := -Wall -Wextra -Werror -g
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: $(LIBFT) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
+all: $(LIBFT) $(PRINTF) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 $(LIBFT):
-	$(MAKE) -C libft
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(SERVER_APPLICATION_NAME): $(SERVER_OBJS)
-	$(CC) $(FLAGS) $(SERVER_OBJS) -o $(SERVER_APPLICATION_NAME)
+	$(CC) $(FLAGS) $(SERVER_OBJS) ./$(PRINTF) -o $(SERVER_APPLICATION_NAME)
 
 $(CLIENT_APPLICATION_NAME): $(CLIENT_OBJS)
-	$(CC) $(FLAGS) $(CLIENT_OBJS) ./$(LIBFT) -o $(CLIENT_APPLICATION_NAME)
+	$(CC) $(FLAGS) $(CLIENT_OBJS) ./$(LIBFT) ./$(PRINTF) -o $(CLIENT_APPLICATION_NAME)
+
+$(PRINTF):
+	$(MAKE) -C $(PRINTF_DIR)
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(PRINTF_DIR)
 	rm -rf $(SERVER_OBJS) $(CLIENT_OBJS)
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
+	$(MAKE) fclean -C $(PRINTF_DIR)
 	rm -rf $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 re: fclean all
@@ -81,12 +89,14 @@ valgrind: all
 
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
+	$(MAKE) lint -C $(LIBFT_DIR)
+	$(MAKE) lint -C $(PRINTF_DIR)
 
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
-		gdb --tui --args ./$(SERVER_APPLICATION_NAME) world.json; \
+		gdb --args ./$(SERVER_APPLICATION_NAME) world.json; \
 	else \
-		gdb --tui --args ./$(CLIENT_APPLICATION_NAME) test; \
+		gdb --args ./$(CLIENT_APPLICATION_NAME) test; \
 	fi
 
 .PHONY: re clean all fclean run valgrind lint debug

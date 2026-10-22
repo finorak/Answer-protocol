@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffer_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: megalonia </var/spool/mail/megalonia>      +#+  +:+       +#+        */
+/*   By: finorako  </var/spool/mail/finorako>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/17 19:18:07 by megalonia         #+#    #+#             */
-/*   Updated: 2026/10/17 19:18:58 by megalonia        ###   ########.fr       */
+/*   Created: 2026/10/17 19:18:07 by finorako          #+#    #+#             */
+/*   Updated: 2026/10/17 19:18:58 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

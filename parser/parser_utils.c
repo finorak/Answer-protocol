@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
