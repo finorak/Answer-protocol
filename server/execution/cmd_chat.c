@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:54:20 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/20 21:13:50 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 void	fill_with_all(t_signal *result, t_world *g_world)
@@ -43,19 +45,35 @@ static void	transform(char *temp, char *type)
 		strcpy(temp, "GROUP");
 }
 
-int	cmd_chat(t_command test, int client_fd, t_world *g_world, t_signal *result)
+static int	chat_helper(t_signal *result, t_world *g_world, t_command test,
+			int client_fd)
 {
-	char	temp[8];
+	t_player	*player;
+	char		temp[8];
 
+	if (!g_world || !result)
+		return (0);
+	player = get_player_by_fd(client_fd, g_world);
+	if (!player)
+		return (0);
 	transform(temp, test.type);
 	strcpy(result->message, "OK\n");
 	strcpy(result->messages_0, "EVT ");
 	strcat(result->messages_0, temp);
 	strcat(result->messages_0, " CHAT ");
-	strcat(result->messages_0, get_player_by_fd(client_fd, g_world)->name);
+	strcat(result->messages_0, player->name);
 	strcat(result->messages_0, " ");
 	strcat(result->messages_0, test.message);
 	strcat(result->messages_0, "\n");
+	return (1);
+}
+
+int	cmd_chat(t_command test, int client_fd, t_world *g_world, t_signal *result)
+{
+	if (!result || !g_world)
+		return (0);
+	if (!chat_helper(result, g_world, test, client_fd))
+		return (0);
 	if (!strcmp(test.type, "CHATGLOBAL"))
 		fill_with_all(result, g_world);
 	else if (!strcmp(test.type, "CHATROOM"))

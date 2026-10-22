@@ -13,6 +13,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 t_command	validation_1(char *buf)

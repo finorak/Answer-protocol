@@ -6,14 +6,17 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:59:04 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:13:08 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:06:10 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../main_utils.h"
 
 void	strcat_double_quoted(char *message, char *element)
 {
+	if (!message || !element)
+		return ;
 	strcat(message, "\"");
 	strcat(message, element);
 	strcat(message, "\"");
@@ -22,9 +25,15 @@ void	strcat_double_quoted(char *message, char *element)
 int	connect_look_move_chat(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
-	int	i;
+	t_player	*player;
+	int			i;
 
-	i = strcmp(get_player_by_fd(client_fd, g_world)->name, "UNAUTHENTICATED");
+	if (!g_world || !result)
+		return (0);
+	player = get_player_by_fd(client_fd, g_world);
+	if (!player)
+		return (0);
+	i = strcmp(player->name, "UNAUTHENTICATED");
 	if (!strcmp(test.type, "CONNECT"))
 		return (cmd_connect(test, client_fd, g_world, result));
 	else if (!strcmp(test.type, "LOOK") && i)
@@ -34,8 +43,7 @@ int	connect_look_move_chat(t_command test, int client_fd, t_world *g_world,
 	else if ((!strcmp(test.type, "CHATGLOBAL") || !strcmp(test.type, "CHATROOM")
 			|| !strcmp(test.type, "CHATGROUP")) && i)
 		return (cmd_chat(test, client_fd, g_world, result));
-	else
-		return (0);
+	return (0);
 }
 
 int	who_group_item(t_command test, int client_fd, t_world *g_world,
@@ -43,6 +51,8 @@ int	who_group_item(t_command test, int client_fd, t_world *g_world,
 {
 	int	i;
 
+	if (!g_world || !result)
+		return (0);
 	i = strcmp(get_player_by_fd(client_fd, g_world)->name, "UNAUTHENTICATED");
 	if (!strcmp(test.type, "WHO") && i)
 		return (cmd_who(test, client_fd, g_world, result));
@@ -56,8 +66,7 @@ int	who_group_item(t_command test, int client_fd, t_world *g_world,
 		return (cmd_drop(test, client_fd, g_world, result));
 	else if (!strcmp(test.type, "INVENTORY") && i)
 		return (cmd_inventory(test, client_fd, g_world, result));
-	else
-		return (0);
+	return (0);
 }
 
 int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
@@ -65,6 +74,8 @@ int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
 {
 	int	i;
 
+	if (!g_world || !result)
+		return (0);
 	i = strcmp(get_player_by_fd(client_fd, g_world)->name, "UNAUTHENTICATED");
 	if (!strcmp(test.type, "TALK") && i)
 		return (cmd_talk(test, client_fd, g_world, result));
@@ -78,6 +89,5 @@ int	talk_attack_status_quest(t_command test, int client_fd, t_world *g_world,
 		return (cmd_quests(test, client_fd, g_world, result));
 	else if (!strcmp(test.type, "COMPLETE_QUEST") && i)
 		return (cmd_complete_quest(test, client_fd, g_world, result));
-	else
-		return (0);
+	return (0);
 }

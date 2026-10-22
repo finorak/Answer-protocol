@@ -1,0 +1,11 @@
+*.o
+server_cli
+client_cli
+
+*.py
+file.txt
+libft.a
+
+compile_commands.json
+
+*vgcore*

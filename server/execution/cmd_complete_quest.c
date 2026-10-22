@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:33:59 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 07:33:33 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/20 20:58:15 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static int	take(char *item_id, t_world *g_world, int client_fd)
@@ -63,25 +65,22 @@ int	cmd_complete_quest(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
 	if (!in(test.message, get_player_by_fd(client_fd, g_world)->quests))
-		strcpy(result->message, "ERR 404 QUEST_NOT_FOUND\n");
-	else
+		return (strcpy(result->message, "ERR 404 QUEST_NOT_FOUND\n"), 0);
+	complete_quest(get_quest_by_id(test.message, g_world), g_world,
+		client_fd);
+	log_date();
+	printf("Actualizing quest %s\n", test.message);
+	strcpy(result->message, "OK done_missions=");
+	strcat_number(result->message, get_quest_by_id(test.message,
+			g_world)->done_missions);
+	strcat(result->message, "\n");
+	if (get_quest_by_id(test.message, g_world)->done
+		&& strcmp(get_quest_by_id(test.message, g_world)->reward_id,
+			"none"))
 	{
-		complete_quest(get_quest_by_id(test.message, g_world), g_world,
-			client_fd);
-		log_date();
-		printf("Actualizing quest %s\n", test.message);
-		strcpy(result->message, "OK done_missions=");
-		strcat_number(result->message, get_quest_by_id(test.message,
-				g_world)->done_missions);
-		strcat(result->message, "\n");
-		if (get_quest_by_id(test.message, g_world)->done
-			&& strcmp(get_quest_by_id(test.message, g_world)->reward_id,
-				"none"))
-		{
-			append_in(get_quest_by_id(test.message, g_world)->reward_id,
-				&get_room_by_player_fd(client_fd, g_world)->items);
-			util_left(g_world, result);
-		}
+		append_in(get_quest_by_id(test.message, g_world)->reward_id,
+			&get_room_by_player_fd(client_fd, g_world)->items);
+		util_left(g_world, result);
 	}
 	return (1);
 }

@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:07 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 11:54:41 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/20 20:56:53 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 int	cmd_drop(t_command test, int client_fd, t_world *g_world, t_signal *result)
@@ -18,7 +20,7 @@ int	cmd_drop(t_command test, int client_fd, t_world *g_world, t_signal *result)
 
 	if (get_player_by_item(test.message, g_world) == NULL
 		|| get_player_by_item(test.message, g_world)->fd != client_fd)
-		strcpy(result->message, "404 ITEM_NOT_IN_INVENTORY\n");
+		return (strcpy(result->message, "404 ITEM_NOT_IN_INVENTORY\n"), 0);
 	else
 	{
 		append_in(test.message, &(get_room_by_player_fd(client_fd,

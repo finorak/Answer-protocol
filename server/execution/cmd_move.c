@@ -6,39 +6,49 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:26 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/15 10:33:04 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:08:04 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
-static void	move(t_room *current_room, int ids, t_world *g_world,
-		t_signal *result)
+static void	move_helper(t_signal *result, t_player *player)
 {
-	char	str_id[12];
-
-	sprintf(str_id, "%d", ids / MAX_LIST_LEN);
-	strcpy(result->message, "OK room=");
-	strcat(result->message, current_room->exits.ids[ids % MAX_LIST_LEN]);
-	strcat(result->message, "\n");
-	remove_from(str_id, &(current_room->players));
-	append_in(str_id, &(get_room_by_id(current_room->exits.ids[ids
-				% MAX_LIST_LEN], g_world)->players));
-	log_date();
-	printf("%s removed from '%s' and added to '%s'\n", get_player_by_fd(ids
-			/ MAX_LIST_LEN, g_world)->name, current_room->id,
-		current_room->exits.ids[ids % MAX_LIST_LEN]);
-	result->players_0 = current_room->players;
-	result->players_1 = get_room_by_id(current_room->exits.ids[ids
-			% MAX_LIST_LEN], g_world)->players;
 	strcpy(result->messages_0, "EVT ROOM PRESENCE LEAVE ");
-	strcat(result->messages_0, get_player_by_fd(ids / MAX_LIST_LEN,
-			g_world)->name);
+	strcat(result->messages_0, player->name);
 	strcat(result->messages_0, "\n");
 	strcpy(result->messages_1, "EVT ROOM PRESENCE ENTER ");
-	strcat(result->messages_1, get_player_by_fd(ids / MAX_LIST_LEN,
-			g_world)->name);
+	strcat(result->messages_1, player->name);
 	strcat(result->messages_1, "\n");
+}
+
+static void	move(t_room *curr_room, int ids, t_world *g_world,
+		t_signal *result)
+{
+	t_player	*player;
+	t_room		*room;
+	char		str_id[12];
+
+	if (!curr_room || !result || !g_world)
+		return ;
+	room = get_room_by_id(curr_room->exits.ids[ids % MAX_LIST_LEN], g_world);
+	player = get_player_by_fd(ids / MAX_LIST_LEN, g_world);
+	if (!room || !player)
+		return ;
+	sprintf(str_id, "%d", ids / MAX_LIST_LEN);
+	strcpy(result->message, "OK room=");
+	strcat(result->message, curr_room->exits.ids[ids % MAX_LIST_LEN]);
+	strcat(result->message, "\n");
+	remove_from(str_id, &(curr_room->players));
+	append_in(str_id, &(room->players));
+	log_date();
+	printf("%s removed from '%s' and added to '%s'\n", player->name,
+		curr_room->id, curr_room->exits.ids[ids % MAX_LIST_LEN]);
+	result->players_0 = curr_room->players;
+	result->players_1 = room->players;
+	move_helper(result, player);
 }
 
 int	cmd_move(t_command test, int client_fd, t_world *g_world, t_signal *result)
@@ -46,6 +56,8 @@ int	cmd_move(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	char	dirs[4][6];
 	int		dir_id;
 
+	if (!g_world || !result)
+		return (0);
 	strcpy(dirs[0], "north");
 	strcpy(dirs[1], "south");
 	strcpy(dirs[2], "west");
@@ -63,6 +75,5 @@ int	cmd_move(t_command test, int client_fd, t_world *g_world, t_signal *result)
 		}
 		dir_id++;
 	}
-	strcpy(result->message, "ERR 301 NO_EXIT\n");
-	return (1);
+	return (strcpy(result->message, "ERR 301 NO_EXIT\n"), 0);
 }

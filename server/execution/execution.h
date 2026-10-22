@@ -6,11 +6,11 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 08:58:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 06:11:32 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:06:16 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../init_world.h"
+#include "../../includes/world.h"
 
 void		strcat_double_quoted(char *message, char *element);
 

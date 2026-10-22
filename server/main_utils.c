@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:36:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:50:24 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/17 20:04:00 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <stdio.h>
 #include "main_utils.h"
 
 void	log_date(void)

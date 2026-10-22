@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_group.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
+/*   By: irraheri <rraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 09:54:52 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/20 20:56:34 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <string.h>
 #include "../main_utils.h"
 
 static void	grp_create(t_command test, int client_fd, t_world *g_world,
@@ -31,7 +33,7 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 		log_date();
 		printf("new group - %s (%s)\n", new_group.name,
 			get_player_by_fd(client_fd, g_world)->name);
-		g_world->groups->groups[g_world->groups->len] = new_group;
+		g_world->groups->groups[g_world->groups->len] = &new_group;
 		g_world->groups->len++;
 		strcpy(result->message, "OK group=");
 		strcat(result->message, test.message);
@@ -127,6 +129,8 @@ static void	grp_leave(t_command test, int client_fd, t_world *g_world,
 
 int	cmd_group(t_command test, int client_fd, t_world *g_world, t_signal *result)
 {
+	if (!g_world || !result)
+		return (0);
 	if (test.type[5] == 'C')
 		grp_create(test, client_fd, g_world, result);
 	else if (test.type[5] == 'I')

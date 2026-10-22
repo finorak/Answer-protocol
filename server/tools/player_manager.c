@@ -13,6 +13,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "../main_utils.h"
 
 void	mess(t_world *world)
@@ -21,6 +24,8 @@ void	mess(t_world *world)
 	char	mess[BUFFER_SIZE];
 	char	temp[12];
 
+	if (!world)
+		return ;
 	i = 0;
 	strcpy(mess, "EVT STATS players=");
 	sprintf(temp, "%d", world->players->len);
@@ -39,6 +44,8 @@ void	add_player(int client_fd, t_world *world)
 	int		i;
 	char	client_fd_char[12];
 
+	if (!world)
+		return ;
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
@@ -48,7 +55,7 @@ void	add_player(int client_fd, t_world *world)
 			world->players->players[i].status = 1;
 			snprintf(client_fd_char, sizeof(client_fd_char), "%d", client_fd);
 			world->players->len++;
-			append_in(client_fd_char, &(world->rooms->rooms[0].players));
+			append_in(client_fd_char, &(world->rooms->rooms[0]->players));
 			return ;
 		}
 		i++;
@@ -60,6 +67,8 @@ void	add_player(int client_fd, t_world *world)
 
 static void	reinitialize_player(t_player *player, t_world *world)
 {
+	if (!world)
+		return ;
 	player->fd = -1;
 	player->status = 0;
 	log_date();
@@ -78,6 +87,8 @@ void	remove_player(int client_fd, t_world *world)
 	t_player	*player;
 	char		temp[12];
 
+	if (!world)
+		return ;
 	log_date();
 	printf("Player %d DISCONNECTED\n", player_id(client_fd, *world));
 	player = get_player_by_fd(client_fd, world);
