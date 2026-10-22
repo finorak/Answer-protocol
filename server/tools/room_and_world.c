@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:27:53 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:01:59 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:08:22 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_room	*get_room_by_player_fd(int client_fd, t_world *world)
 	if (!world)
 		return (NULL);
 	i = -1;
-	printf("%d\n", world->rooms->len);
+	ft_printf("%d\n", world->rooms->len);
 	while (++i < world->rooms->len)
 	{
 		j = -1;

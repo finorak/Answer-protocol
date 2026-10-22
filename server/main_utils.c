@@ -6,23 +6,25 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:36:45 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/17 20:04:00 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:07:53 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
+#include <stdbool.h>
 #include <string.h>
-#include <stdio.h>
+#include <unistd.h>
 #include "main_utils.h"
 
 void	log_date(void)
 {
-	time_t	timestamp;
-	char	*date;
+	time_t					timestamp;
+	char					*date;
 
 	timestamp = time(NULL);
 	date = ctime(&timestamp);
 	date[strlen(date) - 1] = '\0';
-	printf("\r[%s] - ", date);
+	ft_printf("\r[%s] - ", date);
 }
 
 void	print_ip_addr(void)
@@ -34,7 +36,7 @@ void	print_ip_addr(void)
 	gethostname(hostname, sizeof(hostname));
 	host_entry = gethostbyname(hostname);
 	inet_ntop(AF_INET, host_entry->h_addr_list[0], ip, sizeof(ip));
-	printf("%s\n", ip);
+	ft_printf("%s\n", ip);
 }
 
 void	define_server_property(t_socket_property *server_property)
@@ -54,8 +56,7 @@ int	player_id(int client_fd, t_world world)
 	{
 		if (world.players->players[i].fd == client_fd)
 			return (i + 1);
-		else
-			i++;
+		i++;
 	}
 	return (0);
 }

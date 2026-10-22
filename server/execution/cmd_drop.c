@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:07 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 20:56:53 by megalonia        ###   ########.fr       */
+/*   Updated: 2026/10/21 19:10:26 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	cmd_drop(t_command test, int client_fd, t_world *g_world, t_signal *result)
 		append_in(test.message, &(get_room_by_player_fd(client_fd,
 					g_world)->items));
 		log_date();
-		printf("added %s to %s\n", test.message,
+		ft_printf("added %s to %s\n", test.message,
 			get_room_by_item_id(test.message, g_world)->name);
 		remove_from(test.message, &(get_player_by_item(test.message,
 					g_world)->items));

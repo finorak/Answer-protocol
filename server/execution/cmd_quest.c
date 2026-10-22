@@ -6,13 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:31 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 07:54:43 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/22 09:31:34 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "../main_utils.h"
+#include <string.h>
 
 static void	ok_quest(t_quest *quest, int client_fd, t_world *g_world,
 		t_signal *result)
@@ -20,7 +19,8 @@ static void	ok_quest(t_quest *quest, int client_fd, t_world *g_world,
 	if (!g_world || !result)
 		return ;
 	log_date();
-	printf("power off quest:%s from npc:%s\n", quest->id, quest->npc_owner_id);
+	ft_printf("power off quest:%s from npc:%s\n", quest->id,
+		quest->npc_owner_id);
 	quest->available = 0;
 	append_in(quest->id, &get_player_by_fd(client_fd, g_world)->quests);
 	strcpy(result->message, "OK {\"quest_id\": ");
