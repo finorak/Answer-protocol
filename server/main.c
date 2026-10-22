@@ -6,10 +6,12 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/22 09:31:02 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/22 09:49:49 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/parser.h"
+#include "main_utils.h"
 #include <errno.h>
 #include <pthread.h>
 #include <signal.h>
@@ -17,10 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "../includes/parser.h"
-#include "main_utils.h"
 
-t_data	g_data = {0};
+t_data		g_data = {0};
 
 static void	handle_shutdown(int sig)
 {
@@ -80,9 +80,7 @@ static void	*client_host(void *arg)
 				*g_data.world));
 		pthread_mutex_lock(&g_data.trafic);
 		rec = val_exec(client_id, buf, g_data.world);
-		pthread_mutex_unlock(&g_data.trafic);
 		server_act(&rec, client_id);
-		pthread_mutex_lock(&g_data.trafic);
 		if (!player_in(client_id, *g_data.world))
 		{
 			pthread_mutex_unlock(&g_data.trafic);
@@ -111,8 +109,8 @@ static void	server_routine(void)
 	add_player(client_fd, g_data.world);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
-	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, *g_data.world),
-		client_ip);
+	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd,
+			*g_data.world), client_ip);
 	pthread_create(&client_mess_rec, NULL, client_host,
 		(void *)(long)client_fd);
 	pthread_detach(client_mess_rec);
