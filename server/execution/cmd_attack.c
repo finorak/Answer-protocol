@@ -47,7 +47,7 @@ static void	attack(t_npc *attacked, int client_fd, t_world *g_world,
 			g_world))
 		return ;
 	log_date();
-	printf("%s attacked %s (-%d for damage=%d)\n", get_player_by_fd(client_fd,
+	ft_printf("%s attacked %s (-%d for damage=%d)\n", get_player_by_fd(client_fd,
 			g_world)->name, attacked->id, attacker_damage, damage);
 	strcpy(result->message, "OK {\"attacker_hp\" : ");
 	strcat_number(result->message, get_player_by_fd(client_fd, g_world)->hp);

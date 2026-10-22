@@ -42,7 +42,7 @@ int	cmd_take(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	if (!room || !player)
 		return (strcpy(result->message, "404 ITEM_NOT_FOUND\n"), 0);
 	log_date();
-	printf("removed %s from %s\n", test.message, room->name);
+	ft_printf("removed %s from %s\n", test.message, room->name);
 	remove_from(test.message, &room->items);
 	append_in(test.message, &player->items);
 	strcpy(result->message, "OK taken=");

@@ -15,6 +15,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "client.h"
+#include "../ft_printf/ft_printf.h"
 #include "../libft/libft.h"
 
 static atomic_int	g_disconnect = 0;
@@ -33,7 +34,7 @@ static void	print_buffer(char **strings, char header)
 	index = 0;
 	while (strings[index])
 	{
-		printf("%c: %s\n", header, strings[index]);
+		ft_printf("%c: %s\n", header, strings[index]);
 		free(strings[index]);
 		index++;
 	}

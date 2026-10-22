@@ -19,6 +19,7 @@
 # include <pthread.h>
 # include <sys/socket.h>
 # include <unistd.h>
+# include "../ft_printf/ft_printf.h"
 
 # define PORT 8080
 # include "execution/execution.h"
@@ -30,6 +31,7 @@ typedef struct s_data
 	t_socket_property	server;
 	char				*buffer;
 	t_world				*world;
+	pthread_mutex_t		trafic;
 }				t_data;
 
 typedef struct sockaddr	t_sock;

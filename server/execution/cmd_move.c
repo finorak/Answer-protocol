@@ -44,7 +44,7 @@ static void	move(t_room *curr_room, int ids, t_world *g_world,
 	remove_from(str_id, &(curr_room->players));
 	append_in(str_id, &(room->players));
 	log_date();
-	printf("%s removed from '%s' and added to '%s'\n", player->name,
+	ft_printf("%s removed from '%s' and added to '%s'\n", player->name,
 		curr_room->id, curr_room->exits.ids[ids % MAX_LIST_LEN]);
 	result->players_0 = curr_room->players;
 	result->players_1 = room->players;

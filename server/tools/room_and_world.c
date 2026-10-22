@@ -38,7 +38,7 @@ t_room	*get_room_by_player_fd(int client_fd, t_world *world)
 	if (!world)
 		return (NULL);
 	i = -1;
-	printf("%d\n", world->rooms->len);
+	ft_printf("%d\n", world->rooms->len);
 	while (++i < world->rooms->len)
 	{
 		j = -1;

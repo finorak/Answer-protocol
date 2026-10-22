@@ -31,7 +31,7 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 	else if (g_world->groups->len < MAX_LIST_LEN)
 	{
 		log_date();
-		printf("new group - %s (%s)\n", new_group.name,
+		ft_printf("new group - %s (%s)\n", new_group.name,
 			get_player_by_fd(client_fd, g_world)->name);
 		g_world->groups->groups[g_world->groups->len] = &new_group;
 		g_world->groups->len++;
@@ -56,7 +56,7 @@ static void	grp_invite(t_command test, int client_fd, t_world *g_world,
 	else
 	{
 		log_date();
-		printf("group invitation from %s to %s\n", get_player_by_fd(client_fd,
+		ft_printf("group invitation from %s to %s\n", get_player_by_fd(client_fd,
 				g_world)->name, test.message);
 		sprintf(temp, "%d", get_id_by_name(test.message, g_world));
 		strcpy(result->message, "OK\n");
@@ -90,7 +90,7 @@ static void	grp_join(t_command test, int client_fd, t_world *g_world,
 		strcat(result->message, test.message);
 		strcat(result->message, "\n");
 		log_date();
-		printf("adding %s to %s\n", get_player_by_fd(client_fd, g_world)->name,
+		ft_printf("adding %s to %s\n", get_player_by_fd(client_fd, g_world)->name,
 			test.message);
 		result->players_0 = get_group_by_name(test.message, g_world)->players;
 		strcpy(result->messages_0, "EVT GROUP JOIN ");
@@ -117,7 +117,7 @@ static void	grp_leave(t_command test, int client_fd, t_world *g_world,
 	{
 		strcpy(result->message, "OK\n");
 		log_date();
-		printf("removing %s to %s\n", get_player_by_fd(client_fd,
+		ft_printf("removing %s to %s\n", get_player_by_fd(client_fd,
 				g_world)->name, test.message);
 		remove_from(temp, &(get_group_by_name(test.message, g_world)->players));
 		result->players_0 = get_group_by_name(test.message, g_world)->players;

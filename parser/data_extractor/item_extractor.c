@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include "../../ft_printf/ft_printf.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>

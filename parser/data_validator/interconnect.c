@@ -38,10 +38,7 @@ static bool	append_exits_to_last(t_stack **stack,
 	{
 		key = curr_room->exits.ids[index];
 		if (strcmp(key, curr_room->id) == 0)
-		{
-			printf("%d, %s\n", index, key);
 			return (false);
-		}
 		room = get_room_from_id(container, key);
 		if (room)
 		{

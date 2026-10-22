@@ -10,19 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
+#include <stdbool.h>
 #include <string.h>
-#include <stdio.h>
+#include <unistd.h>
 #include "main_utils.h"
 
 void	log_date(void)
 {
-	time_t	timestamp;
-	char	*date;
+	time_t					timestamp;
+	char					*date;
 
 	timestamp = time(NULL);
 	date = ctime(&timestamp);
 	date[strlen(date) - 1] = '\0';
-	printf("\r[%s] - ", date);
+	ft_printf("\r[%s] - ", date);
 }
 
 void	print_ip_addr(void)
@@ -34,7 +36,7 @@ void	print_ip_addr(void)
 	gethostname(hostname, sizeof(hostname));
 	host_entry = gethostbyname(hostname);
 	inet_ntop(AF_INET, host_entry->h_addr_list[0], ip, sizeof(ip));
-	printf("%s\n", ip);
+	ft_printf("%s\n", ip);
 }
 
 void	define_server_property(t_socket_property *server_property)

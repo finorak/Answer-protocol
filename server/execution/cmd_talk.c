@@ -34,7 +34,7 @@ int	cmd_talk(t_command test, int client_fd, t_world *g_world, t_signal *result)
 		strcat_double_quoted(result->message, "");
 	strcat(result->message, " }\n");
 	log_date();
-	printf("dialogue_index = (dialogue_index + 1) mod(dialogue_len)");
+	ft_printf("dialogue_index = (dialogue_index + 1) mod(dialogue_len)");
 	if (dialogue)
 		npc->dialogue_index = (npc->dialogue_index + 1) % npc->dialogues.len;
 	return (1);
