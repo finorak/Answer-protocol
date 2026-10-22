@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/22 09:31:49 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/22 10:00:30 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	attack(t_npc *attacked, int client_fd, t_world *g_world,
 	strcat_number(result->message, attacked->hp);
 	strcat(result->message, ", \"damage\" : ");
 	strcat_number(result->message, damage);
-	strcat(result->message, ", \"status\" : \"combat\"}\n");
 }
 
 int	cmd_attack(t_command test, int client_fd, t_world *g_world,
@@ -73,6 +72,9 @@ int	cmd_attack(t_command test, int client_fd, t_world *g_world,
 	else if (attacked->hp == -1)
 		strcpy(result->message, "ERR 405 NPC_NOT_HOSTILE\n");
 	else
+	{
+		strcat(result->message, ", \"status\" : \"combat\"}\n");
 		attack(attacked, client_fd, g_world, result);
+	}
 	return (1);
 }

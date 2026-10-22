@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/22 09:49:49 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/22 09:59:44 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static void	*client_host(void *arg)
 			break ;
 		}
 		buf[strlen(buf) - 1] = '\0';
+		pthread_mutex_lock(&g_data.trafic);
 		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
 				*g_data.world));
-		pthread_mutex_lock(&g_data.trafic);
 		rec = val_exec(client_id, buf, g_data.world);
 		server_act(&rec, client_id);
 		if (!player_in(client_id, *g_data.world))
@@ -106,7 +106,9 @@ static void	server_routine(void)
 	if (client_fd < 0)
 		return ;
 	send(client_fd, "OK hello proto=1\n", 18, 0);
+	pthread_mutex_lock(&g_data.trafic);
 	add_player(client_fd, g_data.world);
+	pthread_mutex_unlock(&g_data.trafic);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
 	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd,
