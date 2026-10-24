@@ -9,7 +9,7 @@ LIBS = $(shell pkg-config --cflags --libs sdl2 SDL2_ttf) -pthread
 
 run: check-sdl-ttf
 	g++ $(SRCS) -o client $(LIBS)
-	./client 127.0.0.1
+	# ./client 127.0.0.1
 
 check-sdl-ttf:
 	@if ! pkg-config --exists SDL2_ttf; then \

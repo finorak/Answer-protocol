@@ -36,10 +36,19 @@ typedef struct s_data
 
 typedef struct s_client
 {
-	int			client_id;
+	int			id;
 	char		buf[BUFFER_SIZE];
 	t_signal	rec;
 }				t_client;
+
+typedef struct s_server_routine
+{
+	pthread_t			client_mess_rec;
+	int					client_fd;
+	char				client_ip[INET_ADDRSTRLEN];
+	struct sockaddr_in	client_addr;
+	socklen_t			addr_len;
+}				t_server_routine;
 
 typedef struct sockaddr	t_sock;
 

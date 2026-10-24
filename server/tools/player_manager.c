@@ -39,13 +39,13 @@ void	mess(t_world *world)
 	}
 }
 
-void	add_player(int client_fd, t_world *world)
+int	add_player(int client_fd, t_world *world)
 {
 	int		i;
 	char	client_fd_char[12];
 
 	if (!world)
-		return ;
+		return (0);
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
@@ -56,13 +56,13 @@ void	add_player(int client_fd, t_world *world)
 			snprintf(client_fd_char, sizeof(client_fd_char), "%d", client_fd);
 			world->players->len++;
 			append_in(client_fd_char, &(world->rooms->rooms[0]->players));
-			return ;
+			return (1);
 		}
 		i++;
 	}
 	log_date();
 	ft_printf("EXCEDED MAX_PLAYER (%d)\n", MAX_PLAYER);
-	exit(0);
+	return (0);
 }
 
 static void	reinitialize_player(t_player *player, t_world *world)
