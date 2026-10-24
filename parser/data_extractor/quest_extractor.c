@@ -25,6 +25,7 @@ static t_quest	*get_owner(
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
 	strncpy(quest->npc_owner_id, content->valuestring, MAX_ID_LEN);
+	quest->available = 1;
 	return (quest);
 }
 
@@ -43,6 +44,7 @@ t_quest	*extract_quest_from_key(
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "description");
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(quest), NULL);
+	strncpy(quest->description, content->valuestring, MAX_DESCRIPTION_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(quest_json, "missions");
 	if (!content || !cJSON_IsArray(content))
 		return (free(quest), NULL);

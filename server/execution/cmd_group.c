@@ -6,24 +6,28 @@
 /*   By: irraheri <rraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/21 19:10:07 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:35:10 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "../main_utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static void	grp_create(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
-	t_group	new_group;
+	t_group	*new_group;
 	char	temp[12];
 
+	new_group = (t_group *)calloc(1, sizeof(t_group));
+	if (!new_group)
+		return ;
 	sprintf(temp, "%d", client_fd);
-	strcpy(new_group.name, test.message);
-	strcpy(new_group.players.ids[0], temp);
-	new_group.players.len = 1;
+	strcpy(new_group->name, test.message);
+	strcpy(new_group->players.ids[0], temp);
+	new_group->players.len = 1;
 	if (get_group_by_name(test.message, g_world) != NULL)
 		strcpy(result->message, "ERR 201 GROUP_NAME_IN_USE\n");
 	else if (get_group_by_player_fd(client_fd, g_world) != NULL)
@@ -31,13 +35,10 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 	else if (g_world->groups->len < MAX_LIST_LEN)
 	{
 		log_date();
-		ft_printf("new group - %s (%s)\n", new_group.name,
+		ft_printf("new group - %s (%s)\n", new_group->name,
 			get_player_by_fd(client_fd, g_world)->name);
-		g_world->groups->groups[g_world->groups->len] = &new_group;
-		g_world->groups->len++;
-		strcpy(result->message, "OK group=");
-		strcat(result->message, test.message);
-		strcat(result->message, "\n");
+		g_world->groups->groups[g_world->groups->len++] = new_group;
+		cpy(result, test);
 	}
 	else
 		strcpy(result->message, "ERR 429 TOO_MANY_REQUESTS\n");
@@ -56,8 +57,8 @@ static void	grp_invite(t_command test, int client_fd, t_world *g_world,
 	else
 	{
 		log_date();
-		ft_printf("group invitation from %s to %s\n", get_player_by_fd(client_fd,
-				g_world)->name, test.message);
+		ft_printf("group invitation from %s to %s\n",
+			get_player_by_fd(client_fd, g_world)->name, test.message);
 		sprintf(temp, "%d", get_id_by_name(test.message, g_world));
 		strcpy(result->message, "OK\n");
 		result->players_0.len = 1;
@@ -90,8 +91,8 @@ static void	grp_join(t_command test, int client_fd, t_world *g_world,
 		strcat(result->message, test.message);
 		strcat(result->message, "\n");
 		log_date();
-		ft_printf("adding %s to %s\n", get_player_by_fd(client_fd, g_world)->name,
-			test.message);
+		ft_printf("adding %s to %s\n", get_player_by_fd(client_fd,
+				g_world)->name, test.message);
 		result->players_0 = get_group_by_name(test.message, g_world)->players;
 		strcpy(result->messages_0, "EVT GROUP JOIN ");
 		strcat(result->messages_0, get_player_by_fd(client_fd, g_world)->name);
