@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 09:40:54 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:02:49 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,24 @@ static void	*client_host(void *arg)
 	while (1)
 	{
 		memset(buf, 0, sizeof(buf));
-		pthread_mutex_lock(&g_data.trafic);
 		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
 		{
+			pthread_mutex_lock(&g_data.trafic);
 			remove_player(client_id, g_data.world);
 			pthread_mutex_unlock(&g_data.trafic);
 			break ;
 		}
 		buf[strlen(buf) - 1] = '\0';
+		pthread_mutex_lock(&g_data.trafic);
 		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
 				*g_data.world));
 		rec = val_exec(client_id, buf, g_data.world);
 		server_act(&rec, client_id);
+		if (!player_in(client_id, *g_data.world))
+		{
+			pthread_mutex_unlock(&g_data.trafic);
+			break ;
+		}
 		pthread_mutex_unlock(&g_data.trafic);
 	}
 	close(client_id);
@@ -103,7 +109,12 @@ static void	server_routine(void)
 		return ;
 	send(client_fd, "OK hello proto=1\n", 18, 0);
 	pthread_mutex_lock(&g_data.trafic);
-	add_player(client_fd, g_data.world);
+	if (add_player(client_fd, g_data.world) == 0)
+	{
+		send(client_fd, "ERR 900 CONNECTION_FAILED\n", 18, 0);
+		pthread_mutex_unlock(&g_data.trafic);
+		return ;
+	}
 	pthread_mutex_unlock(&g_data.trafic);
 	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
 	log_date();
