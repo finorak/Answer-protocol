@@ -12,10 +12,12 @@
 
 #include "../includes/parser.h"
 #include "main_utils.h"
+#include "tools/tools.h"
 #include <errno.h>
 #include <pthread.h>
 #include <signal.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
