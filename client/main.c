@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 10:17:30 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:28:19 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	print_buffer(char **strings, char header)
 		index++;
 	}
 	free(strings);
+	ft_printf("\rC: ");
 }
 
 static void	*wait_for_server(void *arg)
@@ -78,7 +79,7 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
-		printf("C: ");
+		printf("\rC: ");
 		if (!fgets(buffer, BUFFER_SIZE, stdin))
 			continue ;
 		send(sock, buffer, strlen(buffer), 0);
