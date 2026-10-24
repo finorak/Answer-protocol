@@ -6,7 +6,7 @@
 /*   By: irraheri <rraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:11 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/21 19:10:07 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:35:10 by finorako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 		log_date();
 		ft_printf("new group - %s (%s)\n", new_group->name,
 			get_player_by_fd(client_fd, g_world)->name);
-		g_world->groups->groups[g_world->groups->len] = new_group;
-		g_world->groups->len++;
-		strcpy(result->message, "OK group=");
-		strcat(result->message, test.message);
-		strcat(result->message, "\n");
+		g_world->groups->groups[g_world->groups->len++] = new_group;
+		cpy(result, test);
 	}
 	else
 		strcpy(result->message, "ERR 429 TOO_MANY_REQUESTS\n");

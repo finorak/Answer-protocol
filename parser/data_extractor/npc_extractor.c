@@ -42,6 +42,7 @@ t_npc	*extract_npc_from_key(
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
+	strncpy(npc->name, content->valuestring, MAX_NAME_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
