@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 09:32:45 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:40:54 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	*client_host(void *arg)
 				*g_data.world));
 		rec = val_exec(client_id, buf, g_data.world);
 		server_act(&rec, client_id);
+		pthread_mutex_unlock(&g_data.trafic);
 	}
 	close(client_id);
 	return (NULL);
