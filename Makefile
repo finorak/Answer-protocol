@@ -30,7 +30,7 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/cmd_quest.c server/execution/cmd_quests.c server/execution/cmd_status.c \
 	  server/execution/cmd_take.c server/execution/cmd_talk.c server/execution/cmd_who.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
-	  server/execution/cmd_complete_quest.c
+	  server/execution/cmd_complete_quest.c server/execution/group_cpy_helper.c
 
 CLIENT_SRC := client/main.c
 
