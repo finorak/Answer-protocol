@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 08:41:28 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:44:48 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ int	cmd_attack(t_command test, int client_fd, t_world *g_world,
 		strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n");
 	else if (attacked->hp == -1)
 		strcpy(result->message, "ERR 405 NPC_NOT_HOSTILE\n");
+	else if (attacked->hp == 0)
+	{
+		strcpy(result->message, "OK {");
+		strcat_double_quoted(result->message, attacked->id);
+		strcat(result->message, ": \"dead\"}\n");
+	}
 	else
 	{
 		attack(attacked, client_fd, g_world, result);
