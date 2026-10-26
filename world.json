@@ -1,313 +1,751 @@
+
 {
- "world": {
+  "world": {
     "start": {
       "name": "Village_of_Ashfield",
-      "description": "A quiet rural settlement at the edge of the kingdom, known for its inn and its silence.",
-      "exits": [
-        "none",
-        "art.gallery",
-        "none",
-        "FIDE.hall"
-      ],
-      "npcs": [],
-      "items": []
-    },
-    "FIDE.hall": {
-      "name": "The Grandmaster's Chamber",
-      "description": "A hall where the greatest chess minds have debated strategy for decades.",
-      "exits": [
-        "none",
-        "philosophers.retreat",
-        "start",
-        "thinkers.library"
-      ],
-      "npcs": [
-        "magnus_carlsen"
-      ],
-      "items": [
-        "rook"
-      ]
-    },
-    "thinkers.library": {
-      "name": "The Reading Room",
-      "description": "A vast library filled with ancient texts and modern treatises on logic and nature.",
-      "exits": [
-        "none",
-        "west.end",
-        "FIDE.hall",
-        "none"
-      ],
-      "npcs": [
-        "rene_descartes",
-        "charles_darwin"
-      ],
-      "items": []
+      "description": "A quiet rural settlement at the edge of the kingdom. Beneath its old well lies a sealed passage that predates the kingdom itself.",
+      "exits": ["none", "art.gallery", "FIDE.hall", "none"],
+      "npcs": ["old_miller"],
+      "items": ["healing_herb"]
     },
     "art.gallery": {
       "name": "The Starry Atelier",
-      "description": "A workshop where visions of chaos and beauty have been painted into existence.",
-      "exits": [
-        "start",
-        "cinema.house",
-        "none",
-        "philosophers.retreat"
-      ],
-      "npcs": [
-        "pablo_picasso"
-      ],
-      "items": [
-        "heaven"
-      ]
-    },
-    "philosophers.retreat": {
-      "name": "The Abyss",
-      "description": "A place of deep reflection and existential anguish, where words weigh heavy.",
-      "exits": [
-        "FIDE.hall",
-        "fiction.loft",
-        "art.gallery",
-        "west.end"
-      ],
-      "npcs": [
-        "franz_kafka",
-        "fiodor_dostoievsky"
-      ],
-      "items": []
-    },
-    "west.end": {
-      "name": "The Crossroads",
-      "description": "A dusty junction where travelers from all walks of life exchange stories.",
-      "exits": [
-        "thinkers.library",
-        "chapel.hill",
-        "philosophers.retreat",
-        "none"
-      ],
-      "npcs": [
-        "snoop_dogg"
-      ],
-      "items": [
-        "diamond"
-      ]
+      "description": "A surreal workshop where painters reshape reality. Paintings change whenever nobody watches them.",
+      "exits": ["none", "cinema.house", "philosophers.retreat", "start"],
+      "npcs": ["pablo_picasso", "frida_kahlo"],
+      "items": ["heaven"]
     },
     "cinema.house": {
-      "name": "The Projection Room",
-      "description": "A dark room where flickering images have shaped the dreams of many.",
-      "exits": [
-        "art.gallery",
-        "none",
-        "none",
-        "fiction.loft"
-      ],
-      "npcs": [
-        "martin_scorsesse"
-      ],
-      "items": []
+      "name": "The Eternal Projection",
+      "description": "An abandoned cinema where forgotten films predict events that have not yet occurred.",
+      "exits": ["none", "fiction.loft", "west.end", "art.gallery"],
+      "npcs": ["martin_scorsesse", "alfred_hitchcock"],
+      "items": ["silver_reel"]
     },
     "fiction.loft": {
       "name": "The Epicenter",
-      "description": "A cluttered attic filled with comic books, myths, and tales of heroism.",
-      "exits": [
-        "philosophers.retreat",
-        "none",
-        "cinema.house",
-        "chapel.hill"
-      ],
-      "npcs": [
-        "saitama"
-      ],
-      "items": []
+      "description": "A tower of impossible stories inhabited by heroes, monsters, and characters who know they are fictional.",
+      "exits": ["dragon.spire", "chapel.hill", "none", "cinema.house"],
+      "npcs": ["saitama", "sherlock_holmes"],
+      "items": ["infinite_book"]
+    },
+    "dragon.spire": {
+      "name": "The Dragon's Observatory",
+      "description": "A tower above the clouds where ancient dragons study the movements of stars and the fate of mortals.",
+      "exits": ["none", "none", "sunken.archive", "fiction.loft"],
+      "npcs": ["elder_dragon"],
+      "items": ["dragon_scale"]
+    },
+    "FIDE.hall": {
+      "name": "The Grandmaster's Chamber",
+      "description": "A monumental chess hall where the greatest strategists compete for the right to advise kings.",
+      "exits": ["start", "philosophers.retreat", "thinkers.library", "none"],
+      "npcs": ["magnus_carlsen", "bobby_fischer"],
+      "items": ["rook"]
+    },
+    "philosophers.retreat": {
+      "name": "The Abyss",
+      "description": "A desolate sanctuary where philosophers debate freedom, morality, suffering, and whether reality exists at all.",
+      "exits": ["art.gallery", "west.end", "emerald.forest", "FIDE.hall"],
+      "npcs": ["franz_kafka", "fiodor_dostoievsky", "friedrich_nietzsche"],
+      "items": ["philosophical_stone"]
+    },
+    "west.end": {
+      "name": "The Crossroads",
+      "description": "A sprawling trading junction where smugglers, wandering poets, mercenaries, and merchants exchange rumors.",
+      "exits": ["cinema.house", "chapel.hill", "kingsroad", "philosophers.retreat"],
+      "npcs": ["snoop_dogg", "traveling_merchant"],
+      "items": ["diamond", "ancient_coin"]
     },
     "chapel.hill": {
       "name": "The Pinnacle",
-      "description": "A windswept hilltop overlooking the kingdom, often visited by the powerful.",
-      "exits": [
-        "west.end",
-        "none",
-        "fiction.loft",
-        "none"
-      ],
-      "npcs": [
-        "donald_trump"
-      ],
-      "items": [
-        "gold"
-      ]
+      "description": "A fortified hilltop overlooking the kingdom. Political rivals gather here to negotiate, threaten, and conspire.",
+      "exits": ["fiction.loft", "sunken.archive", "capital.city", "west.end"],
+      "npcs": ["donald_trump", "royal_spy"],
+      "items": ["gold"]
+    },
+    "sunken.archive": {
+      "name": "The Drowned Archive",
+      "description": "A flooded underground library holding the censored histories of fallen civilizations. Some books whisper to readers.",
+      "exits": ["dragon.spire", "royal.citadel", "ashlands", "chapel.hill"],
+      "npcs": ["archivist_mira"],
+      "items": ["lost_chronicle"]
+    },
+    "thinkers.library": {
+      "name": "The Reading Room",
+      "description": "An enormous library connecting natural science, mathematics, philosophy, and forbidden research.",
+      "exits": ["FIDE.hall", "emerald.forest", "frostbound.pass", "none"],
+      "npcs": ["rene_descartes", "charles_darwin", "ada_lovelace"],
+      "items": ["mechanical_key"]
+    },
+    "emerald.forest": {
+      "name": "The Emerald Wilds",
+      "description": "An ancient forest where trees remember every traveler and strange creatures guard the roots of the world.",
+      "exits": ["philosophers.retreat", "kingsroad", "dwarven.hold", "thinkers.library"],
+      "npcs": ["forest_guardian", "wandering_druid"],
+      "items": ["moonflower", "enchanted_bark"]
+    },
+    "kingsroad": {
+      "name": "The King's Road",
+      "description": "A heavily traveled highway crossing the continent. Abandoned watchtowers hint at a war erased from history.",
+      "exits": ["west.end", "capital.city", "crystal.caves", "emerald.forest"],
+      "npcs": ["captain_arden"],
+      "items": ["soldiers_medallion"]
+    },
+    "capital.city": {
+      "name": "Veyrath, Capital of Crowns",
+      "description": "A vast metropolis of royal courts, crowded markets, guild halls, and secret societies. Every district answers to a different power.",
+      "exits": ["chapel.hill", "royal.citadel", "ashlands", "kingsroad"],
+      "npcs": ["queen_isolde", "guildmaster_voss", "street_oracle"],
+      "items": ["royal_seal", "healing_potion"]
+    },
+    "royal.citadel": {
+      "name": "The Iron Crown",
+      "description": "The royal stronghold, protected by elite soldiers and enchanted gates. A succession crisis threatens to plunge the kingdom into civil war.",
+      "exits": ["sunken.archive", "none", "obsidian.gate", "capital.city"],
+      "npcs": ["queen_isolde", "black_knight"],
+      "items": ["crown_of_ashes"]
+    },
+    "frostbound.pass": {
+      "name": "The Frostbound Pass",
+      "description": "A mountain crossing where blizzards conceal ancient statues and the frozen remains of an expedition.",
+      "exits": ["thinkers.library", "dwarven.hold", "none", "none"],
+      "npcs": ["mountain_hermit"],
+      "items": ["frost_crystal"]
+    },
+    "dwarven.hold": {
+      "name": "Khar-Dur, the Deep Forge",
+      "description": "A subterranean city of master smiths, enormous furnaces, and mechanical wonders powered by the earth's heart.",
+      "exits": ["emerald.forest", "crystal.caves", "none", "frostbound.pass"],
+      "npcs": ["thane_brom", "master_smith"],
+      "items": ["mithril_ingot", "forge_hammer"]
+    },
+    "crystal.caves": {
+      "name": "The Resonant Depths",
+      "description": "A labyrinth of luminous crystals that amplify memories and emotions. The deeper chambers distort time.",
+      "exits": ["kingsroad", "ashlands", "none", "dwarven.hold"],
+      "npcs": ["crystal_keeper"],
+      "items": ["heart_crystal", "void_shard"]
+    },
+    "ashlands": {
+      "name": "The Kingdom of Cinders",
+      "description": "A scorched wasteland where a magical catastrophe destroyed an entire civilization. Ghostly lights drift between ruined towers.",
+      "exits": ["capital.city", "obsidian.gate", "none", "crystal.caves"],
+      "npcs": ["exiled_mage", "ash_wraith"],
+      "items": ["ember_crown", "obsidian_blade"]
+    },
+    "obsidian.gate": {
+      "name": "The World's End",
+      "description": "A colossal black gate at the edge of the known world. Beyond it lies a realm absent from every map and forbidden in every scripture.",
+      "exits": ["royal.citadel", "none", "none", "ashlands"],
+      "npcs": ["gatekeeper", "nameless_king"],
+      "items": ["worldheart"]
     }
   },
   "items": {
     "rook": {
       "name": "Chess Rook",
-      "description": "A carved stone piece, simple but formidable in the endgame.",
+      "description": "A carved stone chess piece. Its markings resemble the layout of an ancient fortress.",
       "obtainable": 1,
       "heal": 0
     },
     "heaven": {
       "name": "Gilded Canvas",
-      "description": "A masterpiece that seems to radiate light, rumored to hold a secret.",
+      "description": "A masterpiece that radiates impossible light. Its painted landscape changes with the viewer's memories.",
       "obtainable": 0,
       "heal": 0
     },
     "philosophical_stone": {
       "name": "Philosopher's Fragment",
-      "description": "A shard of a legendary artifact said to contain the essence of thought itself.",
+      "description": "A shard of an artifact said to contain the essence of thought itself.",
       "obtainable": 1,
       "heal": 1
     },
     "diamond": {
       "name": "Uncut Diamond",
-      "description": "A rough stone that catches the light with unusual brilliance.",
+      "description": "A valuable rough diamond coveted by merchants, nobles, and thieves.",
       "obtainable": 1,
       "heal": 0
     },
     "gold": {
       "name": "Gold Ingot",
-      "description": "A heavy bar of pure gold, stamped with an ancient seal.",
+      "description": "A heavy bar of pure gold bearing the seal of a forgotten dynasty.",
       "obtainable": 1,
       "heal": 0
     },
     "oscar": {
       "name": "Golden Laurel",
-      "description": "A symbol of ultimate achievement, coveted by all who seek glory.",
+      "description": "A legendary award recognizing an achievement that changed the course of artistic history.",
       "obtainable": 0,
       "heal": 1
+    },
+    "healing_herb": {
+      "name": "Ashfield Healing Herb",
+      "description": "A common medicinal plant that restores a small amount of health.",
+      "obtainable": 1,
+      "heal": 15
+    },
+    "silver_reel": {
+      "name": "Silver Film Reel",
+      "description": "A reel containing a scene that reveals a hidden passage when projected.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "infinite_book": {
+      "name": "The Infinite Book",
+      "description": "A book whose final chapter cannot be reached. It contains hints about hidden locations.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "dragon_scale": {
+      "name": "Elder Dragon Scale",
+      "description": "A nearly indestructible scale warm to the touch. Its owner can sense nearby magic.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "ancient_coin": {
+      "name": "Coin of the First King",
+      "description": "A coin minted before the founding of the kingdom. Collectors pay fortunes for it.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "lost_chronicle": {
+      "name": "The Lost Chronicle",
+      "description": "A forbidden manuscript detailing the true origin of the Obsidian Gate.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "mechanical_key": {
+      "name": "Clockwork Key",
+      "description": "An intricate key designed to open ancient mechanisms and sealed vaults.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "moonflower": {
+      "name": "Moonflower",
+      "description": "A luminous flower that blooms only under moonlight. It can be used to craft powerful medicine.",
+      "obtainable": 1,
+      "heal": 20
+    },
+    "enchanted_bark": {
+      "name": "Enchanted Bark",
+      "description": "A piece of living wood that slowly regenerates when exposed to sunlight.",
+      "obtainable": 1,
+      "heal": 5
+    },
+    "soldiers_medallion": {
+      "name": "Veteran's Medallion",
+      "description": "A military insignia recognized by the royal guard.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "royal_seal": {
+      "name": "Royal Seal",
+      "description": "An official seal that grants access to restricted government buildings.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "healing_potion": {
+      "name": "Greater Healing Potion",
+      "description": "A carefully brewed potion that restores a substantial amount of health.",
+      "obtainable": 1,
+      "heal": 50
+    },
+    "crown_of_ashes": {
+      "name": "Crown of Ashes",
+      "description": "A cursed crown belonging to the ruler who destroyed the ancient civilization.",
+      "obtainable": 0,
+      "heal": 0
+    },
+    "frost_crystal": {
+      "name": "Frost Crystal",
+      "description": "A fragment of permanent ice that remains frozen even beside a roaring furnace.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "mithril_ingot": {
+      "name": "Mithril Ingot",
+      "description": "A rare lightweight metal used to forge weapons and armor of exceptional quality.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "forge_hammer": {
+      "name": "Master Smith's Hammer",
+      "description": "A legendary crafting hammer capable of repairing ancient artifacts.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "heart_crystal": {
+      "name": "Crystal Heart",
+      "description": "A pulsating crystal that amplifies magical abilities.",
+      "obtainable": 1,
+      "heal": 25
+    },
+    "void_shard": {
+      "name": "Void Shard",
+      "description": "A fragment of nothingness that seems to absorb light and sound.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "ember_crown": {
+      "name": "Ember Crown",
+      "description": "A relic containing the last living flame of the fallen kingdom.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "obsidian_blade": {
+      "name": "Obsidian Blade",
+      "description": "A razor-sharp weapon forged from volcanic glass and dark magic.",
+      "obtainable": 1,
+      "heal": 0
+    },
+    "worldheart": {
+      "name": "Heart of the World",
+      "description": "An ancient artifact said to sustain reality. Its power could restore or unmake the world.",
+      "obtainable": 0,
+      "heal": 100
     }
   },
   "npcs": {
     "magnus_carlsen": {
       "name": "Grandmaster Magnus",
-      "description": "The reigning champion of the board, calm and calculating.",
-      "dialogues": [
-        "play_queen",
-        "play_rook"
-      ],
+      "description": "A calm, calculating chess champion who treats every conversation as a strategic contest.",
+      "dialogues": ["play_queen", "play_rook"],
       "hp": -1,
       "attack": -1,
-      "quest_id": "none"
+      "quest_id": "chess_legacy"
     },
     "rene_descartes": {
       "name": "René the Skeptic",
-      "description": "A philosopher in a worn cloak, forever doubting, forever thinking.",
-      "dialogues": [
-        "ithinksoiam"
-      ],
+      "description": "A philosopher who questions everything, including the reliability of his own senses.",
+      "dialogues": ["ithinksoiam"],
       "hp": -1,
       "attack": -1,
       "quest_id": "none"
     },
     "charles_darwin": {
       "name": "Charles the Naturalist",
-      "description": "A bearded man with a notebook, observing the world with quiet intensity.",
-      "dialogues": [
-        "survivor"
-      ],
+      "description": "A patient naturalist studying the unusual creatures of the Emerald Wilds.",
+      "dialogues": ["survivor"],
       "hp": -1,
       "attack": -1,
-      "quest_id": "none"
+      "quest_id": "wildlife_study"
     },
     "pablo_picasso": {
       "name": "Pablo the Visionary",
-      "description": "A painter with piercing eyes, always ready to reshape reality.",
-      "dialogues": [],
+      "description": "An artist who believes reality is merely a canvas waiting to be rearranged.",
+      "dialogues": ["art_and_reality"],
       "hp": -1,
       "attack": -1,
       "quest_id": "trump_diamond"
     },
     "franz_kafka": {
       "name": "Franz the Scribe",
-      "description": "A pale, anxious figure, haunted by the absurdity of bureaucracy.",
-      "dialogues": [
-        "samsa"
-      ],
+      "description": "A troubled writer haunted by an incomprehensible bureaucracy.",
+      "dialogues": ["samsa"],
       "hp": -1,
       "attack": -1,
       "quest_id": "doogy_saitama"
     },
     "fiodor_dostoievsky": {
       "name": "Fyodor the Confessor",
-      "description": "A gaunt man with feverish eyes, speaking of suffering and redemption.",
-      "dialogues": [
-        "citation1",
-        "citation2",
-        "citation3"
-      ],
+      "description": "A feverish thinker who searches for redemption in the darkest corners of the human soul.",
+      "dialogues": ["citation1", "citation2", "citation3"],
       "hp": -1,
       "attack": -1,
-      "quest_id": "none"
+      "quest_id": "moral_dilemma"
     },
     "snoop_dogg": {
       "name": "Calvin the Storyteller",
-      "description": "A smooth-talking wanderer with a gift for verse and a knowing smile.",
-      "dialogues": [
-        "doggy"
-      ],
+      "description": "A charismatic wanderer whose rhymes conceal rumors about the kingdom's secret rulers.",
+      "dialogues": ["doggy"],
       "hp": 40,
       "attack": 2,
       "quest_id": "none"
     },
     "martin_scorsesse": {
       "name": "Martin the Auteur",
-      "description": "A director with a sharp suit and a sharper tongue, obsessed with detail.",
-      "dialogues": [
-        "pulpy"
-      ],
+      "description": "A demanding director determined to produce a trilogy that will outlive every kingdom.",
+      "dialogues": ["pulpy"],
       "hp": 1,
       "attack": 1,
       "quest_id": "gold_rook"
     },
     "saitama": {
       "name": "Saitama the Bored",
-      "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
-      "dialogues": [],
+      "description": "A hero of overwhelming strength who searches for a challenge worthy of his attention.",
+      "dialogues": ["heroic_boredom"],
       "hp": 100,
       "attack": 30,
       "quest_id": "none"
     },
     "donald_trump": {
       "name": "The Gilded Orator",
-      "description": "A man of wealth and bombast, standing atop the hill with a golden gaze.",
-      "dialogues": [
-        "president_dialogue0",
-        "dialogues_about_religion"
-      ],
+      "description": "A powerful political figure whose promises and ambitions dominate the hilltop.",
+      "dialogues": ["president_dialogue0", "dialogues_about_religion"],
       "hp": 200,
       "attack": 10,
       "quest_id": "none"
+    },
+    "frida_kahlo": {
+      "name": "Frida the Dreamer",
+      "description": "A painter who transforms pain and memory into images that can heal or destroy.",
+      "dialogues": ["painted_wounds"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "living_painting"
+    },
+    "alfred_hitchcock": {
+      "name": "The Master of Suspense",
+      "description": "A filmmaker who notices every suspicious movement and every detail others overlook.",
+      "dialogues": ["suspense"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "missing_reel"
+    },
+    "bobby_fischer": {
+      "name": "The Isolated Champion",
+      "description": "A brilliant and unpredictable chess player who guards the secrets of an ancient opening.",
+      "dialogues": ["kings_gambit"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "chess_legacy"
+    },
+    "sherlock_holmes": {
+      "name": "The Consulting Detective",
+      "description": "A sharp-eyed investigator who can reconstruct entire events from a single footprint.",
+      "dialogues": ["deduction"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "impossible_murder"
+    },
+    "elder_dragon": {
+      "name": "Azhur, the Elder Dragon",
+      "description": "An ancient dragon who remembers the world before humanity learned to write.",
+      "dialogues": ["dragons_memory"],
+      "hp": 500,
+      "attack": 45,
+      "quest_id": "dragon_bargain"
+    },
+    "old_miller": {
+      "name": "Old Miller Rowan",
+      "description": "A humble villager who knows more about the sealed well than he admits.",
+      "dialogues": ["village_secret"],
+      "hp": 25,
+      "attack": 1,
+      "quest_id": "sealed_well"
+    },
+    "traveling_merchant": {
+      "name": "Merrick the Merchant",
+      "description": "A traveling trader who deals in unusual artifacts and unreliable information.",
+      "dialogues": ["merchant_trade"],
+      "hp": 30,
+      "attack": 3,
+      "quest_id": "rare_goods"
+    },
+    "royal_spy": {
+      "name": "The Whisper",
+      "description": "A masked intelligence agent who knows the private affairs of every noble in the capital.",
+      "dialogues": ["secret_network"],
+      "hp": 60,
+      "attack": 12,
+      "quest_id": "crown_conspiracy"
+    },
+    "archivist_mira": {
+      "name": "Mira of the Drowned Archive",
+      "description": "A scholar who has learned to read the memories trapped inside submerged manuscripts.",
+      "dialogues": ["lost_history"],
+      "hp": 35,
+      "attack": 4,
+      "quest_id": "lost_chronicle"
+    },
+    "ada_lovelace": {
+      "name": "Ada the Enchantress of Numbers",
+      "description": "A mathematician who designs mechanical minds capable of predicting possible futures.",
+      "dialogues": ["machine_thought"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "clockwork_prophecy"
+    },
+    "forest_guardian": {
+      "name": "The Verdant Guardian",
+      "description": "A towering spirit that protects the forest against those who take without giving.",
+      "dialogues": ["forest_trial"],
+      "hp": 150,
+      "attack": 18,
+      "quest_id": "forest_balance"
+    },
+    "wandering_druid": {
+      "name": "Elder Willow",
+      "description": "A wandering healer who understands the language of plants and forgotten spirits.",
+      "dialogues": ["herbal_wisdom"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "moonflower_remedy"
+    },
+    "captain_arden": {
+      "name": "Captain of the King's Road",
+      "description": "A veteran commander investigating attacks against royal supply caravans.",
+      "dialogues": ["road_patrol"],
+      "hp": 90,
+      "attack": 15,
+      "quest_id": "road_bandits"
+    },
+    "queen_isolde": {
+      "name": "Queen Isolde",
+      "description": "A calculating monarch attempting to preserve a fragile peace amid rival claims to the throne.",
+      "dialogues": ["royal_audience"],
+      "hp": 180,
+      "attack": 15,
+      "quest_id": "crown_conspiracy"
+    },
+    "guildmaster_voss": {
+      "name": "Master Voss",
+      "description": "The leader of the merchant guild, able to turn a rumor into a fortune.",
+      "dialogues": ["guild_rules"],
+      "hp": 70,
+      "attack": 8,
+      "quest_id": "guild_monopoly"
+    },
+    "street_oracle": {
+      "name": "The Street Oracle",
+      "description": "A mysterious prophet whose cryptic predictions sometimes come true in disturbing detail.",
+      "dialogues": ["three_prophecies"],
+      "hp": -1,
+      "attack": -1,
+      "quest_id": "three_prophecies"
+    },
+    "black_knight": {
+      "name": "The Black Knight",
+      "description": "An armored warrior bound by oath to defend the royal vault, regardless of the cost.",
+      "dialogues": ["knights_oath"],
+      "hp": 220,
+      "attack": 25,
+      "quest_id": "vault_of_cinders"
+    },
+    "mountain_hermit": {
+      "name": "The Frozen Hermit",
+      "description": "A former royal astronomer who fled into the mountains after discovering an impossible constellation.",
+      "dialogues": ["frozen_stars"],
+      "hp": 45,
+      "attack": 6,
+      "quest_id": "star_map"
+    },
+    "thane_brom": {
+      "name": "Thane Brom Ironvein",
+      "description": "The stubborn ruler of Khar-Dur, determined to protect the secrets of dwarven metallurgy.",
+      "dialogues": ["dwarven_oath"],
+      "hp": 160,
+      "attack": 20,
+      "quest_id": "forge_of_ages"
+    },
+    "master_smith": {
+      "name": "Helga the Master Smith",
+      "description": "A legendary craftswoman who can forge weapons from nearly any magical material.",
+      "dialogues": ["smithing_secrets"],
+      "hp": 80,
+      "attack": 12,
+      "quest_id": "forge_of_ages"
+    },
+    "crystal_keeper": {
+      "name": "The Resonant Keeper",
+      "description": "A silent being formed from crystal who protects the cave's living heart.",
+      "dialogues": ["crystal_song"],
+      "hp": 190,
+      "attack": 22,
+      "quest_id": "crystal_heart"
+    },
+    "exiled_mage": {
+      "name": "Malrec the Exile",
+      "description": "A disgraced royal mage who claims the catastrophe that created the Ashlands was an experiment gone wrong.",
+      "dialogues": ["forbidden_magic"],
+      "hp": 120,
+      "attack": 28,
+      "quest_id": "ashes_of_the_past"
+    },
+    "ash_wraith": {
+      "name": "The Ash Wraith",
+      "description": "A restless spirit born from the final moments of the destroyed civilization.",
+      "dialogues": ["last_breath"],
+      "hp": 130,
+      "attack": 24,
+      "quest_id": "ashes_of_the_past"
+    },
+    "gatekeeper": {
+      "name": "The Keeper Beyond",
+      "description": "A timeless guardian who tests every traveler seeking to pass beyond the known world.",
+      "dialogues": ["gate_riddle"],
+      "hp": 300,
+      "attack": 35,
+      "quest_id": "worldheart"
+    },
+    "nameless_king": {
+      "name": "The Nameless King",
+      "description": "A forgotten sovereign whose existence was removed from history to prevent a terrible prophecy.",
+      "dialogues": ["nameless_truth"],
+      "hp": 450,
+      "attack": 40,
+      "quest_id": "worldheart"
     }
   },
   "quests": {
     "trump_diamond": {
       "name": "The Exchange",
-      "description": "Retrieve the diamond from the hilltop and bring it to the atelier.",
-      "missions": [
-      ],
-      "reward": "none",
+      "description": "Retrieve the diamond from the Crossroads and bring it to Picasso at the Starry Atelier.",
+      "missions": ["take_diamond", "deliver_diamond"],
+      "reward": "heaven",
       "npc_owner": "pablo_picasso"
     },
     "doogy_saitama": {
       "name": "The Clearing",
-      "description": "Remove the wanderer and the bored one to restore peace to the crossroads.",
-      "missions": [
-        "neutralize_snoop",
-        "neutralize_saitama"
-      ],
+      "description": "Resolve the conflict between two notorious wanderers who have disrupted the peace of the kingdom.",
+      "missions": ["neutralize_snoop", "neutralize_saitama"],
       "reward": "philosophical_stone",
       "npc_owner": "franz_kafka"
     },
     "gold_rook": {
       "name": "The Trilogy",
-      "description": "Gather the three relics to complete the director's vision.",
-      "missions": [
-        "acquire_gold",
-        "acquire_rook",
-        "acquire_stone"
-      ],
+      "description": "Gather three relics required to complete Martin's legendary cinematic trilogy.",
+      "missions": ["acquire_gold", "acquire_rook", "acquire_stone"],
       "reward": "oscar",
       "npc_owner": "martin_scorsesse"
+    },
+    "sealed_well": {
+      "name": "The Secret Beneath Ashfield",
+      "description": "Discover what lies beneath the village well and learn why its entrance was sealed.",
+      "missions": ["find_mechanical_key", "discover_well_secret"],
+      "reward": "lost_chronicle",
+      "npc_owner": "old_miller"
+    },
+    "chess_legacy": {
+      "name": "The Unwinnable Game",
+      "description": "Recover the ancient chess relics and defeat a strategic challenge designed by the greatest grandmasters.",
+      "missions": ["acquire_rook", "find_ancient_coin"],
+      "reward": "mechanical_key",
+      "npc_owner": "magnus_carlsen"
+    },
+    "wildlife_study": {
+      "name": "The Origin of Species",
+      "description": "Study the unusual creatures of the Emerald Wilds and return with proof of their adaptations.",
+      "missions": ["find_moonflower", "find_enchanted_bark"],
+      "reward": "healing_potion",
+      "npc_owner": "charles_darwin"
+    },
+    "living_painting": {
+      "name": "A World on Canvas",
+      "description": "Recover the rare materials required to restore a painting that has begun swallowing its surroundings.",
+      "missions": ["find_heart_crystal", "find_ember_crown"],
+      "reward": "heaven",
+      "npc_owner": "frida_kahlo"
+    },
+    "missing_reel": {
+      "name": "The Lost Final Cut",
+      "description": "Find a missing film reel containing evidence of a royal conspiracy.",
+      "missions": ["find_silver_reel", "find_lost_chronicle"],
+      "reward": "gold",
+      "npc_owner": "alfred_hitchcock"
+    },
+    "impossible_murder": {
+      "name": "The Case of the Empty Room",
+      "description": "Investigate a murder in a locked chamber and identify the culprit using physical evidence.",
+      "missions": ["find_ancient_coin", "find_mechanical_key"],
+      "reward": "diamond",
+      "npc_owner": "sherlock_holmes"
+    },
+    "dragon_bargain": {
+      "name": "An Ancient Bargain",
+      "description": "Negotiate with Azhur for a dragon scale and learn the truth about the world's first civilization.",
+      "missions": ["acquire_dragon_scale", "find_lost_chronicle"],
+      "reward": "heart_crystal",
+      "npc_owner": "elder_dragon"
+    },
+    "crown_conspiracy": {
+      "name": "A Kingdom Divided",
+      "description": "Uncover the conspiracy surrounding the succession crisis and decide whom the crown should trust.",
+      "missions": ["find_royal_seal", "find_lost_chronicle"],
+      "reward": "crown_of_ashes",
+      "npc_owner": "royal_spy"
+    },
+    "road_bandits": {
+      "name": "Blood on the King's Road",
+      "description": "Investigate attacks on royal caravans and restore safe passage across the kingdom.",
+      "missions": ["find_soldiers_medallion", "defeat_road_bandits"],
+      "reward": "mithril_ingot",
+      "npc_owner": "captain_arden"
+    },
+    "lost_chronicle": {
+      "name": "The Drowned Truth",
+      "description": "Recover a forbidden manuscript from the Drowned Archive and bring its revelations to Mira.",
+      "missions": ["acquire_lost_chronicle"],
+      "reward": "void_shard",
+      "npc_owner": "archivist_mira"
+    },
+    "clockwork_prophecy": {
+      "name": "The Machine That Dreams",
+      "description": "Help Ada complete a predictive machine that has begun producing warnings about the end of the world.",
+      "missions": ["find_mechanical_key", "find_heart_crystal"],
+      "reward": "silver_reel",
+      "npc_owner": "ada_lovelace"
+    },
+    "forest_balance": {
+      "name": "The Green Covenant",
+      "description": "Restore balance to the Emerald Wilds by finding the source of the forest's spreading corruption.",
+      "missions": ["find_moonflower", "defeat_ash_wraith"],
+      "reward": "enchanted_bark",
+      "npc_owner": "forest_guardian"
+    },
+    "moonflower_remedy": {
+      "name": "Medicine for the Forgotten",
+      "description": "Gather rare herbs to prepare a remedy for the inhabitants of the Ashlands.",
+      "missions": ["find_moonflower", "find_enchanted_bark"],
+      "reward": "healing_potion",
+      "npc_owner": "wandering_druid"
+    },
+    "guild_monopoly": {
+      "name": "The Price of Everything",
+      "description": "Investigate the merchant guild's control of essential supplies and expose its hidden dealings.",
+      "missions": ["find_ancient_coin", "find_royal_seal"],
+      "reward": "gold",
+      "npc_owner": "guildmaster_voss"
+    },
+    "three_prophecies": {
+      "name": "Three Possible Futures",
+      "description": "Investigate three prophecies that point toward different endings for the kingdom.",
+      "missions": ["find_lost_chronicle", "find_worldheart"],
+      "reward": "philosophical_stone",
+      "npc_owner": "street_oracle"
+    },
+    "forge_of_ages": {
+      "name": "The Forge of Ages",
+      "description": "Recover rare materials to reactivate an ancient forge capable of crafting legendary equipment.",
+      "missions": ["find_mithril_ingot", "find_frost_crystal", "find_forge_hammer"],
+      "reward": "obsidian_blade",
+      "npc_owner": "thane_brom"
+    },
+    "crystal_heart": {
+      "name": "The Song Beneath the Earth",
+      "description": "Discover why the crystals are resonating with a signal from beyond the Obsidian Gate.",
+      "missions": ["find_heart_crystal", "find_void_shard"],
+      "reward": "ember_crown",
+      "npc_owner": "crystal_keeper"
+    },
+    "ashes_of_the_past": {
+      "name": "The Last Flame",
+      "description": "Learn how the Ashlands were destroyed and decide whether the ancient magic should be restored.",
+      "missions": ["find_ember_crown", "defeat_ash_wraith"],
+      "reward": "obsidian_blade",
+      "npc_owner": "exiled_mage"
+    },
+    "worldheart": {
+      "name": "Beyond the End",
+      "description": "Open the Obsidian Gate, confront the Nameless King, and decide the fate of reality itself.",
+      "missions": ["acquire_worldheart", "defeat_nameless_king"],
+      "reward": "none",
+      "npc_owner": "gatekeeper"
     }
   },
   "missions": {
-    "take_diamond_from_trump": {
+    "take_diamond": {
       "type": "take",
       "goal": "diamond"
     },
@@ -330,13 +768,101 @@
     "acquire_stone": {
       "type": "take",
       "goal": "philosophical_stone"
+    },
+    "find_mechanical_key": {
+      "type": "take",
+      "goal": "mechanical_key"
+    },
+    "discover_well_secret": {
+      "type": "take",
+      "goal": "lost_chronicle"
+    },
+    "find_ancient_coin": {
+      "type": "take",
+      "goal": "ancient_coin"
+    },
+    "find_moonflower": {
+      "type": "take",
+      "goal": "moonflower"
+    },
+    "find_enchanted_bark": {
+      "type": "take",
+      "goal": "enchanted_bark"
+    },
+    "find_heart_crystal": {
+      "type": "take",
+      "goal": "heart_crystal"
+    },
+    "find_ember_crown": {
+      "type": "take",
+      "goal": "ember_crown"
+    },
+    "find_silver_reel": {
+      "type": "take",
+      "goal": "silver_reel"
+    },
+    "find_lost_chronicle": {
+      "type": "take",
+      "goal": "lost_chronicle"
+    },
+    "acquire_dragon_scale": {
+      "type": "take",
+      "goal": "dragon_scale"
+    },
+    "find_royal_seal": {
+      "type": "take",
+      "goal": "royal_seal"
+    },
+    "find_soldiers_medallion": {
+      "type": "take",
+      "goal": "soldiers_medallion"
+    },
+    "defeat_road_bandits": {
+      "type": "kill",
+      "goal": "road_bandits"
+    },
+    "acquire_lost_chronicle": {
+      "type": "take",
+      "goal": "lost_chronicle"
+    },
+    "find_forge_hammer": {
+      "type": "take",
+      "goal": "forge_hammer"
+    },
+    "find_mithril_ingot": {
+      "type": "take",
+      "goal": "mithril_ingot"
+    },
+    "find_frost_crystal": {
+      "type": "take",
+      "goal": "frost_crystal"
+    },
+    "find_void_shard": {
+      "type": "take",
+      "goal": "void_shard"
+    },
+    "defeat_ash_wraith": {
+      "type": "kill",
+      "goal": "ash_wraith"
+    },
+    "find_worldheart": {
+      "type": "take",
+      "goal": "worldheart"
+    },
+    "acquire_worldheart": {
+      "type": "take",
+      "goal": "worldheart"
+    },
+    "defeat_nameless_king": {
+      "type": "kill",
+      "goal": "nameless_king"
     }
   },
   "dialogues": {
     "play_queen": "The queen is the most versatile piece on the board.",
     "play_rook": "In the endgame, control of the rook's file is everything.",
     "ithinksoiam": "I think, therefore I am.",
-    "survivor": "It is not the strongest that survive, but the most adaptable.",
+    "survivor": "Survival belongs to those who adapt when the world changes.",
     "samsa": "I awoke one morning to find myself transformed into something unrecognizable.",
     "citation1": "The mystery of existence is not in survival, but in meaning.",
     "citation2": "Suffering is the price of a deep consciousness.",
@@ -344,7 +870,33 @@
     "doggy": "The road is long, but the stories make it shorter.",
     "pulpy": "I've always been drawn to the edge of the law.",
     "president_dialogue0": "I have a vision, and it's unparalleled.",
-    "dialogues_about_religion": "I believe in greatness, and I believe in grace."
+    "dialogues_about_religion": "I believe in greatness, and I believe in grace.",
+    "art_and_reality": "If the world refuses to make sense, paint it differently.",
+    "painted_wounds": "Pain is not the opposite of beauty. Sometimes it is the source.",
+    "suspense": "The most frightening thing is not what you see. It is what you suspect.",
+    "kings_gambit": "Every opening is a promise. Every sacrifice is a question.",
+    "deduction": "Observe the smallest detail, and the largest mystery begins to unravel.",
+    "dragons_memory": "I watched mountains rise where seas once slept. Your kingdoms are brief dreams.",
+    "village_secret": "Some doors are sealed to keep danger out. Others are sealed to keep something in.",
+    "merchant_trade": "Everything has a price. The trick is discovering what the seller truly wants.",
+    "secret_network": "Information is the sharpest blade in the kingdom. Most rulers never see it coming.",
+    "lost_history": "The past does not disappear. It waits for someone brave enough to read it.",
+    "machine_thought": "If a machine can predict your choice, was it ever truly your choice?",
+    "forest_trial": "Take from the forest without gratitude, and the forest will remember.",
+    "herbal_wisdom": "A remedy is only as powerful as the patience with which it is prepared.",
+    "road_patrol": "The King's Road belongs to everyone, until someone decides it belongs to them alone.",
+    "royal_audience": "A crown is not proof of wisdom. It is a burden that makes every mistake public.",
+    "guild_rules": "Trade is the art of persuading people that both sides have won.",
+    "three_prophecies": "One future is built on fear, another on ambition, and the last on a choice no oracle can make for you.",
+    "knights_oath": "An oath is easy to swear before danger arrives.",
+    "frozen_stars": "The stars are moving into a pattern that should not exist.",
+    "dwarven_oath": "Stone remembers every hammer strike. So should the hands that wield it.",
+    "smithing_secrets": "A great weapon is not made by fire alone. It is made by knowing when to stop.",
+    "crystal_song": "Listen carefully. The earth is trying to tell you what it fears.",
+    "forbidden_magic": "We called it progress until the sky caught fire.",
+    "last_breath": "We were a kingdom once. Remember that before you call us monsters.",
+    "gate_riddle": "What can destroy a kingdom without touching a stone, and save a world without lifting a sword?",
+    "nameless_truth": "History did not forget me. Someone taught it to lie."
   },
   "groups": {
     "name": "global"

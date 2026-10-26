@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -61,9 +62,7 @@ t_npc	*extract_npc_from_key(
 
 static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 {
-	if (!npc_json)
-		return (NULL);
-	if (!npc_container)
+	if (!npc_json || !npc_container)
 		return (NULL);
 	npc_container->len = 0;
 	if (!traverse_npc_object(npc_json, npc_container))
@@ -90,11 +89,9 @@ t_all_npcs	*extract_npcs(const cJSON *root, t_world *data)
 	{
 		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", NPC_KEY);
-		free(npc_container);
-		return (NULL);
+		return (free(npc_container), NULL);
 	}
 	tmp = get_npcs(items_json, npc_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }
