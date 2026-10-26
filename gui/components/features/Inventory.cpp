@@ -1,6 +1,7 @@
 #include "Inventory.hpp"
 #include "TAPInterfaceHelpers.hpp"
 #include "../basic/Group.hpp"
+#include "../basic/ScrollableGroup.hpp"
 #include "../basic/Input.hpp"
 #include "../basic/Line.hpp"
 #include "../basic/Rect.hpp"
@@ -22,7 +23,8 @@ Inventory::Inventory(App *app, int x, int width, int panel_height, float scale,
 {
     px = [scale](float value) { return static_cast<int>(lround(value * scale)); };
     Group *inventory = create_panel(app, width, panel_height, "02 / INVENTORY");
-    inventory_components = new Group(app, 0, 0, {});
+    inventory_components = new ScrollableGroup(app, 0, px(44), width,
+        px(160), {});
     inventory->children.push_back(inventory_components);
 
     chat_messages = {};
@@ -175,7 +177,7 @@ void Inventory::show_inventory()
 
     for (const string &item : inventory_item)
     {
-        int y = px(52 + index * 31);
+        int y = px(8 + index * 31);
 
         add_text(
             inventory_components, app,
@@ -212,6 +214,9 @@ void Inventory::show_inventory()
 
         ++index;
     }
+
+    inventory_components->setContentHeight(px(8
+        + static_cast<int>(inventory_item.size()) * 31));
 }
 
 void Inventory::update_inventory()

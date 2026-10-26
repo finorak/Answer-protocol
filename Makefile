@@ -6,6 +6,7 @@ SERVER_APPLICATION_NAME := server_cli
 CLIENT_APPLICATION_NAME := client_cli
 GUI_DIR := gui
 GUI := ./$(GUI_DIR)client
+SERVER_IP ?= 
 
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
@@ -61,9 +62,8 @@ FLAGS := -Wall -Wextra -Werror -g
 all: $(LIBFT) $(PRINTF) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME) $(GUI)
 
 $(GUI):
-	@echo ""
-	# source ./gui/configure.sh
-	# $(MAKE) -C gui
+	source ./gui/configure.sh
+	$(MAKE) -C gui
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -91,8 +91,14 @@ fclean: clean
 
 re: fclean all
 
-run:
+run-server:
 	./$(SERVER_APPLICATION_NAME) world.json
+
+run-client:
+	./$(CLIENT_APPLICATION_NAME) $(SERVER_IP)
+
+run-client-gui:
+	$(MAKE) run-client SERVER_IP=$(SERVER_IP) -C gui
 
 valgrind: all
 	valgrind $(DEBUG_FLAGS) ./$(SERVER_APPLICATION_NAME) world.json

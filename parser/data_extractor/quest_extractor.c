@@ -59,9 +59,7 @@ t_quest	*extract_quest_from_key(
 static t_all_quests	*get_quests(
 	const cJSON *quest_json, t_all_quests *quest_container)
 {
-	if (!quest_json)
-		return (NULL);
-	if (!quest_container)
+	if (!quest_json || !quest_container)
 		return (NULL);
 	quest_container->len = 0;
 	if (!traverse_quest_object(quest_json, quest_container))

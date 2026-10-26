@@ -79,7 +79,6 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
-		printf("\rC: ");
 		if (!fgets(buffer, BUFFER_SIZE, stdin))
 			continue ;
 		send(sock, buffer, strlen(buffer), 0);
@@ -112,6 +111,7 @@ int	main(int argc, char **argv)
 	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
 		fprintf(stderr, "ERR 900 CONNECTION_FAILED\n");
+		g_disconnect = 1;
 		return (end(sock));
 	}
 	pthread_create(&(client_mods[0]), NULL, wait_for_server, &sock);

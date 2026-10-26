@@ -70,9 +70,7 @@ static void	*client_host(void *arg)
 		memset(cli.buf, 0, sizeof(cli.buf));
 		if (recv(cli.id, cli.buf, BUFFER_SIZE, 0) <= 0)
 		{
-			pthread_mutex_lock(&g_data.trafic);
-			remove_player(cli.id, g_data.world);
-			pthread_mutex_unlock(&g_data.trafic);
+			safe_lock(cli, &g_data);
 			break ;
 		}
 		cli.buf[strlen(cli.buf) - 1] = '\0';
@@ -104,7 +102,7 @@ static void	server_routine(void)
 	pthread_mutex_lock(&g_data.trafic);
 	if (add_player(routine.client_fd, g_data.world) == 0)
 	{
-		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 18, 0);
+		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 26, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}

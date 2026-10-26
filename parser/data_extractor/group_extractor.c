@@ -36,7 +36,7 @@ bool	traverse_group_object(
 	if (!group_json || !container)
 		return (false);
 	element = group_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		group = (t_group *)calloc(1, sizeof(t_group));

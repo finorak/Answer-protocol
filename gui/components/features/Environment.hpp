@@ -9,6 +9,7 @@
 class Button;
 class Group;
 class Input;
+class ScrollableGroup;
 class Server;
 class Text;
 
@@ -25,14 +26,15 @@ class Environment : public Component
         Button *south_button;
         Button *west_button;
         Button *east_button;
-        Group *item_components;
+        ScrollableGroup *item_components;
         Group *player_components;
-        Group *npc_components;
+        ScrollableGroup *npc_components;
         std::vector<std::string> players;
         std::vector<std::string> items;
         std::vector<std::string> npcs;
         std::function<int(float)> px;
         std::function<void(std::string)> log_protocol;
+        std::function<void()> update_hp;
         int width;
         Group *group_popup;
         bool group_popup_open;
@@ -43,11 +45,29 @@ class Environment : public Component
         bool join_group_focused;
         bool invite_player_focused;
         Text *group_feedback;
+        std::string member_group;
+        Group *quest_popup;
+        ScrollableGroup *quest_components;
+        Text *quest_feedback;
+        bool quest_popup_open;
+        bool quest_loading;
+        bool quest_refresh_pending;
+
+        struct Quest
+        {
+            std::string id;
+            std::string status;
+            std::string progress;
+        };
+        std::vector<Quest> quests;
 
         Environment(App *app, int x, int width, int panel_height, float scale,
-            Server *server, std::function<void(std::string)> log_protocol);
+            Server *server, std::function<void(std::string)> log_protocol, std::function<void()> update_hp);
         void render(int origin_x = 0, int origin_y = 0) override;
         void submit_group_action(std::string &value, const std::string &action);
+        void load_quests();
+        void show_quests();
+        void complete_quest(const std::string &quest_id);
         void look();
         void show_items();
         void show_players();
