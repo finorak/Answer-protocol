@@ -5,6 +5,7 @@ client_cli
 *.py
 file.txt
 libft.a
+ft_printf/*.a
 
 compile_commands.json
 
