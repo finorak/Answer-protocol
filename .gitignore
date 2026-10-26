@@ -4,7 +4,8 @@ client_cli
 
 *.py
 file.txt
-libft.a
+libft*
+gui/client
 
 compile_commands.json
 

@@ -34,6 +34,22 @@ typedef struct s_data
 	pthread_mutex_t		trafic;
 }				t_data;
 
+typedef struct s_client
+{
+	int			id;
+	char		buf[BUFFER_SIZE];
+	t_signal	rec;
+}				t_client;
+
+typedef struct s_server_routine
+{
+	pthread_t			client_mess_rec;
+	int					client_fd;
+	char				client_ip[INET_ADDRSTRLEN];
+	struct sockaddr_in	client_addr;
+	socklen_t			addr_len;
+}				t_server_routine;
+
 typedef struct sockaddr	t_sock;
 
 void		log_date(void);
@@ -42,5 +58,8 @@ void		print_ip_addr(void);
 int			player_id(int client_fd, t_world world);
 
 t_signal	val_exec(int client_fd, char *buf, t_world *world);
+
+// helper for group as the 25 lines suck
+void		cpy(t_signal *result, t_command test);
 
 #endif

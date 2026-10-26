@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 07:43:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:28:19 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ static void	print_buffer(char **strings, char header)
 	index = 0;
 	while (strings[index])
 	{
-		ft_printf("%c: %s\n", header, strings[index]);
+		ft_printf("\r%c: %s\n", header, strings[index]);
 		free(strings[index]);
 		index++;
 	}
 	free(strings);
+	ft_printf("\rC: ");
 }
 
 static void	*wait_for_server(void *arg)
@@ -67,7 +68,6 @@ static void	*wait_for_server(void *arg)
 static void	*wait_for_user(void *arg)
 {
 	char	buffer[BUFFER_SIZE];
-	char	**strings;
 	int		sock;
 
 	sock = *(int *)(arg);
@@ -79,10 +79,9 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
+		printf("\rC: ");
 		if (!fgets(buffer, BUFFER_SIZE, stdin))
 			continue ;
-		strings = ft_split(buffer, '\n');
-		print_buffer(strings, 'C');
 		send(sock, buffer, strlen(buffer), 0);
 	}
 	return (NULL);

@@ -6,12 +6,14 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 09:32:45 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:02:49 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parser.h"
+#include "execution/execution.h"
 #include "main_utils.h"
+#include "tools/tools.h"
 #include <errno.h>
 #include <pthread.h>
 #include <signal.h>
@@ -60,55 +62,61 @@ static void	server_act(t_signal *rec, int client_fd)
 
 static void	*client_host(void *arg)
 {
-	int			client_id;
-	char		buf[BUFFER_SIZE];
-	t_signal	rec;
+	t_client	cli;
 
-	client_id = (int)(long)arg;
+	cli.id = (int)(long)arg;
 	while (1)
 	{
-		memset(buf, 0, sizeof(buf));
-		pthread_mutex_lock(&g_data.trafic);
-		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
+		memset(cli.buf, 0, sizeof(cli.buf));
+		if (recv(cli.id, cli.buf, BUFFER_SIZE, 0) <= 0)
 		{
-			remove_player(client_id, g_data.world);
+			pthread_mutex_lock(&g_data.trafic);
+			remove_player(cli.id, g_data.world);
 			pthread_mutex_unlock(&g_data.trafic);
 			break ;
 		}
-		buf[strlen(buf) - 1] = '\0';
-		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
+		cli.buf[strlen(cli.buf) - 1] = '\0';
+		pthread_mutex_lock(&g_data.trafic);
+		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", cli.buf, player_id(cli.id,
 				*g_data.world));
-		rec = val_exec(client_id, buf, g_data.world);
-		server_act(&rec, client_id);
+		cli.rec = val_exec(cli.id, cli.buf, g_data.world);
+		server_act(&cli.rec, cli.id);
+		if (!player_in(cli.id, *g_data.world))
+		{
+			pthread_mutex_unlock(&g_data.trafic);
+			break ;
+		}
+		pthread_mutex_unlock(&g_data.trafic);
 	}
-	close(client_id);
-	return (NULL);
+	return (close(cli.id), NULL);
 }
 
 static void	server_routine(void)
 {
-	pthread_t			client_mess_rec;
-	int					client_fd;
-	char				client_ip[INET_ADDRSTRLEN];
-	struct sockaddr_in	client_addr;
-	socklen_t			addr_len;
+	t_server_routine	routine;
 
-	addr_len = sizeof(client_addr);
-	client_fd = accept(g_data.server.server_fd, (struct sockaddr *)&client_addr,
-			&addr_len);
-	if (client_fd < 0)
+	routine.addr_len = sizeof(routine.client_addr);
+	routine.client_fd = accept(g_data.server.server_fd,
+			(t_sock *)&routine.client_addr, &routine.addr_len);
+	if (routine.client_fd < 0)
 		return ;
-	send(client_fd, "OK hello proto=1\n", 18, 0);
+	send(routine.client_fd, "OK hello proto=1\n", 18, 0);
 	pthread_mutex_lock(&g_data.trafic);
-	add_player(client_fd, g_data.world);
+	if (add_player(routine.client_fd, g_data.world) == 0)
+	{
+		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 18, 0);
+		pthread_mutex_unlock(&g_data.trafic);
+		return ;
+	}
 	pthread_mutex_unlock(&g_data.trafic);
-	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
+	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
+		sizeof(routine.client_ip));
 	log_date();
-	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd,
-			*g_data.world), client_ip);
-	pthread_create(&client_mess_rec, NULL, client_host,
-		(void *)(long)client_fd);
-	pthread_detach(client_mess_rec);
+	ft_printf("Player %d is CONNECTED (%s)\n", player_id(routine.client_fd,
+			*g_data.world), routine.client_ip);
+	pthread_create(&routine.client_mess_rec, NULL, client_host,
+		(void *)(long)routine.client_fd);
+	pthread_detach(routine.client_mess_rec);
 }
 
 int	main(int argc, char **argv)
