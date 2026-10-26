@@ -23,12 +23,10 @@ bool	traverse_quest_object(
 	cJSON	*element;
 	char	*key;
 
-	if (!world_json)
-		return (false);
-	if (!container)
+	if (!container || !world_json)
 		return (false);
 	element = world_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		quest = (t_quest *)calloc(1, sizeof(t_quest));

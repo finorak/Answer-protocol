@@ -4,8 +4,13 @@ client_cli
 
 *.py
 file.txt
+<<<<<<< HEAD
 libft.a
 ft_printf/*.a
+=======
+libft*
+gui/client
+>>>>>>> master
 
 compile_commands.json
 

@@ -80,6 +80,7 @@ static void	get_data(t_world *data, cJSON *root)
 	data->quests = extract_quests(root, data);
 	data->missions = extract_missions(root, data);
 	data->dialogues = extract_dialogues(root, data);
+	printf("here\n");
 	data->groups = extract_groups(root, data);
 	data->players = NULL;
 	if (!data->extract)
