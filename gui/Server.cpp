@@ -152,6 +152,7 @@ string Server::request(string request_msg)
     if (!connected)
         return "";
     request_msg = request_msg + "\n";
+    cout << request_msg;
     if (send(sock, request_msg.c_str(), request_msg.size(), MSG_NOSIGNAL)
         != static_cast<ssize_t>(request_msg.size()))
         return "";
@@ -217,7 +218,6 @@ Server::Server(char *ip): sock(-1), ip(ip), connected(false), tap_interface(null
         pos = received.find('\n');
     }
 
-	cout << "FIRST SERVER LINE: " << received;
     if (pthread_create(&client_mods, NULL, wait_for_server, this) != 0)
     {
         connected = false;
