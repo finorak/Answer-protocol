@@ -61,8 +61,9 @@ FLAGS := -Wall -Wextra -Werror -g
 all: $(LIBFT) $(PRINTF) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME) $(GUI)
 
 $(GUI):
-	source ./gui/configure.sh
-	$(MAKE) -C gui
+	@echo ""
+	# source ./gui/configure.sh
+	# $(MAKE) -C gui
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

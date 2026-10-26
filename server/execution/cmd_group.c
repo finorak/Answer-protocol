@@ -21,19 +21,19 @@ static void	grp_create(t_command test, int client_fd, t_world *g_world,
 	t_group	*new_group;
 	char	temp[12];
 
-	new_group = (t_group *)calloc(1, sizeof(t_group));
-	if (!new_group)
-		return ;
-	sprintf(temp, "%d", client_fd);
-	strcpy(new_group->name, test.message);
-	strcpy(new_group->players.ids[0], temp);
-	new_group->players.len = 1;
 	if (get_group_by_name(test.message, g_world) != NULL)
 		strcpy(result->message, "ERR 201 GROUP_NAME_IN_USE\n");
 	else if (get_group_by_player_fd(client_fd, g_world) != NULL)
 		strcpy(result->message, "ERR 402 ALREADY_IN_GROUP\n");
 	else if (g_world->groups->len < MAX_LIST_LEN)
 	{
+		new_group = (t_group *)calloc(1, sizeof(t_group));
+		if (!new_group)
+			return ;
+		sprintf(temp, "%d", client_fd);
+		strcpy(new_group->name, test.message);
+		strcpy(new_group->players.ids[0], temp);
+		new_group->players.len = 1;
 		log_date();
 		ft_printf("new group - %s (%s)\n", new_group->name,
 			get_player_by_fd(client_fd, g_world)->name);

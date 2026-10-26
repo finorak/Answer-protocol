@@ -29,14 +29,6 @@
 
 # define ROOM_DIRETCION 4
 
-// MIGHT REMOVE THIS LATER ON AS
-// IT'S LIKE A WAST.
-typedef struct s_buffer_store
-{
-	size_t			buffer_size;
-	char			*buffer;
-}					t_buffer_store;
-
 // USED SO THAT THE DATA TYPE CHECK BECOME MORE
 // PORTABLE WIHOUT CREATING A SINGLE FUCTION
 // FOR EACH DATA TYPE.
