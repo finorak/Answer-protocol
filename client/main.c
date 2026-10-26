@@ -111,6 +111,7 @@ int	main(int argc, char **argv)
 	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
 		fprintf(stderr, "ERR 900 CONNECTION_FAILED\n");
+		g_disconnect = 1;
 		return (end(sock));
 	}
 	pthread_create(&(client_mods[0]), NULL, wait_for_server, &sock);
