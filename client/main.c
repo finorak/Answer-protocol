@@ -79,7 +79,6 @@ static void	*wait_for_user(void *arg)
 		if (g_disconnect == 1)
 			break ;
 		memset(buffer, 0, BUFFER_SIZE);
-		printf("\rC: ");
 		if (!fgets(buffer, BUFFER_SIZE, stdin))
 			continue ;
 		send(sock, buffer, strlen(buffer), 0);

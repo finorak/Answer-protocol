@@ -4,12 +4,17 @@ LOCAL_PREFIX = $(HOME)/.local
 SDL_TTF_VERSION = release-2.20.1
 SDL_TTF_SOURCE = $(HOME)/src/SDL_ttf
 
+SERVER_IP ?= 
+
 DEBUGFLAGS = -g
 LIBS = $(shell pkg-config --cflags --libs sdl2 SDL2_ttf) -pthread
 
 run: check-sdl-ttf
 	g++ $(SRCS) -o client $(LIBS)
 	# ./client 127.0.0.1
+
+run-client:
+	./client $(SERVER_IP)
 
 check-sdl-ttf:
 	@if ! pkg-config --exists SDL2_ttf; then \
