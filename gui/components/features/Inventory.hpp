@@ -8,6 +8,7 @@
 
 class Button;
 class Group;
+class ScrollableGroup;
 class Server;
 
 struct ChatMessage
@@ -29,7 +30,7 @@ class Inventory : public Component
         bool &chat_focused;
         Server *server;
         std::vector<std::string> inventory_item;
-        Group *inventory_components;
+        ScrollableGroup *inventory_components;
         std::function<int(float)> px;
         int chat_mode;
         Button *chat_mode_button;
