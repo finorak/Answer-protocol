@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 08:40:41 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 08:48:00 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	consequence(t_player *player, int client_fd,
 		strcpy(player->status_hp, "unhealthy");
 	if (player->hp == 0)
 	{
-		send(player->fd, "OK {\"message\": \"You get smoked\"}\n", 34, 0);
+		send(player->fd, "OK {\"message\": \"You got smoked\"}\n", 34, 0);
 		remove_player(client_fd, g_world);
 		return (1);
 	}
