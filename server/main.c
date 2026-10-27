@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 09:28:24 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:51:17 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
-	send(client_fd, rec->message, strlen(rec->message), 0);
+	ft_send(client_fd, rec->message, strlen(rec->message), 0);
 	while (i < rec->players_0.len)
 	{
-		send(atoi(rec->players_0.ids[i]), rec->messages_0,
+		ft_send(atoi(rec->players_0.ids[i]), rec->messages_0,
 			strlen(rec->messages_0), 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
-		send(atoi(rec->players_1.ids[i]), rec->messages_1,
+		ft_send(atoi(rec->players_1.ids[i]), rec->messages_1,
 			strlen(rec->messages_1), 0);
 		i++;
 	}
@@ -100,11 +100,11 @@ static void	server_routine(void)
 	pthread_mutex_lock(&g_data.trafic);
 	if (add_player(routine.client_fd, g_data.world) == 0)
 	{
-		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
+		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
-	send(routine.client_fd, "OK hello proto=1\n", 18, 0);
+	ft_send(routine.client_fd, "OK hello proto=1\n", 18, 0);
 	pthread_mutex_unlock(&g_data.trafic);
 	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
 		sizeof(routine.client_ip));
