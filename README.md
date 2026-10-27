@@ -1,4 +1,4 @@
-_This project has been created as part of the 42 curriculum by irahery, mrazakam, finorako_
+_This project has been created as part of the 42 curriculum by irraheri, mrazakam, finorako_
 
 # Answer Protocol
 
