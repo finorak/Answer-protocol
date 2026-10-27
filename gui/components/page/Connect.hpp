@@ -33,7 +33,8 @@ class Connect : public Component
         Button *submit_button;
 
         Connect(App *app, int width, int height, Server *server,
-            std::function<void(std::string u)> on_connect_success);
+            std::function<void(std::string u)> on_connect_success,
+            std::function<void()> on_exit);
         void submit();
         void render(int origin_x = 0, int origin_y = 0) override;
         ~Connect();
