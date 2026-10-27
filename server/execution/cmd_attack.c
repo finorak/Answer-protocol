@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 09:30:46 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 10:01:02 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static int	consequence(t_player *player, int client_fd, t_signal *result,
 	t_world *g_world)
 {
-	char name[MAX_NAME_LEN];
+	char	name[MAX_NAME_LEN];
 
 	if (player->hp <= player->max_hp / 2)
 		strcpy(player->status_hp, "unhealthy");

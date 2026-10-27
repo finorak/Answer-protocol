@@ -34,7 +34,7 @@ void	mess(t_world *world)
 	while (i < MAX_PLAYER)
 	{
 		if (world->players->players[i].fd != -1)
-			send(world->players->players[i].fd, mess, strlen(mess), 0);
+			ft_send(world->players->players[i].fd, mess, strlen(mess), 0);
 		i++;
 	}
 }
