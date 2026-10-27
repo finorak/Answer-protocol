@@ -61,7 +61,6 @@ bool	traverse_npc_array(const cJSON *array, t_npc *npc)
 		strncpy(
 			npc->dialogues.ids[npc->dialogues.len],
 			element->valuestring, MAX_ID_LEN);
-		printf("%s\n", element->valuestring);
 		npc->dialogues.len += 1;
 		element = element->next;
 	}
