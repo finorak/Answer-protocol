@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 08:29:29 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 08:40:41 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include <stdio.h>
 #include <string.h>
 
-static int	consequence(t_player *player, t_signal *result, int client_fd,
+static int	consequence(t_player *player, int client_fd,
 		t_world *g_world)
 {
 	if (player->hp <= player->max_hp / 2)
 		strcpy(player->status_hp, "unhealthy");
 	if (player->hp == 0)
 	{
-		strcpy(result->message, "OK {\"dead\"}\n");
+		send(player->fd, "OK {\"message\": \"You get smoked\"}\n", 34, 0);
 		remove_player(client_fd, g_world);
 		return (1);
 	}
@@ -43,7 +43,7 @@ static void	attack(t_npc *attacked, int client_fd, t_world *g_world,
 		attacked->hp = 0;
 	if (get_player_by_fd(client_fd, g_world)->hp < 0)
 		get_player_by_fd(client_fd, g_world)->hp = 0;
-	if (consequence(get_player_by_fd(client_fd, g_world), result, client_fd,
+	if (consequence(get_player_by_fd(client_fd, g_world), client_fd,
 			g_world))
 		return ;
 	log_date();
