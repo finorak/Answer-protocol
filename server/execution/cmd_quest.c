@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:31 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/22 09:31:34 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:32:40 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cmd_quest(t_command test, int client_fd, t_world *g_world, t_signal *result)
 		printf("npc quest id: %s\n", npc->quest_id);
 	if (npc == NULL || !(in(npc->id, get_room_by_player_fd(client_fd,
 					g_world)->npcs)))
-		return (strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n"), 0);
+		return (strcpy(result->message, "ERR 404 NPC_NOT_FOUND\n"), 1);
 	quest = get_quest_by_id(npc->quest_id, g_world);
 	if (quest == NULL || quest->available == 0 || quest->done == 1)
 		strcpy(result->message, "ERR 406 NO_QUEST_AVAILABLE\n");
