@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:34:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 08:48:00 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:04:27 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	consequence(t_player *player, int client_fd,
 	{
 		send(player->fd, "OK {\"message\": \"You got smoked\"}\n", 34, 0);
 		remove_player(client_fd, g_world);
+		add_player(client_fd, g_world);
 		return (1);
 	}
 	return (0);
