@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/27 07:36:49 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 10:11:12 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 10:28:21 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	recv_f(t_client cli, t_data *g_data)
 
 void	ft_send(int sock, char *buffer, size_t size, int sign)
 {
-	char buf[MAX_ID_LEN];
+	char buf[BUFFER_SIZE];
 
 	log_date();
 	strcpy(buf, buffer);
