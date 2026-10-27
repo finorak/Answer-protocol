@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:09:51 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/16 18:01:09 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 10:21:34 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 # include <netinet/in.h>
 
 # define BUFFER_SIZE 1024
-# define MAX_LIST_LEN 32
-# define MAX_ID_LEN 32
-# define MAX_NAME_LEN 32
+# define MAX_LIST_LEN 64
+# define MAX_ID_LEN 64
+# define MAX_NAME_LEN 64
 # define MAX_DESCRIPTION_LEN 128
 # define MAX_DIALOGUE_CONTENT_LEN 256
 # define MAX_PLAYER 16
+# define MAX_PLAYER_HP 100
 
 typedef struct s_list_of
 {

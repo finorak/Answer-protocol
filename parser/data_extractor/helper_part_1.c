@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helper_part_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/20 08:42:32 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:08:01 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "../../includes/world.h"

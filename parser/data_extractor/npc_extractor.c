@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   npc_extractor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 19:37:52 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:49:10 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:07:01 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

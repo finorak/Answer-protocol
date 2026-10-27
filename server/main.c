@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 10:02:49 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:51:17 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
-	send(client_fd, rec->message, strlen(rec->message), 0);
+	ft_send(client_fd, rec->message, strlen(rec->message), 0);
 	while (i < rec->players_0.len)
 	{
-		send(atoi(rec->players_0.ids[i]), rec->messages_0,
+		ft_send(atoi(rec->players_0.ids[i]), rec->messages_0,
 			strlen(rec->messages_0), 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
-		send(atoi(rec->players_1.ids[i]), rec->messages_1,
+		ft_send(atoi(rec->players_1.ids[i]), rec->messages_1,
 			strlen(rec->messages_1), 0);
 		i++;
 	}
@@ -75,8 +75,7 @@ static void	*client_host(void *arg)
 		}
 		cli.buf[strlen(cli.buf) - 1] = '\0';
 		pthread_mutex_lock(&g_data.trafic);
-		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", cli.buf, player_id(cli.id,
-				*g_data.world));
+		recv_f(cli, &g_data);
 		cli.rec = val_exec(cli.id, cli.buf, g_data.world);
 		server_act(&cli.rec, cli.id);
 		if (!player_in(cli.id, *g_data.world))
@@ -98,14 +97,14 @@ static void	server_routine(void)
 			(t_sock *)&routine.client_addr, &routine.addr_len);
 	if (routine.client_fd < 0)
 		return ;
-	send(routine.client_fd, "OK hello proto=1\n", 18, 0);
 	pthread_mutex_lock(&g_data.trafic);
 	if (add_player(routine.client_fd, g_data.world) == 0)
 	{
-		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 26, 0);
+		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
+	ft_send(routine.client_fd, "OK hello proto=1\n", 18, 0);
 	pthread_mutex_unlock(&g_data.trafic);
 	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
 		sizeof(routine.client_ip));

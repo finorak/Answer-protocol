@@ -6,7 +6,7 @@ SDL_TTF_SOURCE = $(HOME)/src/SDL_ttf
 
 SERVER_IP ?= 
 
-DEBUGFLAGS = -g
+DEBUGFLAGS = -g -fsanitize=thread
 LIBS = $(shell pkg-config --cflags --libs sdl2 SDL2_ttf) -pthread
 
 run: check-sdl-ttf
