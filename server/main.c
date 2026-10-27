@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/27 08:05:54 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:28:24 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static void	server_routine(void)
 	if (add_player(routine.client_fd, g_data.world) == 0)
 	{
 		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
-		ft_printf("Connection failed!\n");
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
