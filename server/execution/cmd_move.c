@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:35:26 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/21 19:10:29 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:31:00 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ int	cmd_move(t_command test, int client_fd, t_world *g_world, t_signal *result)
 		}
 		dir_id++;
 	}
-	return (strcpy(result->message, "ERR 301 NO_EXIT\n"), 0);
+	return (strcpy(result->message, "ERR 301 NO_EXIT\n"), 1);
 }

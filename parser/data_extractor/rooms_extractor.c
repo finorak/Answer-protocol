@@ -56,7 +56,7 @@ t_room	*extract_room_from_key(
 static t_all_rooms	*get_rooms(
 	const cJSON *room_json, t_all_rooms *rooms_container)
 {
-	if (!room_json)
+	if (!room_json || !rooms_container)
 		return (NULL);
 	rooms_container->len = 0;
 	if (!traverse_room_object(room_json, rooms_container))

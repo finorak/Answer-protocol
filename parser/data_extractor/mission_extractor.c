@@ -12,6 +12,7 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -48,7 +49,7 @@ bool	traverse_mission_object(
 	if (!container)
 		return (false);
 	element = mission_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		mission = (t_mission *)calloc(1, sizeof(t_mission));
@@ -100,7 +101,6 @@ t_all_missions	*extract_missions(const cJSON *root, t_world *data)
 		return (NULL);
 	}
 	tmp = get_missions(mission_json, mission_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

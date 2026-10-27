@@ -2,6 +2,7 @@
 #include "TAPInterfaceHelpers.hpp"
 #include "../basic/Button.hpp"
 #include "../basic/Group.hpp"
+#include "../basic/ScrollableGroup.hpp"
 #include "../basic/Text.hpp"
 #include "../../Server.hpp"
 #include "../../json.hpp"
@@ -22,7 +23,7 @@ void Environment::show_npcs()
     int index = 0;
     for (const string &npc : npcs)
     {
-        const int y = px(index * 38);
+        const int y = px(5 + index * 38);
         add_text(npc_components, app, px(16), y, "NPC", px(10), blue_light, px(1));
         add_text(npc_components, app, px(64), y, npc, px(11), text_color);
 
@@ -40,6 +41,7 @@ void Environment::show_npcs()
             app, width - px(137), y - px(5), px(66), px(24), "ATTACK",
             [this, npc]() {
                 log_protocol(server->request("ATTACK " + npc));
+                this->update_hp();
             },
             {11, 26, 46, 255}, blue_light, 0,
             {37, 70, 107, 255}, {16, 39, 68, 255},
@@ -59,6 +61,7 @@ void Environment::show_npcs()
         add_row_rule(npc_components, app, px(16), y + px(27), width - px(16));
         ++index;
     }
+    npc_components->setContentHeight(px(5 + index * 38));
 }
 
 void Environment::show_players()
@@ -96,7 +99,7 @@ void Environment::show_items()
     int index = 0;
     for (const string &item : items)
     {
-        const int y = px(268 + index * 34);
+        const int y = px(5 + index * 34);
         add_text(item_components, app, px(16), y, "ITEM", px(10), blue_light, px(1));
         add_text(item_components, app, px(70), y, item, px(11), text_color);
 
@@ -113,6 +116,7 @@ void Environment::show_items()
         add_row_rule(item_components, app, px(16), y + px(26), width - px(16));
         ++index;
     }
+    item_components->setContentHeight(px(5 + index * 34));
 }
 
 void Environment::look()

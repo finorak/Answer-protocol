@@ -62,4 +62,8 @@ t_signal	val_exec(int client_fd, char *buf, t_world *world);
 // helper for group as the 25 lines suck
 void		cpy(t_signal *result, t_command test);
 
+void		safe_lock(t_client cli, t_data *g_data);
+void		recv_f(t_client cli, t_data *g_data);
+void		ft_send(int sock, char *buffer, size_t size, int sign);
+
 #endif

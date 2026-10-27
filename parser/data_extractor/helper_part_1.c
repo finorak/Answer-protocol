@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helper_part_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 14:54:13 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/20 08:42:32 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:08:01 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "../../includes/world.h"
@@ -76,7 +77,7 @@ bool	traverse_room_object(
 	if (!world_json || !container)
 		return (false);
 	element = world_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		room = (t_room *)calloc(1, sizeof(t_room));
@@ -101,7 +102,7 @@ bool	traverse_item_object(
 	if (!item_json)
 		return (false);
 	element = item_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		item = (t_item *)calloc(1, sizeof(t_item));
@@ -129,7 +130,7 @@ bool	traverse_npc_object(
 	if (!npc_json)
 		return (false);
 	element = npc_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		npc = (t_npc *)calloc(1, sizeof(t_npc));

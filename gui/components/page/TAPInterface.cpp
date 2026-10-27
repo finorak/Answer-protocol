@@ -47,7 +47,7 @@ TAPInterface::TAPInterface(App *app, int width, int height, Server *server)
         panel_height, scale, protocol_command, command_focused, server);
     canvas->children.push_back(protocol);
     environment = new Environment(app, left_x, left_width,
-        panel_height, scale, server, [this](std::string msg) { this->protocol->log_protocol(msg); });
+        panel_height, scale, server, [this](std::string msg) { this->protocol->log_protocol(msg); }, [this]() { this->header->update_hp(); });
     canvas->children.push_back(environment);
 
     Group *footer = new Group(app, 0, px(830), {});

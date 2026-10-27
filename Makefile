@@ -6,6 +6,7 @@ SERVER_APPLICATION_NAME := server_cli
 CLIENT_APPLICATION_NAME := client_cli
 GUI_DIR := gui
 GUI := ./$(GUI_DIR)client
+SERVER_IP ?= 
 
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
@@ -34,7 +35,8 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/cmd_quest.c server/execution/cmd_quests.c server/execution/cmd_status.c \
 	  server/execution/cmd_take.c server/execution/cmd_talk.c server/execution/cmd_who.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
-	  server/execution/cmd_complete_quest.c server/execution/group_cpy_helper.c
+	  server/execution/cmd_complete_quest.c server/execution/group_cpy_helper.c \
+	  server/late_utils.c
 
 CLIENT_SRC := client/main.c
 
@@ -90,8 +92,14 @@ fclean: clean
 
 re: fclean all
 
-run:
+run-server:
 	./$(SERVER_APPLICATION_NAME) world.json
+
+run-client:
+	./$(CLIENT_APPLICATION_NAME) $(SERVER_IP)
+
+run-client-gui:
+	$(MAKE) run-client SERVER_IP=$(SERVER_IP) -C gui
 
 valgrind: all
 	valgrind $(DEBUG_FLAGS) ./$(SERVER_APPLICATION_NAME) world.json
