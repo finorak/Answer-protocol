@@ -17,7 +17,7 @@
 static int	consequence(t_player *player, int client_fd, t_signal *result,
 	t_world *g_world)
 {
-	char name[MAX_NAME_LEN];
+	char	name[MAX_NAME_LEN];
 
 	if (player->hp <= player->max_hp / 2)
 		strcpy(player->status_hp, "unhealthy");
