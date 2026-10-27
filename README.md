@@ -227,6 +227,8 @@ The client GUI was all done by `mrazakam`
 
 The world design was designed by `finorako`
 
+![World graph representation](./images/world.png)
+
 ## What need to be improvised
 
 This project is already rich enough as is, but we think that it can be
