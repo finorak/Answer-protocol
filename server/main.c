@@ -104,7 +104,7 @@ static void	server_routine(void)
 	pthread_mutex_lock(&g_data.trafic);
 	if (add_player(routine.client_fd, g_data.world) == 0)
 	{
-		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 18, 0);
+		send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 25, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
