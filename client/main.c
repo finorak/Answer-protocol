@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/24 10:28:19 by irraheri         ###   ########.fr       */
+/*   Updated: 2026/10/27 08:10:36 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	*wait_for_server(void *arg)
 			break ;
 		}
 		strings = ft_split(buffer, '\n');
+		if (!strcmp(strings[0], "ERR 900 CONNECTION_FAILED"))
+			g_disconnect = 1;
 		print_buffer(strings, 'S');
 	}
 	return (NULL);
