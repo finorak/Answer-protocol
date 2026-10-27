@@ -64,9 +64,10 @@ This project has been created by 3 people: `irraheri`, `mrazakam` and `finorako`
 
 - `make`: Build all the program
 - `make run-server`: run the server
-- `make run-client`: run the client cli
-- `make run-client-cli`: run the client with a gui
+- `make run-client-cli SERVER_IP={server_ip}`: run the client cli
+- `make run-client-gui SERVER_IP={server_ip}`: run the client with a gui
 - `make lint`: doing a static lint check
+- `make lint` inside gui for cpplint
 
 ### Interacting with the program
 
@@ -192,8 +193,8 @@ After that, you can re-run make again and it should fix the problem.
 Now you can:
 
 - `make run-server` to lunch the server.
-- `make run-client-cli` to lunch the client based cli.
-- `make run-client-gui` to lunch the client based gui.
+- `make run-client-cli SERVER_IP={server_ip}` to lunch the client based cli.
+- `make run-client-gui SERVER_IP={server_ip}` to lunch the client based gui.
 
 ## Protocol Implementation
 
@@ -216,8 +217,7 @@ possible bug we could think of.
 
 ### Server
 
-The server was done by `irraheri` and the command to interact with the server
-was also designed by him.
+The server was done by `irraheri`
 
 ### GUI
 

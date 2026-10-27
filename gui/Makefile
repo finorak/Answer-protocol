@@ -11,12 +11,15 @@ LIBS = $(shell pkg-config --cflags --libs sdl2 SDL2_ttf) -pthread
 
 CPP_LINT = $(HOME)/.venv/bin/cpplint
 
-NAME = client
+NAME = client_cli
 
 .PHONY: all run-client check-sdl-ttf install-sdl-ttf \
         install-cpplint lint clean re
 
 all: check-sdl-ttf $(NAME)
+
+run-client:
+	./$(NAME) $(SERVER_IP)
 
 $(NAME): $(SRCS)
 	g++ $(SRCS) -o $(NAME) -I.. $(LIBS)
@@ -59,6 +62,6 @@ lint:
 	find . -type f -name "*.cpp" -print0 | xargs -0 $(CPP_LINT)
 
 clean:
-	rm -rf ./client $(HOME)/.venv
+	rm -rf ./$(NAME) $(HOME)/.venv
 
 re: clean all
