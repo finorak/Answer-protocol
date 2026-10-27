@@ -3,14 +3,18 @@ _This project has been created as part of the 42 curriculum by irraheri, mrazaka
 # Answer Protocol
 
 <!--toc:start-->
-
 - [Answer Protocol](#answer-protocol)
+  - [Description](#description)
   - [Project Management](#project-management)
-  - [Instruction](#instruction)
+  - [Resources](#resources)
+  - [Instructions](#instructions)
     - [Build and running the program](#build-and-running-the-program)
     - [Interacting with the program](#interacting-with-the-program)
-
 <!--toc:end-->
+
+## Description
+
+Test.
 
 ## Project Management
 
@@ -20,7 +24,12 @@ _This project has been created as part of the 42 curriculum by irraheri, mrazaka
 | mrazakam | Rendering the gui of the client |
 | finorako | the creation of the world       |
 
-## Instruction
+
+## Resources
+
+A
+
+## Instructions
 
 ### Build and running the program
 

@@ -61,8 +61,8 @@ static void	initialize_client_manager(t_all_players *players)
 		strcpy(players->players[i].name, "UNAUTHENTICATED");
 		players->players[i].items.len = 0;
 		players->players[i].quests.len = 0;
-		players->players[i].hp = 1000;
-		players->players[i].max_hp = 1000;
+		players->players[i].hp = MAX_PLAYER_HP;
+		players->players[i].max_hp = MAX_PLAYER_HP;
 		players->players[i].attack = generate_weighted_attack();
 		strcpy(players->players[i].status_hp, "healthy");
 		i++;

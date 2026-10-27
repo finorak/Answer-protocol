@@ -25,6 +25,7 @@
 # define MAX_DESCRIPTION_LEN 128
 # define MAX_DIALOGUE_CONTENT_LEN 256
 # define MAX_PLAYER 4
+# define MAX_PLAYER_HP 100
 
 typedef struct s_list_of
 {
