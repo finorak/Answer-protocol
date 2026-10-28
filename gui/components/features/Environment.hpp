@@ -21,13 +21,13 @@ class Environment : public Component
         Server *server;
         Text *room_name;
         Text *room_id;
-        Text *room_description;
+        ScrollableGroup *room_description;
         Button *north_button;
         Button *south_button;
         Button *west_button;
         Button *east_button;
         ScrollableGroup *item_components;
-        Group *player_components;
+        ScrollableGroup *player_components;
         ScrollableGroup *npc_components;
         std::vector<std::string> players;
         std::vector<std::string> items;

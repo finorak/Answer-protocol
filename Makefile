@@ -95,7 +95,7 @@ re: fclean all
 run-server:
 	./$(SERVER_APPLICATION_NAME) world.json
 
-run-client:
+run-client-cli:
 	./$(CLIENT_APPLICATION_NAME) $(SERVER_IP)
 
 run-client-gui:

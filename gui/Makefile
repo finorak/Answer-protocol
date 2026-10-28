@@ -9,12 +9,20 @@ SERVER_IP ?=
 DEBUGFLAGS = -g -fsanitize=thread
 LIBS = $(shell pkg-config --cflags --libs sdl2 SDL2_ttf) -pthread
 
-run: check-sdl-ttf
-	g++ $(SRCS) -o client $(LIBS)
-	# ./client 127.0.0.1
+CPP_LINT = $(HOME)/.venv/bin/cpplint
+
+NAME = client_cli
+
+.PHONY: all run-client check-sdl-ttf install-sdl-ttf \
+        install-cpplint lint clean re
+
+all: check-sdl-ttf $(NAME)
 
 run-client:
-	./client $(SERVER_IP)
+	./$(NAME) $(SERVER_IP)
+
+$(NAME): $(SRCS)
+	g++ $(SRCS) -o $(NAME) -I.. $(LIBS)
 
 check-sdl-ttf:
 	@if ! pkg-config --exists SDL2_ttf; then \
@@ -43,9 +51,17 @@ install-sdl-ttf:
 
 	@echo "Installation terminée."
 
-debug: check-sdl-ttf
-	g++ $(DEBUGFLAGS) $(SRCS) -o client $(LIBS)
-	valgrind --leak-check=full --show-leak-kinds=all ./client 127.0.0.1 2> val.txt
+install-cpplint:
+	python3 -m venv $(HOME)/.venv
+	$(HOME)/.venv/bin/pip install cpplint
+
+lint:
+	@if [ ! -x "$(CPP_LINT)" ]; then \
+		$(MAKE) install-cpplint || exit 1; \
+	fi
+	find . -type f -name "*.cpp" -print0 | xargs -0 $(CPP_LINT)
 
 clean:
-	rm -f ./client
+	rm -rf ./$(NAME) $(HOME)/.venv
+
+re: clean all
