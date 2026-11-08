@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   npc_extractor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 19:37:52 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/02 15:49:10 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 06:07:01 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -20,7 +21,7 @@ static t_npc	*get_attack(
 	cJSON *content, const cJSON *npc_json, t_npc *npc)
 {
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "attack");
-	if (!content || !cJSON_IsNumber(content) || content->valueint < 0)
+	if (!content || !cJSON_IsNumber(content) || content->valueint < -1)
 		return (free(npc), NULL);
 	npc->attack = content->valueint;
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "quest_id");
@@ -42,6 +43,7 @@ t_npc	*extract_npc_from_key(
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "name");
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
+	strncpy(npc->name, content->valuestring, MAX_NAME_LEN);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "description");
 	if (!content || !cJSON_IsString(content) || !content->valuestring)
 		return (free(npc), NULL);
@@ -52,7 +54,7 @@ t_npc	*extract_npc_from_key(
 	if (!content || !traverse_npc_array(content, npc))
 		return (free(npc), NULL);
 	content = cJSON_GetObjectItemCaseSensitive(npc_json, "hp");
-	if (!content || !cJSON_IsNumber(content) || content->valueint < 0)
+	if (!content || !cJSON_IsNumber(content) || content->valueint < -1)
 		return (free(npc), NULL);
 	npc->hp = content->valueint;
 	return (get_attack(content, npc_json, npc));
@@ -60,9 +62,7 @@ t_npc	*extract_npc_from_key(
 
 static t_all_npcs	*get_npcs(const cJSON *npc_json, t_all_npcs *npc_container)
 {
-	if (!npc_json)
-		return (NULL);
-	if (!npc_container)
+	if (!npc_json || !npc_container)
 		return (NULL);
 	npc_container->len = 0;
 	if (!traverse_npc_object(npc_json, npc_container))
@@ -89,11 +89,9 @@ t_all_npcs	*extract_npcs(const cJSON *root, t_world *data)
 	{
 		data->extract = false;
 		fprintf(stderr, "'%s' key not found or is not an object\n", NPC_KEY);
-		free(npc_container);
-		return (NULL);
+		return (free(npc_container), NULL);
 	}
 	tmp = get_npcs(items_json, npc_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

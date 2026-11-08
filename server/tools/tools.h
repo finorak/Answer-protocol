@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 10:29:35 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/21 19:08:18 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/24 09:58:40 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../includes/world.h"
 
 void		mess(t_world *world);
-void		add_player(int client_fd, t_world *world);
+int			add_player(int client_fd, t_world *world);
 void		remove_player(int client_fd, t_world *world);
 
 int			in(char *element, t_list_of list);

@@ -1,8 +1,13 @@
 SHELL := /bin/bash
+.ONESHELL:
 
 # just for the moment
 SERVER_APPLICATION_NAME := server_cli
 CLIENT_APPLICATION_NAME := client_cli
+GUI_DIR := gui
+GUI := ./$(GUI_DIR)client
+SERVER_IP ?= 
+
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 PRINTF_DIR := ft_printf
@@ -30,7 +35,8 @@ SERVER_SRC := parser/parser_utils.c parser/data_extractor/rooms_extractor.c \
 	  server/execution/cmd_quest.c server/execution/cmd_quests.c server/execution/cmd_status.c \
 	  server/execution/cmd_take.c server/execution/cmd_talk.c server/execution/cmd_who.c \
 	  server/execution/execution.c server/execution/late_utils.c server/execution/main_distribution.c \
-	  server/execution/cmd_complete_quest.c
+	  server/execution/cmd_complete_quest.c server/execution/group_cpy_helper.c \
+	  server/late_utils.c
 
 CLIENT_SRC := client/main.c
 
@@ -54,7 +60,11 @@ FLAGS := -Wall -Wextra -Werror -g
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-all: $(LIBFT) $(PRINTF) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
+all: $(LIBFT) $(PRINTF) $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME) $(GUI)
+
+$(GUI):
+	source ./gui/configure.sh
+	$(MAKE) -C gui
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -71,17 +81,25 @@ $(PRINTF):
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(PRINTF_DIR)
+	$(MAKE) clean -C $(GUI_DIR)
 	rm -rf $(SERVER_OBJS) $(CLIENT_OBJS)
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	$(MAKE) fclean -C $(PRINTF_DIR)
+	$(MAKE) fclean -C $(GUI_DIR)
 	rm -rf $(SERVER_APPLICATION_NAME) $(CLIENT_APPLICATION_NAME)
 
 re: fclean all
 
-run:
+run-server:
 	./$(SERVER_APPLICATION_NAME) world.json
+
+run-client-cli:
+	./$(CLIENT_APPLICATION_NAME) $(SERVER_IP)
+
+run-client-gui:
+	$(MAKE) run-client SERVER_IP=$(SERVER_IP) -C gui
 
 valgrind: all
 	valgrind $(DEBUG_FLAGS) ./$(SERVER_APPLICATION_NAME) world.json
@@ -89,6 +107,8 @@ valgrind: all
 lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 	$(MAKE) lint -C $(LIBFT_DIR)
+	$(MAKE) lint -C $(PRINTF_DIR)
+	$(MAKE) lint -C $(GUI_DIR)
 
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \

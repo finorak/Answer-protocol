@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:53:12 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 07:43:42 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 10:20:26 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ static void	print_buffer(char **strings, char header)
 	index = 0;
 	while (strings[index])
 	{
-		ft_printf("%c: %s\n", header, strings[index]);
+		ft_printf("\r%c: %s\n", header, strings[index]);
 		free(strings[index]);
 		index++;
 	}
 	free(strings);
+	ft_printf("\rC: ");
 }
 
 static void	*wait_for_server(void *arg)
@@ -59,6 +60,8 @@ static void	*wait_for_server(void *arg)
 			break ;
 		}
 		strings = ft_split(buffer, '\n');
+		if (!strcmp(strings[0], "ERR 900 CONNECTION_FAILED"))
+			g_disconnect = 1;
 		print_buffer(strings, 'S');
 	}
 	return (NULL);
@@ -67,7 +70,6 @@ static void	*wait_for_server(void *arg)
 static void	*wait_for_user(void *arg)
 {
 	char	buffer[BUFFER_SIZE];
-	char	**strings;
 	int		sock;
 
 	sock = *(int *)(arg);
@@ -81,8 +83,6 @@ static void	*wait_for_user(void *arg)
 		memset(buffer, 0, BUFFER_SIZE);
 		if (!fgets(buffer, BUFFER_SIZE, stdin))
 			continue ;
-		strings = ft_split(buffer, '\n');
-		print_buffer(strings, 'C');
 		send(sock, buffer, strlen(buffer), 0);
 	}
 	return (NULL);
@@ -113,6 +113,7 @@ int	main(int argc, char **argv)
 	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
 	{
 		fprintf(stderr, "ERR 900 CONNECTION_FAILED\n");
+		g_disconnect = 1;
 		return (end(sock));
 	}
 	pthread_create(&(client_mods[0]), NULL, wait_for_server, &sock);

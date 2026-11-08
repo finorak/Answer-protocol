@@ -15,6 +15,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "main_utils.h"
+#include "tools/tools.h"
 
 void	log_date(void)
 {
@@ -59,4 +60,11 @@ int	player_id(int client_fd, t_world world)
 		i++;
 	}
 	return (0);
+}
+
+void	safe_lock(t_client cli, t_data *g_data)
+{
+	pthread_mutex_lock(&g_data->trafic);
+	remove_player(cli.id, g_data->world);
+	pthread_mutex_unlock(&g_data->trafic);
 }

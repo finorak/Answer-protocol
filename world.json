@@ -1,5 +1,5 @@
 {
- "world": {
+  "world": {
     "start": {
       "name": "Village_of_Ashfield",
       "description": "A quiet rural settlement at the edge of the kingdom, known for its inn and its silence.",
@@ -173,113 +173,120 @@
       "heal": 1
     }
   },
-  "npcs": {
-    "magnus_carlsen": {
-      "name": "Grandmaster Magnus",
-      "description": "The reigning champion of the board, calm and calculating.",
-      "dialogues": [
-        "play_queen",
-        "play_rook"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "none"
-    },
-    "rene_descartes": {
-      "name": "René the Skeptic",
-      "description": "A philosopher in a worn cloak, forever doubting, forever thinking.",
-      "dialogues": [
-        "ithinksoiam"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "none"
-    },
-    "charles_darwin": {
-      "name": "Charles the Naturalist",
-      "description": "A bearded man with a notebook, observing the world with quiet intensity.",
-      "dialogues": [
-        "survivor"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "none"
-    },
-    "pablo_picasso": {
-      "name": "Pablo the Visionary",
-      "description": "A painter with piercing eyes, always ready to reshape reality.",
-      "dialogues": [],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "trump_diamond"
-    },
-    "franz_kafka": {
-      "name": "Franz the Scribe",
-      "description": "A pale, anxious figure, haunted by the absurdity of bureaucracy.",
-      "dialogues": [
-        "samsa"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "doogy_saitama"
-    },
-    "fiodor_dostoievsky": {
-      "name": "Fyodor the Confessor",
-      "description": "A gaunt man with feverish eyes, speaking of suffering and redemption.",
-      "dialogues": [
-        "citation1",
-        "citation2",
-        "citation3"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "none"
-    },
-    "snoop_dogg": {
-      "name": "Calvin the Storyteller",
-      "description": "A smooth-talking wanderer with a gift for verse and a knowing smile.",
-      "dialogues": [
-        "doggy"
-      ],
-      "hp": 40,
-      "attack": 2,
-      "quest_id": "none"
-    },
-    "martin_scorsesse": {
-      "name": "Martin the Auteur",
-      "description": "A director with a sharp suit and a sharper tongue, obsessed with detail.",
-      "dialogues": [
-        "pulpy"
-      ],
-      "hp": 1,
-      "attack": 1,
-      "quest_id": "gold_rook"
-    },
-    "saitama": {
-      "name": "Saitama the Bored",
-      "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
-      "dialogues": [],
-      "hp": 100,
-      "attack": 30,
-      "quest_id": "none"
-    },
-    "donald_trump": {
-      "name": "The Gilded Orator",
-      "description": "A man of wealth and bombast, standing atop the hill with a golden gaze.",
-      "dialogues": [
-        "president_dialogue0",
-        "dialogues_about_religion"
-      ],
-      "hp": 200,
-      "attack": 10,
-      "quest_id": "none"
-    }
+ "npcs": {
+  "magnus_carlsen": {
+    "name": "Grandmaster Magnus",
+    "description": "The reigning champion of the board, calm and calculating.",
+    "dialogues": [
+      "play_queen",
+      "play_rook"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "none"
+  },
+  "rene_descartes": {
+    "name": "René the Skeptic",
+    "description": "A philosopher in a worn cloak, forever doubting, forever thinking.",
+    "dialogues": [
+      "ithinksoiam"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "none"
+  },
+  "charles_darwin": {
+    "name": "Charles the Naturalist",
+    "description": "A bearded man with a notebook, observing the world with quiet intensity.",
+    "dialogues": [
+      "survivor"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "none"
+  },
+  "pablo_picasso": {
+    "name": "Pablo the Visionary",
+    "description": "A painter with piercing eyes, always ready to reshape reality.",
+    "dialogues": [
+      "exchange_quest"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "trump_diamond"
+  },
+  "franz_kafka": {
+    "name": "Franz the Scribe",
+    "description": "A pale, anxious figure, haunted by the absurdity of bureaucracy.",
+    "dialogues": [
+      "samsa",
+      "clearing_quest"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "doogy_saitama"
+  },
+  "fiodor_dostoievsky": {
+    "name": "Fyodor the Confessor",
+    "description": "A gaunt man with feverish eyes, speaking of suffering and redemption.",
+    "dialogues": [
+      "citation1",
+      "citation2",
+      "citation3"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "none"
+  },
+  "snoop_dogg": {
+    "name": "Calvin the Storyteller",
+    "description": "A smooth-talking wanderer with a gift for verse and a knowing smile.",
+    "dialogues": [
+      "doggy"
+    ],
+    "hp": 40,
+    "attack": 2,
+    "quest_id": "none"
+  },
+  "martin_scorsesse": {
+    "name": "Martin the Auteur",
+    "description": "A director with a sharp suit and a sharper tongue, obsessed with detail.",
+    "dialogues": [
+      "pulpy",
+      "trilogy_quest"
+    ],
+    "hp": -1,
+    "attack": -1,
+    "quest_id": "gold_rook"
+  },
+  "saitama": {
+    "name": "Saitama the Bored",
+    "description": "A bald man in a plain cape, whose power is matched only by his ennui.",
+    "dialogues": [
+      "bored_hero"
+    ],
+    "hp": 100,
+    "attack": 30,
+    "quest_id": "none"
+  },
+  "donald_trump": {
+    "name": "The Gilded Orator",
+    "description": "A man of wealth and bombast, standing atop the hill with a golden gaze.",
+    "dialogues": [
+      "president_dialogue0",
+      "dialogues_about_religion"
+    ],
+    "hp": 200,
+    "attack": 10,
+    "quest_id": "none"
+   }
   },
   "quests": {
     "trump_diamond": {
       "name": "The Exchange",
       "description": "Retrieve the diamond from the hilltop and bring it to the atelier.",
       "missions": [
+        "take_diamond_from_trump"
       ],
       "reward": "none",
       "npc_owner": "pablo_picasso"
@@ -332,20 +339,39 @@
       "goal": "philosophical_stone"
     }
   },
-  "dialogues": {
-    "play_queen": "The queen is the most versatile piece on the board.",
-    "play_rook": "In the endgame, control of the rook's file is everything.",
-    "ithinksoiam": "I think, therefore I am.",
-    "survivor": "It is not the strongest that survive, but the most adaptable.",
-    "samsa": "I awoke one morning to find myself transformed into something unrecognizable.",
-    "citation1": "The mystery of existence is not in survival, but in meaning.",
-    "citation2": "Suffering is the price of a deep consciousness.",
-    "citation3": "Better to err on your own path than to walk another's perfectly.",
-    "doggy": "The road is long, but the stories make it shorter.",
-    "pulpy": "I've always been drawn to the edge of the law.",
-    "president_dialogue0": "I have a vision, and it's unparalleled.",
-    "dialogues_about_religion": "I believe in greatness, and I believe in grace."
-  },
+"dialogues": {
+  "play_queen": "The queen is the most versatile piece on the board. She can move in almost any direction, but even she cannot win without the right allies.",
+
+  "play_rook": "Ah, the rook! A simple piece, yet a deadly one. Find the rook in this hall and learn the importance of controlling the board.",
+
+  "ithinksoiam": "I think, therefore I am. But tell me, traveler, have you ever wondered whether the world itself is merely a thought waiting to be understood?",
+
+  "survivor": "It is not the strongest that survive, but the most adaptable. Observe the creatures around you: those who refuse to change eventually disappear.",
+
+  "exchange_quest": "Ah, a visitor! I am working on a new masterpiece, but something is missing. A diamond, rough and uncut, would bring the final brilliance to my creation. I heard that a rather wealthy man keeps one on the hilltop. Find the diamond in his possession and bring it back to my atelier. In exchange, you will have my eternal gratitude. Art, after all, is about making the right exchanges.",
+
+  "samsa": "One morning, I awoke to find myself transformed into something unrecognizable. Since then, I have come to understand that the world is full of absurdity. Take the two wanderers who haunt this kingdom: one endlessly tells stories at the crossroads, while the other possesses incredible strength but seems incapable of finding a purpose. Their presence disturbs the peace. Remove them both, and perhaps order may return. If you succeed, I shall reward you with a fragment of the Philosopher's Stone.",
+
+  "citation1": "The mystery of existence is not in survival, but in meaning.",
+
+  "citation2": "Suffering is the price of a deep consciousness.",
+
+  "citation3": "Better to err on your own path than to walk another's perfectly.",
+
+  "doggy": "The road is long, my friend, but the stories make it shorter. Every crossroads has a tale, and every traveler has a reason to keep moving. What's yours?",
+
+  "pulpy": "I've always been drawn to the edge of the law. Crime, ambition, betrayal... now that's cinema! But every great film needs its three defining elements. I need a bar of gold, a chess rook, and a fragment of the Philosopher's Stone. The gold represents ambition, the rook represents strategy, and the stone represents the human mind. Find all three and bring them to me. Together, we'll create something worthy of the greatest award in cinema. And perhaps I'll even give you an Oscar for your troubles.",
+
+  "president_dialogue0": "I have a vision, and it's unparalleled. Everything I own is the best: the finest gold, the most magnificent buildings, the greatest treasures.",
+
+  "dialogues_about_religion": "I believe in greatness, and I believe in grace. Some people seek power, others seek salvation. Me? I prefer having both.",
+
+  "trilogy_quest": "I've got a masterpiece in mind, but I'm missing three essential pieces. First, I need a gold ingot, a symbol of ambition and wealth. Then, a chess rook, representing power and strategy. Finally, a Philosopher's Fragment, the essence of human thought itself. Find these three relics and bring them back to me. They can be found scattered throughout the kingdom. Complete my collection, and I'll reward you with something every filmmaker dreams of: a Golden Laurel. Now that's a proper ending!",
+
+  "clearing_quest": "I've seen things that would make any man question his sanity. At the crossroads, there's a storyteller who never stops talking, and in the attic, a hero so powerful that nothing seems to interest him anymore. One disrupts the peace with endless stories; the other threatens it with overwhelming strength. I ask you to deal with both of them: the storyteller at the Crossroads and the bored hero in the Epicenter. Bring an end to their disturbance, and I shall reward you with a fragment of the Philosopher's Stone. Perhaps it will help you understand the absurdity of existence.",
+
+  "bored_hero": "Another day, another monster... another effortless victory. Honestly, I'm bored. I wish something interesting would happen for once. Maybe someone will finally give me a reason to take this world seriously."
+},
   "groups": {
     "name": "global"
   }

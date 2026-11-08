@@ -6,10 +6,14 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 12:41:16 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/20 08:42:54 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:51:17 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/parser.h"
+#include "execution/execution.h"
+#include "main_utils.h"
+#include "tools/tools.h"
 #include <errno.h>
 #include <pthread.h>
 #include <signal.h>
@@ -17,18 +21,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "../includes/parser.h"
-#include "main_utils.h"
 
-t_data	g_data = {0};
+t_data		g_data = {0};
 
 static void	handle_shutdown(int sig)
 {
 	(void)sig;
 	log_date();
 	ft_printf("shutdown...\n");
+	pthread_mutex_lock(&g_data.trafic);
 	close(g_data.server.server_fd);
 	free_data(g_data.world, g_data.buffer, true);
+	pthread_mutex_unlock(&g_data.trafic);
 	exit(0);
 }
 
@@ -37,17 +41,17 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
-	send(client_fd, rec->message, strlen(rec->message), 0);
+	ft_send(client_fd, rec->message, strlen(rec->message), 0);
 	while (i < rec->players_0.len)
 	{
-		send(atoi(rec->players_0.ids[i]), rec->messages_0,
+		ft_send(atoi(rec->players_0.ids[i]), rec->messages_0,
 			strlen(rec->messages_0), 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
-		send(atoi(rec->players_1.ids[i]), rec->messages_1,
+		ft_send(atoi(rec->players_1.ids[i]), rec->messages_1,
 			strlen(rec->messages_1), 0);
 		i++;
 	}
@@ -58,55 +62,58 @@ static void	server_act(t_signal *rec, int client_fd)
 
 static void	*client_host(void *arg)
 {
-	int			client_id;
-	char		buf[BUFFER_SIZE];
-	t_signal	rec;
+	t_client	cli;
 
-	client_id = (int)(long)arg;
+	cli.id = (int)(long)arg;
 	while (1)
 	{
-		memset(buf, 0, sizeof(buf));
-		if (recv(client_id, buf, BUFFER_SIZE, 0) <= 0)
+		memset(cli.buf, 0, sizeof(cli.buf));
+		if (recv(cli.id, cli.buf, BUFFER_SIZE, 0) <= 0)
 		{
-			remove_player(client_id, g_data.world);
+			safe_lock(cli, &g_data);
 			break ;
 		}
-		buf[strlen(buf) - 1] = '\0';
-		ft_printf("RECEIVED '%s' FROM PLAYER %d\n", buf, player_id(client_id,
-				*g_data.world));
+		cli.buf[strlen(cli.buf) - 1] = '\0';
 		pthread_mutex_lock(&g_data.trafic);
-		rec = val_exec(client_id, buf, g_data.world);
-		pthread_mutex_unlock(&g_data.trafic);
-		server_act(&rec, client_id);
-		if (!player_in(client_id, *g_data.world))
+		recv_f(cli, &g_data);
+		cli.rec = val_exec(cli.id, cli.buf, g_data.world);
+		server_act(&cli.rec, cli.id);
+		if (!player_in(cli.id, *g_data.world))
+		{
+			pthread_mutex_unlock(&g_data.trafic);
 			break ;
+		}
+		pthread_mutex_unlock(&g_data.trafic);
 	}
-	close(client_id);
-	return (NULL);
+	return (close(cli.id), NULL);
 }
 
 static void	server_routine(void)
 {
-	pthread_t			client_mess_rec;
-	int					client_fd;
-	char				client_ip[INET_ADDRSTRLEN];
-	struct sockaddr_in	client_addr;
-	socklen_t			addr_len;
+	t_server_routine	routine;
 
-	addr_len = sizeof(client_addr);
-	client_fd = accept(g_data.server.server_fd, (struct sockaddr *)&client_addr,
-			&addr_len);
-	if (client_fd < 0)
+	routine.addr_len = sizeof(routine.client_addr);
+	routine.client_fd = accept(g_data.server.server_fd,
+			(t_sock *)&routine.client_addr, &routine.addr_len);
+	if (routine.client_fd < 0)
 		return ;
-	send(client_fd, "OK hello proto=1\n", 18, 0);
-	add_player(client_fd, g_data.world);
-	inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
+	pthread_mutex_lock(&g_data.trafic);
+	if (add_player(routine.client_fd, g_data.world) == 0)
+	{
+		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
+		pthread_mutex_unlock(&g_data.trafic);
+		return ;
+	}
+	ft_send(routine.client_fd, "OK hello proto=1\n", 18, 0);
+	pthread_mutex_unlock(&g_data.trafic);
+	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
+		sizeof(routine.client_ip));
 	log_date();
-	ft_printf("Player %d is CONNECTED (%s)\n", player_id(client_fd, *g_data.world),
-		client_ip);
-	pthread_create(&client_mess_rec, NULL, client_host,
-		(void *)(long)client_fd);
-	pthread_detach(client_mess_rec);
+	ft_printf("Player %d is CONNECTED (%s)\n", player_id(routine.client_fd,
+			*g_data.world), routine.client_ip);
+	pthread_create(&routine.client_mess_rec, NULL, client_host,
+		(void *)(long)routine.client_fd);
+	pthread_detach(routine.client_mess_rec);
 }
 
 int	main(int argc, char **argv)

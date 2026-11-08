@@ -12,7 +12,6 @@
 
 #include "../../includes/parser.h"
 #include "../../includes/data_extractor.h"
-#include "../../ft_printf/ft_printf.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,9 +47,7 @@ t_item	*extract_item_from_key(
 static t_all_items	*get_items(
 	const cJSON *items_json, t_all_items *items_container)
 {
-	if (!items_json)
-		return (NULL);
-	if (!items_container)
+	if (!items_json || !items_container)
 		return (NULL);
 	items_container->len = 0;
 	if (!traverse_item_object(items_json, items_container))
@@ -76,11 +73,9 @@ t_all_items	*extract_items(const cJSON *root, t_world *data)
 	if (!items_json)
 	{
 		fprintf(stderr, "'%s' key not found or is not an object\n", ITEMS_KEY);
-		free(items_container);
-		return (NULL);
+		return (free(items_container), NULL);
 	}
 	tmp = get_items(items_json, items_container);
-	if (!tmp)
-		data->extract = false;
+	data->extract = (bool)tmp;
 	return (tmp);
 }

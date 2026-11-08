@@ -6,7 +6,7 @@
 /*   By: irraheri <irraheri@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 09:33:59 by irraheri          #+#    #+#             */
-/*   Updated: 2026/10/21 19:09:58 by finorako         ###   ########.fr       */
+/*   Updated: 2026/10/24 10:39:25 by irraheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ static void	util_left(t_world *g_world, t_signal *result)
 	strcat(result->messages_0, "\n");
 }
 
-static void	complete_quest(t_quest *quest, t_world *g_world, int client_fd)
+static int	complete_quest(t_quest *quest, t_world *g_world, int client_fd)
 {
 	int			i;
 	t_mission	*mission;
 
+	if (quest->done == 1)
+		return (1);
 	quest->done_missions = 0;
 	i = 0;
 	while (i < quest->missions.len)
@@ -59,28 +61,33 @@ static void	complete_quest(t_quest *quest, t_world *g_world, int client_fd)
 	}
 	if (quest->done_missions == quest->missions.len)
 		quest->done = 1;
+	return (0);
 }
 
 int	cmd_complete_quest(t_command test, int client_fd, t_world *g_world,
 		t_signal *result)
 {
 	if (!in(test.message, get_player_by_fd(client_fd, g_world)->quests))
-		return (strcpy(result->message, "ERR 404 QUEST_NOT_FOUND\n"), 0);
-	complete_quest(get_quest_by_id(test.message, g_world), g_world,
-		client_fd);
+		return (strcpy(result->message, "ERR 404 QUEST_NOT_FOUND\n"), 1);
 	log_date();
 	printf("Actualizing quest %s\n", test.message);
 	strcpy(result->message, "OK done_missions=");
-	strcat_number(result->message, get_quest_by_id(test.message,
-			g_world)->done_missions);
-	strcat(result->message, "\n");
-	if (get_quest_by_id(test.message, g_world)->done
-		&& strcmp(get_quest_by_id(test.message, g_world)->reward_id,
-			"none"))
+	if (complete_quest(get_quest_by_id(test.message, g_world), g_world,
+			client_fd))
+		strcat(result->message, "all\n");
+	else
 	{
-		append_in(get_quest_by_id(test.message, g_world)->reward_id,
-			&get_room_by_player_fd(client_fd, g_world)->items);
-		util_left(g_world, result);
+		strcat_number(result->message, get_quest_by_id(test.message,
+				g_world)->done_missions);
+		strcat(result->message, "\n");
+		if (get_quest_by_id(test.message, g_world)->done
+			&& strcmp(get_quest_by_id(test.message, g_world)->reward_id,
+				"none"))
+		{
+			append_in(get_quest_by_id(test.message, g_world)->reward_id,
+				&get_room_by_player_fd(client_fd, g_world)->items);
+			util_left(g_world, result);
+		}
 	}
 	return (1);
 }

@@ -37,12 +37,10 @@ bool	traverse_dialogue_object(
 	cJSON		*element;
 	char		*key;
 
-	if (!dialogue_json)
-		return (NULL);
-	if (!container)
+	if (!dialogue_json || !container)
 		return (NULL);
 	element = dialogue_json->child;
-	while (element)
+	while (element && container->len < MAX_ID_LEN)
 	{
 		key = element->string;
 		dialogue = (t_dialogue *)calloc(1, sizeof(t_dialogue));
