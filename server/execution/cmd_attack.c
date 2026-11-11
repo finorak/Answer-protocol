@@ -26,7 +26,7 @@ static int	consequence(t_player *player, int client_fd, t_signal *result,
 		strcpy(result->message, "OK {\"message\": \"You got smoked\"}\n");
 		strcpy(name, player->name);
 		remove_player(client_fd, g_world);
-		add_player(client_fd, g_world);
+		add_player(client_fd, player->ip, g_world);
 		strcpy(player->name, name);
 		return (1);
 	}

@@ -22,6 +22,8 @@
 # include "../ft_printf/ft_printf.h"
 
 # define PORT 8080
+# define CONN_FAIL "ERR 900 CONNECTION_FAILED\n"
+# define CONN_SUC "OK hello proto=1\n"
 # include "execution/execution.h"
 # include "tools/tools.h"
 # include "validation/validation.h"
@@ -40,6 +42,12 @@ typedef struct s_client
 	char		buf[BUFFER_SIZE];
 	t_signal	rec;
 }				t_client;
+
+typedef struct s_cli_utils
+{
+	char		*ip;
+	int			fd;
+}				t_cli_utils;
 
 typedef struct s_server_routine
 {
@@ -64,6 +72,6 @@ void		cpy(t_signal *result, t_command test);
 
 void		safe_lock(t_client cli, t_data *g_data);
 void		recv_f(t_client cli, t_data *g_data);
-void		ft_send(int sock, char *buffer, size_t size, int sign);
+void		ft_send(int sock, const char *buffer, t_world *world, int sign);
 
 #endif

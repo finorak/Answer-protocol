@@ -25,7 +25,7 @@
 # define MAX_DESCRIPTION_LEN 256
 # define MAX_DIALOGUE_CONTENT_LEN 256
 # define MAX_PLAYER 16
-# define MAX_PLAYER_HP 100
+# define MAX_PLAYER_HP 10
 
 typedef struct s_list_of
 {
@@ -103,6 +103,7 @@ typedef struct s_player
 	t_list_of	quests;
 	char		status_hp[MAX_ID_LEN];
 	char		name[MAX_NAME_LEN];
+	char		ip[16];
 	int			status;
 	int			max_hp;
 	int			attack;

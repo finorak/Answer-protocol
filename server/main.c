@@ -41,18 +41,18 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
-	ft_send(client_fd, rec->message, strlen(rec->message), 0);
+	ft_send(client_fd, rec->message, g_data.world, 0);
 	while (i < rec->players_0.len)
 	{
 		ft_send(atoi(rec->players_0.ids[i]), rec->messages_0,
-			strlen(rec->messages_0), 0);
+			g_data.world, 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
 		ft_send(atoi(rec->players_1.ids[i]), rec->messages_1,
-			strlen(rec->messages_1), 0);
+			g_data.world, 0);
 		i++;
 	}
 	memset(rec->message, 0, sizeof(rec->message));
@@ -64,7 +64,7 @@ static void	*client_host(void *arg)
 {
 	t_client	cli;
 
-	cli.id = (int)(long)arg;
+	cli.id = ((t_server_routine *)arg)->client_fd;
 	while (1)
 	{
 		memset(cli.buf, 0, sizeof(cli.buf));
@@ -98,21 +98,21 @@ static void	server_routine(void)
 	if (routine.client_fd < 0)
 		return ;
 	pthread_mutex_lock(&g_data.trafic);
-	if (add_player(routine.client_fd, g_data.world) == 0)
+	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
+		sizeof(routine.client_ip));
+	if (add_player(routine.client_fd, routine.client_ip, g_data.world) == 0)
 	{
-		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
+		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n",
+			g_data.world, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
-	ft_send(routine.client_fd, "OK hello proto=1\n", 18, 0);
+	ft_send(routine.client_fd, "OK hello proto=1\n", g_data.world, 0);
 	pthread_mutex_unlock(&g_data.trafic);
-	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
-		sizeof(routine.client_ip));
 	log_date();
 	ft_printf("Player %d is CONNECTED (%s)\n", player_id(routine.client_fd,
 			*g_data.world), routine.client_ip);
-	pthread_create(&routine.client_mess_rec, NULL, client_host,
-		(void *)(long)routine.client_fd);
+	pthread_create(&routine.client_mess_rec, NULL, client_host, &routine);
 	pthread_detach(routine.client_mess_rec);
 }
 

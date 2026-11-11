@@ -11,24 +11,32 @@
 /* ************************************************************************** */
 
 #include "main_utils.h"
+#include "tools/tools.h"
 #include <string.h>
 
 void	recv_f(t_client cli, t_data *g_data)
 {
+	t_player	*player;
+
+	player = get_player_by_fd(cli.id, g_data->world);
 	log_date();
 	ft_printf("RECEIVED '%s' FROM PLAYER %d (%s)\n",
 		cli.buf, player_id(cli.id, *(g_data->world)),
-		get_player_by_fd(cli.id, g_data->world)->name);
+		player->ip);
 }
 
-void	ft_send(int sock, char *buffer, size_t size, int sign)
+void	ft_send(int sock, const char *buffer, t_world *world, int sign)
 {
-	char	buf[BUFFER_SIZE];
+	t_player	*player;
+	char		buf[BUFFER_SIZE];
+	int			size;
 
+	player = get_player_by_fd(sock, world);
 	log_date();
+	size = strlen(buffer);
 	strcpy(buf, buffer);
 	buf[strlen(buf) - 1] = '\0';
-	ft_printf("SENDING '%s' TO PLAYER (fd=%d)\n",
-		buf, sock);
+	ft_printf("SENDING '%s' TO PLAYER (ip=%s)\n",
+		buf, player->ip);
 	send(sock, buffer, size, sign);
 }

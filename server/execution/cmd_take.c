@@ -36,11 +36,11 @@ int	cmd_take(t_command test, int client_fd, t_world *g_world, t_signal *result)
 	char		temp[12];
 
 	if (!in(test.message, get_room_by_player_fd(client_fd, g_world)->items))
-		return (strcpy(result->message, "404 ITEM_NOT_FOUND\n"), 0);
+		return (strcpy(result->message, "ERR 404 ITEM_NOT_FOUND\n"), 1);
 	room = get_room_by_item_id(test.message, g_world);
 	player = get_player_by_fd(client_fd, g_world);
 	if (!room || !player)
-		return (strcpy(result->message, "404 ITEM_NOT_FOUND\n"), 0);
+		return (strcpy(result->message, "ERR 404 ITEM_NOT_FOUND\n"), 1);
 	log_date();
 	ft_printf("removed %s from %s\n", test.message, room->name);
 	remove_from(test.message, &room->items);
