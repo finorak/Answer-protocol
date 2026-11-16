@@ -30,8 +30,8 @@ int	cmd_connect(t_command test, int client_fd, t_world *g_world,
 		index++;
 	}
 	log_date();
-	ft_printf("Client ip %s has changed his name %s into %s\n", player->ip,
-		player->name, test.message);
+	ft_printf("INFO: Client ip %s has changed his name %s into %s\n",
+		player->ip, player->name, test.message);
 	strcpy(player->name, test.message);
 	strcpy(result->message, "OK connected\n");
 	mess(g_world);

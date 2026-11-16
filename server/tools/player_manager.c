@@ -74,7 +74,7 @@ static void	reinitialize_player(t_player *player, t_world *world)
 	player->fd = -1;
 	player->status = 0;
 	log_date();
-	ft_printf("REMOVED '%s' FROM list of player\n", player->ip);
+	ft_printf("WARNING: REMOVED '%s' FROM list of player\n", player->ip);
 	strcpy(player->name, "UNAUTHENTICATED");
 	player->quests.len = 0;
 	player->hp = player->max_hp;
@@ -92,13 +92,13 @@ void	remove_player(int client_fd, t_world *world)
 	if (!world)
 		return ;
 	log_date();
-	ft_printf("Player %d DISCONNECTED\n", player_id(client_fd, *world));
+	ft_printf("INFO: Player %d DISCONNECTED\n", player_id(client_fd, *world));
 	player = get_player_by_fd(client_fd, world);
 	room = get_room_by_player_fd(client_fd, world);
 	snprintf(temp, sizeof(temp), "%d", player->fd);
 	remove_from(temp, &(room->players));
 	log_date();
-	ft_printf("REMOVED '%s' FROM room (%s)\n", player->ip, room->name);
+	ft_printf("INFO: REMOVED '%s' FROM room (%s)\n", player->ip, room->name);
 	merge(&(player->items), &(room->items));
 	reinitialize_player(player, world);
 	mess(world);

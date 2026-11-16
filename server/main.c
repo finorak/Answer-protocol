@@ -28,7 +28,7 @@ static void	handle_shutdown(int sig)
 {
 	(void)sig;
 	log_date();
-	ft_printf("shutdown...\n");
+	ft_printf("WARNING: shutdown...\n");
 	pthread_mutex_lock(&g_data.trafic);
 	close(g_data.server.server_fd);
 	free_data(g_data.world, g_data.buffer, true);
@@ -90,30 +90,30 @@ static void	*client_host(void *arg)
 
 static void	server_routine(void)
 {
-	t_server_routine	routine;
+	t_server_routine	rout;
 
-	routine.addr_len = sizeof(routine.client_addr);
-	routine.client_fd = accept(g_data.server.server_fd,
-			(t_sock *)&routine.client_addr, &routine.addr_len);
-	if (routine.client_fd < 0)
+	rout.addr_len = sizeof(rout.client_addr);
+	rout.client_fd = accept(g_data.server.server_fd,
+			(t_sock *)&rout.client_addr, &rout.addr_len);
+	if (rout.client_fd < 0)
 		return ;
 	pthread_mutex_lock(&g_data.trafic);
-	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
-		sizeof(routine.client_ip));
-	if (add_player(routine.client_fd, routine.client_ip, g_data.world) == 0)
+	inet_ntop(AF_INET, &rout.client_addr.sin_addr, rout.client_ip,
+		sizeof(rout.client_ip));
+	if (add_player(rout.client_fd, rout.client_ip, g_data.world) == 0)
 	{
-		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n",
+		ft_send(rout.client_fd, "ERROR: ERR 900 CONNECTION_FAILED\n",
 			g_data.world, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
-	ft_send(routine.client_fd, "OK hello proto=1\n", g_data.world, 0);
+	ft_send(rout.client_fd, "OK hello proto=1\n", g_data.world, 0);
 	pthread_mutex_unlock(&g_data.trafic);
 	log_date();
-	ft_printf("Player %d is CONNECTED (%s)\n", player_id(routine.client_fd,
-			*g_data.world), routine.client_ip);
-	pthread_create(&routine.client_mess_rec, NULL, client_host, &routine);
-	pthread_detach(routine.client_mess_rec);
+	ft_printf("INFO: Player %d is CONNECTED (%s)\n", player_id(rout.client_fd,
+			*g_data.world), rout.client_ip);
+	pthread_create(&rout.client_mess_rec, NULL, client_host, &rout);
+	pthread_detach(rout.client_mess_rec);
 }
 
 int	main(int argc, char **argv)
@@ -126,7 +126,7 @@ int	main(int argc, char **argv)
 		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
 	pthread_mutex_init(&g_data.trafic, NULL);
-	ft_printf("Server IP address: ");
+	ft_printf("INFO: Server IP address ");
 	print_ip_addr();
 	define_server_property(&g_data.server);
 	signal(SIGINT, handle_shutdown);
@@ -136,7 +136,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error %d\n", errno), 1);
 	listen(g_data.server.server_fd, 128);
 	log_date();
-	ft_printf("Server is initialized\n");
+	ft_printf("INFO: Server is initialized\n");
 	while (1)
 		server_routine();
 	return (free_data(g_data.world, g_data.buffer, true), 0);
