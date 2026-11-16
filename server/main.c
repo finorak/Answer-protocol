@@ -133,7 +133,7 @@ int	main(int argc, char **argv)
 	signal(SIGTERM, handle_shutdown);
 	if (bind(g_data.server.server_fd, (t_sock *)&(g_data.server.address),
 			sizeof(g_data.server.address)) < 0)
-		return (ft_printf("Error %d\n", errno), 1);
+		return (ft_printf("Error %d: socket currently in use\n", errno), 1);
 	listen(g_data.server.server_fd, 128);
 	log_date();
 	ft_printf("INFO: Server is initialized\n");
