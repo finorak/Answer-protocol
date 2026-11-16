@@ -28,7 +28,7 @@ static void	handle_shutdown(int sig)
 {
 	(void)sig;
 	log_date();
-	ft_printf("shutdown...\n");
+	ft_printf("WARNING: shutdown...\n");
 	pthread_mutex_lock(&g_data.trafic);
 	close(g_data.server.server_fd);
 	free_data(g_data.world, g_data.buffer, true);
@@ -41,18 +41,17 @@ static void	server_act(t_signal *rec, int client_fd)
 	int	i;
 
 	i = 0;
-	ft_send(client_fd, rec->message, strlen(rec->message), 0);
 	while (i < rec->players_0.len)
 	{
 		ft_send(atoi(rec->players_0.ids[i]), rec->messages_0,
-			strlen(rec->messages_0), 0);
+			g_data.world, 0);
 		i++;
 	}
 	i = 0;
 	while (i < rec->players_1.len)
 	{
 		ft_send(atoi(rec->players_1.ids[i]), rec->messages_1,
-			strlen(rec->messages_1), 0);
+			g_data.world, 0);
 		i++;
 	}
 	memset(rec->message, 0, sizeof(rec->message));
@@ -64,7 +63,7 @@ static void	*client_host(void *arg)
 {
 	t_client	cli;
 
-	cli.id = (int)(long)arg;
+	cli.id = ((t_server_routine *)arg)->client_fd;
 	while (1)
 	{
 		memset(cli.buf, 0, sizeof(cli.buf));
@@ -90,30 +89,30 @@ static void	*client_host(void *arg)
 
 static void	server_routine(void)
 {
-	t_server_routine	routine;
+	t_server_routine	rout;
 
-	routine.addr_len = sizeof(routine.client_addr);
-	routine.client_fd = accept(g_data.server.server_fd,
-			(t_sock *)&routine.client_addr, &routine.addr_len);
-	if (routine.client_fd < 0)
+	rout.addr_len = sizeof(rout.client_addr);
+	rout.client_fd = accept(g_data.server.server_fd,
+			(t_sock *)&rout.client_addr, &rout.addr_len);
+	if (rout.client_fd < 0)
 		return ;
 	pthread_mutex_lock(&g_data.trafic);
-	if (add_player(routine.client_fd, g_data.world) == 0)
+	inet_ntop(AF_INET, &rout.client_addr.sin_addr, rout.client_ip,
+		sizeof(rout.client_ip));
+	if (add_player(rout.client_fd, rout.client_ip, g_data.world) == 0)
 	{
-		ft_send(routine.client_fd, "ERR 900 CONNECTION_FAILED\n", 27, 0);
+		ft_send(rout.client_fd, "ERROR: ERR 900 CONNECTION_FAILED\n",
+			g_data.world, 0);
 		pthread_mutex_unlock(&g_data.trafic);
 		return ;
 	}
-	ft_send(routine.client_fd, "OK hello proto=1\n", 18, 0);
+	ft_send(rout.client_fd, "OK hello proto=1\n", g_data.world, 0);
 	pthread_mutex_unlock(&g_data.trafic);
-	inet_ntop(AF_INET, &routine.client_addr.sin_addr, routine.client_ip,
-		sizeof(routine.client_ip));
 	log_date();
-	ft_printf("Player %d is CONNECTED (%s)\n", player_id(routine.client_fd,
-			*g_data.world), routine.client_ip);
-	pthread_create(&routine.client_mess_rec, NULL, client_host,
-		(void *)(long)routine.client_fd);
-	pthread_detach(routine.client_mess_rec);
+	ft_printf("INFO: Player %d is CONNECTED (%s)\n", player_id(rout.client_fd,
+			*g_data.world), rout.client_ip);
+	pthread_create(&rout.client_mess_rec, NULL, client_host, &rout);
+	pthread_detach(rout.client_mess_rec);
 }
 
 int	main(int argc, char **argv)
@@ -126,17 +125,17 @@ int	main(int argc, char **argv)
 		return (free_data(g_data.world, g_data.buffer, false), 1);
 	log_date();
 	pthread_mutex_init(&g_data.trafic, NULL);
-	ft_printf("Server IP address: ");
+	ft_printf("INFO: Server IP address ");
 	print_ip_addr();
 	define_server_property(&g_data.server);
 	signal(SIGINT, handle_shutdown);
 	signal(SIGTERM, handle_shutdown);
 	if (bind(g_data.server.server_fd, (t_sock *)&(g_data.server.address),
 			sizeof(g_data.server.address)) < 0)
-		return (ft_printf("Error %d\n", errno), 1);
+		return (ft_printf("Error %d: socket currently in use\n", errno), 1);
 	listen(g_data.server.server_fd, 128);
 	log_date();
-	ft_printf("Server is initialized\n");
+	ft_printf("INFO: Server is initialized\n");
 	while (1)
 		server_routine();
 	return (free_data(g_data.world, g_data.buffer, true), 0);

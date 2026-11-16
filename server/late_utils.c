@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "main_utils.h"
+#include "tools/tools.h"
+#include <ctype.h>
 #include <string.h>
 
 void	recv_f(t_client cli, t_data *g_data)
@@ -21,14 +23,27 @@ void	recv_f(t_client cli, t_data *g_data)
 		get_player_by_fd(cli.id, g_data->world)->name);
 }
 
-void	ft_send(int sock, char *buffer, size_t size, int sign)
+static char	*info_header(const char *buffer)
 {
-	char	buf[BUFFER_SIZE];
+	if (strncmp(buffer, "ERR", 3) == 0)
+		return ("ERROR");
+	if (*buffer && isdigit(buffer[0]))
+		return ("ERROR");
+	return ("INFO");
+}
 
+void	ft_send(int sock, const char *buffer, t_world *world, int sign)
+{
+	t_player	*player;
+	char		buf[BUFFER_SIZE];
+	int			size;
+
+	player = get_player_by_fd(sock, world);
 	log_date();
+	size = strlen(buffer);
 	strcpy(buf, buffer);
 	buf[strlen(buf) - 1] = '\0';
-	ft_printf("SENDING '%s' TO PLAYER (fd=%d)\n",
-		buf, sock);
+	ft_printf("%s: SENDING '%s' TO PLAYER (ip=%s)\n",
+		info_header(buf), buf, player->ip);
 	send(sock, buffer, size, sign);
 }

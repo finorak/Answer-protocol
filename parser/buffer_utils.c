@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buffer_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finorako  </var/spool/mail/finorako>       +#+  +:+       +#+        */
+/*   By: finorako <finorako@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 19:18:07 by finorako          #+#    #+#             */
-/*   Updated: 2026/10/17 19:18:58 by finorako         ###   ########.fr       */
+/*   Updated: 2026/11/15 06:11:20 by megalonia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

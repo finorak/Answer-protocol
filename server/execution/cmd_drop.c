@@ -20,13 +20,13 @@ int	cmd_drop(t_command test, int client_fd, t_world *g_world, t_signal *result)
 
 	if (get_player_by_item(test.message, g_world) == NULL
 		|| get_player_by_item(test.message, g_world)->fd != client_fd)
-		return (strcpy(result->message, "404 ITEM_NOT_IN_INVENTORY\n"), 0);
+		return (strcpy(result->message, "404 ITEM_NOT_IN_INVENTORY\n"), 1);
 	else
 	{
 		append_in(test.message, &(get_room_by_player_fd(client_fd,
 					g_world)->items));
 		log_date();
-		ft_printf("added %s to %s\n", test.message,
+		ft_printf("INFO: added %s to %s\n", test.message,
 			get_room_by_item_id(test.message, g_world)->name);
 		remove_from(test.message, &(get_player_by_item(test.message,
 					g_world)->items));

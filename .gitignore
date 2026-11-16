@@ -5,12 +5,16 @@ client_cli
 *.py
 file.txt
 <<<<<<< HEAD
+<<<<<<< HEAD
 libft.a
 ft_printf/*.a
 =======
 libft*
 gui/client
 >>>>>>> master
+=======
+**.a
+>>>>>>> retrying
 
 compile_commands.json
 

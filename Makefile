@@ -108,6 +108,7 @@ lint:
 	norminette $(FILES_TO_LINT) $(HEADER_TO_LINT)
 	$(MAKE) lint -C $(LIBFT_DIR)
 	$(MAKE) lint -C $(PRINTF_DIR)
+	$(MAKE) lint -C $(GUI_DIR)
 
 debug:
 	@if [[ "$(FILE_TO_DEBUG)" == "$(SERVER_APPLICATION_NAME)" ]]; then \
