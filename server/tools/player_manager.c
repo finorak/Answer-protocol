@@ -14,15 +14,15 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "../main_utils.h"
 
 void	mess(t_world *world)
 {
-	int		i;
-	char	mess[BUFFER_SIZE];
-	char	temp[12];
+	t_player	player;
+	int			i;
+	char		mess[BUFFER_SIZE];
+	char		temp[12];
 
 	if (!world)
 		return ;
@@ -33,13 +33,14 @@ void	mess(t_world *world)
 	strcat(mess, "\n");
 	while (i < MAX_PLAYER)
 	{
-		if (world->players->players[i].fd != -1)
-			ft_send(world->players->players[i].fd, mess, strlen(mess), 0);
+		player = world->players->players[i];
+		if (player.fd != -1)
+			ft_send(player.fd, mess, world, 0);
 		i++;
 	}
 }
 
-int	add_player(int client_fd, t_world *world)
+int	add_player(int client_fd, char *ip, t_world *world)
 {
 	int		i;
 	char	client_fd_char[12];
@@ -51,6 +52,7 @@ int	add_player(int client_fd, t_world *world)
 	{
 		if (world->players->players[i].status == 0)
 		{
+			strncpy(world->players->players[i].ip, ip, 16);
 			world->players->players[i].fd = client_fd;
 			world->players->players[i].status = 1;
 			snprintf(client_fd_char, sizeof(client_fd_char), "%d", client_fd);
@@ -72,7 +74,7 @@ static void	reinitialize_player(t_player *player, t_world *world)
 	player->fd = -1;
 	player->status = 0;
 	log_date();
-	ft_printf("REMOVED '%s' FROM list of player\n", player->name);
+	ft_printf("WARNING: REMOVED '%s' FROM list of player\n", player->ip);
 	strcpy(player->name, "UNAUTHENTICATED");
 	player->quests.len = 0;
 	player->hp = player->max_hp;
@@ -90,13 +92,13 @@ void	remove_player(int client_fd, t_world *world)
 	if (!world)
 		return ;
 	log_date();
-	ft_printf("Player %d DISCONNECTED\n", player_id(client_fd, *world));
+	ft_printf("INFO: Player %d DISCONNECTED\n", player_id(client_fd, *world));
 	player = get_player_by_fd(client_fd, world);
 	room = get_room_by_player_fd(client_fd, world);
 	snprintf(temp, sizeof(temp), "%d", player->fd);
 	remove_from(temp, &(room->players));
 	log_date();
-	ft_printf("REMOVED '%s' FROM room (%s)\n", player->name, room->name);
+	ft_printf("INFO: REMOVED '%s' FROM room (%s)\n", player->ip, room->name);
 	merge(&(player->items), &(room->items));
 	reinitialize_player(player, world);
 	mess(world);

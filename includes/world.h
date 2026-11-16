@@ -103,6 +103,7 @@ typedef struct s_player
 	t_list_of	quests;
 	char		status_hp[MAX_ID_LEN];
 	char		name[MAX_NAME_LEN];
+	char		ip[16];
 	int			status;
 	int			max_hp;
 	int			attack;

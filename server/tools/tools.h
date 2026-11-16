@@ -16,7 +16,7 @@
 # include "../../includes/world.h"
 
 void		mess(t_world *world);
-int			add_player(int client_fd, t_world *world);
+int			add_player(int client_fd, char *ip, t_world *world);
 void		remove_player(int client_fd, t_world *world);
 
 int			in(char *element, t_list_of list);
